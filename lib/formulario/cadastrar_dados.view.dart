@@ -6,8 +6,8 @@ import '../components/buttons.dart';
 import '../relatorio/relatorio.view.dart';
 import 'cadastrar_dados.controller.dart';
 
-class FormModal extends StatelessWidget {
-  FormModal({Key? key}) : super(key: key);
+class CadastrarDadosView extends StatelessWidget {
+  CadastrarDadosView({Key? key}) : super(key: key);
 
   CadastrarDadosController controller = CadastrarDadosController();
 
@@ -56,11 +56,7 @@ class FormModal extends StatelessWidget {
             onTap: () {
               controller.gravarDados();
             }),
-        Button(
-            text: "Ler Valores",
-            onTap: () {
-              controller.lerTodosValoresDeUmPath();
-            }),
+        Button(text: "Ler Valores", onTap: () {}),
         Button(
             text: "Cancelar",
             onTap: () {

@@ -1,23 +1,45 @@
+// import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:os_interna/app.controller.dart';
+import 'package:os_interna/relatorio/relatorio.controller.dart';
 
+import '../components/modal.dart';
 import '../formulario/cadastrar_dados.view.dart';
 import '../login/login.view.dart';
 import '../page/homepage.view.dart';
+import 'relatorio.model.dart';
 
 class RelatorioView extends StatelessWidget {
-  const RelatorioView({Key? key}) : super(key: key);
+  //
+  RelatorioController controller = RelatorioController();
+
+  // Widget montarBotaoDoMenu() {
+  //   // var teste = 1;
+
+  //   // if (AppController().user.role == "suporte") {
+  //   //   return ListTile(
+  //   //     title: const Text('Cadastro de ciente'),
+  //   //     onTap: () {
+  //   //       Navigator.of(context).pop();
+  //   //       showDialog(
+  //   //         context: context,
+  //   //         barrierDismissible: false,
+  //   //         builder: (BuildContext context) => FormModal(),
+  //   //       );
+  //   //     },
+  //   //   );
+  //   // } else {
+  //   //   return Container();
+  //   // }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
@@ -26,6 +48,7 @@ class RelatorioView extends StatelessWidget {
               ),
               child: Text('ORDEM DE SERVIÇO INTERNA'),
             ),
+            // montarBotaoDoMenu(),
             ListTile(
               title: const Text('Ordem de Serviço'),
               onTap: () {
@@ -33,7 +56,7 @@ class RelatorioView extends StatelessWidget {
                 showDialog(
                   context: context,
                   barrierDismissible: false,
-                  builder: (BuildContext context) => FormModal(),
+                  builder: (BuildContext context) => CadastrarDadosView(),
                 );
               },
             ),
@@ -46,39 +69,128 @@ class RelatorioView extends StatelessWidget {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: DataTable(
-          columns: const <DataColumn>[
-            DataColumn(
-              label: Text(
-                'Name',
-                style: TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Age',
-                style: TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Role',
-                style: TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ),
-          ],
-          rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Sarah')),
-                DataCell(Text('19')),
-                DataCell(Text('Student')),
+      body: FutureBuilder(
+        future: controller.carregarRelatorio(),
+        builder: (context, snapshot) {
+          var point = "";
+
+          if (snapshot.hasData) {
+            //
+
+            List<DataRow> linhas = [];
+
+            for (MovimentosDadosModel item in controller.listaTabela) {
+              linhas.add(
+                DataRow(
+                  cells: [
+                    DataCell(Text(item.name)),
+                    DataCell(Text(item.age.toString())),
+                    DataCell(Text(item.role)),
+                    DataCell(
+                      GestureDetector(
+                        onTap: () {
+                          // Get.to(FormPage(
+                          //   idRegistro: item.idDados,
+                          // ));
+                          // Navigator.of(context).pop();
+                          showDialog(
+                            context: context,
+                            // barrierDismissible: false,
+                            builder: (BuildContext context) => FormModal(
+                              width: 550,
+                              height: 70,
+                              text: 'Teste',
+                            ),
+                          );
+                        },
+                        child: Icon(Icons.edit),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+
+            return DataTable(
+              columns: const <DataColumn>[
+                DataColumn(
+                  label: Text(
+                    'Name',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Age',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Role',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    '',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
               ],
-            ),
-          ],
-        ),
+              rows: linhas,
+            );
+
+            // return Container(
+            //   child: ListView.builder(
+            //     itemCount: controller.listaTabela.length,
+            //     itemBuilder: (context, index) {
+            //       return Container(
+            //         child: Text(
+            //           controller.listaTabela[index].name,
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // );
+          } else {
+            return const CircularProgressIndicator(
+              backgroundColor: Colors.blue,
+              color: Colors.white,
+            );
+          }
+        },
       ),
     );
+  }
+}
+
+class FormPage extends StatelessWidget {
+  String idRegistro = "";
+
+  FormPage({
+    this.idRegistro = "",
+  }) {
+    var point = "";
+  }
+
+  TextEditingController controleInputNome = TextEditingController();
+
+  Future initFormPage() async {
+    if (idRegistro != null) {
+      //1 consulta
+      // DatabaseReference database = FirebaseDatabase.instance.reference();
+
+      // final response = await database.child("dados/" + idRegistro).once();
+
+      //2 preencher campos
+
+      // controleInputNome.text = value;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

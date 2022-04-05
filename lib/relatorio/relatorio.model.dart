@@ -1,15 +1,15 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 
 class MovimentosDadosModel {
+  String idDados;
   String name;
-  Int age;
+  int age;
   String role;
 
   MovimentosDadosModel({
     required this.name,
     required this.age,
     required this.role,
+    required this.idDados,
   });
-
-  List<MovimentosDadosModel> userList = [];
 }
