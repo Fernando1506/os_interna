@@ -22,8 +22,6 @@ class RelatorioController {
     final response = await database.child("dados").once();
 
     response.value.forEach((key, values) {
-      //
-
       listaTabela.add(
         MovimentosDadosModel(
           idDados: values["id_dados"],

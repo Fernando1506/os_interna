@@ -2,17 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:os_interna/app.controller.dart';
+
 import 'package:os_interna/relatorio/relatorio.controller.dart';
 
-import '../components/modal.dart';
+import '../formulario/cadastrar_dados.controller.dart';
+
 import '../formulario/cadastrar_dados.view.dart';
 import '../login/login.view.dart';
 import '../page/homepage.view.dart';
 import 'relatorio.model.dart';
 
 class RelatorioView extends StatelessWidget {
-  //
   RelatorioController controller = RelatorioController();
+  // final controllerCadastrarDados = CadastrarDadosController(idDados: );
 
   // Widget montarBotaoDoMenu() {
   //   // var teste = 1;
@@ -54,10 +56,11 @@ class RelatorioView extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
                 showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (BuildContext context) => CadastrarDadosView(),
-                );
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) => CadastrarDadosView(
+                          idDados: "",
+                        ));
               },
             ),
             ListTile(
@@ -89,18 +92,11 @@ class RelatorioView extends StatelessWidget {
                     DataCell(
                       GestureDetector(
                         onTap: () {
-                          // Get.to(FormPage(
-                          //   idRegistro: item.idDados,
-                          // ));
-                          // Navigator.of(context).pop();
                           showDialog(
                             context: context,
                             // barrierDismissible: false,
-                            builder: (BuildContext context) => FormModal(
-                              width: 550,
-                              height: 70,
-                              text: 'Teste',
-                            ),
+                            builder: (BuildContext context) =>
+                                CadastrarDadosView(idDados: item.idDados),
                           );
                         },
                         child: Icon(Icons.edit),
@@ -165,32 +161,32 @@ class RelatorioView extends StatelessWidget {
   }
 }
 
-class FormPage extends StatelessWidget {
-  String idRegistro = "";
+// class FormPage extends StatelessWidget {
+//   String idRegistro = "";
 
-  FormPage({
-    this.idRegistro = "",
-  }) {
-    var point = "";
-  }
+//   FormPage({
+//     this.idRegistro = "",
+//   }) {
+//     var point = "";
+//   }
 
-  TextEditingController controleInputNome = TextEditingController();
+//   TextEditingController controllerInputNome = TextEditingController();
 
-  Future initFormPage() async {
-    if (idRegistro != null) {
-      //1 consulta
-      // DatabaseReference database = FirebaseDatabase.instance.reference();
+//   Future initFormPage() async {
+//     if (idRegistro != null) {
+//       //1 consulta
+//       // DatabaseReference database = FirebaseDatabase.instance.reference();
 
-      // final response = await database.child("dados/" + idRegistro).once();
+//       // final response = await database.child("dados/" + idRegistro).once();
 
-      //2 preencher campos
+//       //2 preencher campos
 
-      // controleInputNome.text = value;
-    }
-  }
+//       // controleInputNome.text = value;
+//     }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+

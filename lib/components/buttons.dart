@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  Button({Key? key, this.text = "", required this.onTap}) : super(key: key);
+  Button({
+    Key? key,
+    this.text = "",
+    required this.onTap,
+  }) : super(key: key);
 
   String text;
   final VoidCallback onTap;
