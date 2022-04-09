@@ -29,19 +29,26 @@ class CadastrarDadosController {
   }
 
   Future firebaseInsertData(var dataJson, String endPoint, bool newData) async {
-    String newKey = databaseReference.child(endPoint).push().key;
+    // String newKey = databaseReference.child(endPoint).push().key;
 
-    var dataJson = {
-      "id_dados": newKey,
+    //Primeiramente, é criado o dataJson sem idDados, e dependendo do tipo de operacao, o idDados sera adicionado no dataJson futuramente
+    Map<String, dynamic> dataJson = {
+      // "id_dados": newKey,
       "nome": nomeController.text,
       "age": ageController.text,
       "rol": roleController.text,
     };
 
     if (newData == true) {
-      databaseReference.child(endPoint).child(newKey).set(dataJson);
+      //
+      //-------------- DADOS NOVOS -------------
+      String newKey = databaseReference.child(endPoint).push().key; //// Gera o numero aleatorio que sera usado como id
+      dataJson["id_dados"] = newKey; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
+      databaseReference.child(endPoint).child(newKey).set(dataJson); //// Salva os novos valores no banco
     } else {
-      databaseReference.child(endPoint).child(idDados).set(dataJson);
+      //
+      //------------- ALTERAR DADOS ------------
+      databaseReference.child(endPoint).child(idDados).update(dataJson); //// Mudou de "set" para "Update"
     }
   }
 
