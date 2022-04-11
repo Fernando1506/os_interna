@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:os_interna/formulario/cadastrar_dados.view.dart';
+import 'package:os_interna/cadastro_ordem_servico/cadastro_ordem_servico.view.dart';
 
 import '../login/login.view.dart';
 import '../relatorio/relatorio.view.dart';

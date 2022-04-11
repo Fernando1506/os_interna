@@ -25,9 +25,11 @@ class RelatorioController {
       listaTabela.add(
         MovimentosDadosModel(
           idDados: values["id_dados"],
-          age: int.parse(values["age"]),
+          serie: int.parse(values["serie"]),
+          device_id: int.parse(values["device_id"]),
           name: values["nome"],
-          role: values["rol"],
+          status: values["status"],
+          modulo: values["modulo"],
         ),
       );
     });

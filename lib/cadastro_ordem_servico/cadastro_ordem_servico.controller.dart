@@ -1,12 +1,13 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import '../relatorio/relatorio.model.dart';
-import 'cadastrar_dados.view.dart';
 
 class CadastrarDadosController {
   TextEditingController nomeController = TextEditingController();
-  TextEditingController ageController = TextEditingController();
-  TextEditingController roleController = TextEditingController();
+  TextEditingController moduloController = TextEditingController();
+  TextEditingController serieController = TextEditingController();
+  TextEditingController device_idController = TextEditingController();
+  TextEditingController statusController = TextEditingController();
 
   CadastrarDadosController({
     this.idDados = "",
@@ -21,8 +22,10 @@ class CadastrarDadosController {
   Future gravarDados({bool newData = true}) async {
     var dataJson = {
       "nome": nomeController.text,
-      "age": ageController.text,
-      "rol": roleController.text,
+      "modulo": moduloController.text,
+      "serie": serieController.text,
+      "device_id": device_idController.text,
+      "status": statusController.text,
     };
 
     firebaseInsertData(dataJson, "dados", newData);
@@ -34,21 +37,34 @@ class CadastrarDadosController {
     //Primeiramente, é criado o dataJson sem idDados, e dependendo do tipo de operacao, o idDados sera adicionado no dataJson futuramente
     Map<String, dynamic> dataJson = {
       // "id_dados": newKey,
+
       "nome": nomeController.text,
-      "age": ageController.text,
-      "rol": roleController.text,
+      "modulo": moduloController.text,
+      "serie": serieController.text,
+      "device_id": device_idController.text,
+      "status": statusController.text,
     };
 
     if (newData == true) {
       //
       //-------------- DADOS NOVOS -------------
-      String newKey = databaseReference.child(endPoint).push().key; //// Gera o numero aleatorio que sera usado como id
-      dataJson["id_dados"] = newKey; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
-      databaseReference.child(endPoint).child(newKey).set(dataJson); //// Salva os novos valores no banco
+      String newKey = databaseReference
+          .child(endPoint)
+          .push()
+          .key; //// Gera o numero aleatorio que sera usado como id
+      dataJson["id_dados"] =
+          newKey; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
+      databaseReference
+          .child(endPoint)
+          .child(newKey)
+          .set(dataJson); //// Salva os novos valores no banco
     } else {
       //
       //------------- ALTERAR DADOS ------------
-      databaseReference.child(endPoint).child(idDados).update(dataJson); //// Mudou de "set" para "Update"
+      databaseReference
+          .child(endPoint)
+          .child(idDados)
+          .update(dataJson); //// Mudou de "set" para "Update"
     }
   }
 
@@ -59,8 +75,10 @@ class CadastrarDadosController {
       DatabaseReference database = FirebaseDatabase.instance.reference();
       final response = await database.child("dados/" + idDados).once();
       nomeController.text = response.value["nome"];
-      ageController.text = response.value["age"].toString();
-      roleController.text = response.value["rol"];
+      moduloController.text = response.value["modulo"];
+      serieController.text = response.value["serie"].toString();
+      device_idController.text = response.value["device_id"].toString();
+      statusController.text = response.value["status"];
     }
 
     return true;

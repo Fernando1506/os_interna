@@ -2,18 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:os_interna/app.controller.dart';
-
 import 'package:os_interna/relatorio/relatorio.controller.dart';
-
-import '../formulario/cadastrar_dados.controller.dart';
-
-import '../formulario/cadastrar_dados.view.dart';
+import '../cadastro_ordem_servico/cadastro_ordem_servico.controller.dart';
+import '../cadastro_ordem_servico/cadastro_ordem_servico.view.dart';
 import '../login/login.view.dart';
 import '../page/homepage.view.dart';
 import 'relatorio.model.dart';
 
 class RelatorioView extends StatelessWidget {
   RelatorioController controller = RelatorioController();
+
   // final controllerCadastrarDados = CadastrarDadosController(idDados: );
 
   // Widget montarBotaoDoMenu() {
@@ -38,6 +36,8 @@ class RelatorioView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height / 100;
+    double w = MediaQuery.of(context).size.width / 100;
     return Scaffold(
       appBar: AppBar(),
       drawer: Drawer(
@@ -87,8 +87,10 @@ class RelatorioView extends StatelessWidget {
                 DataRow(
                   cells: [
                     DataCell(Text(item.name)),
-                    DataCell(Text(item.age.toString())),
-                    DataCell(Text(item.role)),
+                    DataCell(Text(item.modulo)),
+                    DataCell(Text(item.serie.toString())),
+                    DataCell(Text(item.device_id.toString())),
+                    DataCell(Text(item.status)),
                     DataCell(
                       GestureDetector(
                         onTap: () {
@@ -107,34 +109,51 @@ class RelatorioView extends StatelessWidget {
               );
             }
 
-            return DataTable(
-              columns: const <DataColumn>[
-                DataColumn(
-                  label: Text(
-                    'Name',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
+            return SingleChildScrollView(
+              child: Container(
+                width: w * 100,
+                child: DataTable(
+                  columns: const <DataColumn>[
+                    DataColumn(
+                      label: Text(
+                        'Cliente',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Text(
+                        'Módulo',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Text(
+                        'Série',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Text(
+                        'Device ID',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Text(
+                        'Status',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Text(
+                        'Editar',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                  ],
+                  rows: linhas,
                 ),
-                DataColumn(
-                  label: Text(
-                    'Age',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Role',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    '',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-              ],
-              rows: linhas,
+              ),
             );
 
             // return Container(

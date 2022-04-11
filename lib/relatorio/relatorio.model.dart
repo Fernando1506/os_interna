@@ -3,13 +3,17 @@
 class MovimentosDadosModel {
   String idDados;
   String name;
-  int age;
-  String role;
+  String modulo;
+  int serie;
+  int device_id;
+  String status;
 
   MovimentosDadosModel({
-    required this.name,
-    required this.age,
-    required this.role,
     required this.idDados,
+    required this.name,
+    required this.modulo,
+    required this.serie,
+    required this.device_id,
+    required this.status,
   });
 }
