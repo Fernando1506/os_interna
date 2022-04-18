@@ -3,6 +3,6 @@ class AppController {
 }
 
 class User {
-  String nome = "";
-  String role = "";
+  String nome = "fernando";
+  String role = "suporte";
 }

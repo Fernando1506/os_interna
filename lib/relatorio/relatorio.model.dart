@@ -7,6 +7,7 @@ class MovimentosDadosModel {
   int serie;
   int device_id;
   String status;
+  String obs_geral;
 
   MovimentosDadosModel({
     required this.idDados,
@@ -15,5 +16,6 @@ class MovimentosDadosModel {
     required this.serie,
     required this.device_id,
     required this.status,
+    required this.obs_geral,
   });
 }

@@ -8,8 +8,8 @@ import '../components/buttons.dart';
 import '../relatorio/relatorio.view.dart';
 import 'cadastro_ordem_servico.controller.dart';
 
-class CadastrarDadosView extends StatelessWidget {
-  CadastrarDadosView({
+class EditarOrdemServicoView extends StatelessWidget {
+  EditarOrdemServicoView({
     Key? key,
     required this.idDados,
   }) : super(key: key) {
@@ -25,7 +25,7 @@ class CadastrarDadosView extends StatelessWidget {
     return AlertDialog(
       title: Row(
         children: [
-          Text("Cadastro - Ordem de Serviço"),
+          Text("Movimento - Ordem de Serviço"),
         ],
       ),
       content: FutureBuilder(
@@ -33,8 +33,8 @@ class CadastrarDadosView extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Container(
-                width: 700,
-                height: 280,
+                width: 400,
+                height: 100,
                 child: Column(
                   children: [
                     Row(
@@ -71,31 +71,9 @@ class CadastrarDadosView extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
                             child: InputText(
-                                label: 'Módulo',
-                                width: 100,
-                                controller: controller.moduloController),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: InputText(
                                 label: 'Série',
                                 width: 100,
                                 controller: controller.serieController),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: InputText(
-                                label: 'Device ID',
-                                width: 80,
-                                controller: controller.device_idController),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: InputText(
-                              label: 'Placa',
-                              width: 120,
-                              controller: TextEditingController(),
-                            ),
                           ),
                           Expanded(
                             child: InputText(
@@ -106,28 +84,13 @@ class CadastrarDadosView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 25),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: InputTextArea(
-                                label: 'Observação Geral',
-                                maxline: 5,
-                                width: 200,
-                                height: 130,
-                                controller: controller.obs_geralController),
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               );
             } else {
               return Container(
-                width: 700,
-                height: 280,
+                width: 400,
+                height: 100,
               );
             }
           }),

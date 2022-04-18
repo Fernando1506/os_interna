@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../page/homepage.view.dart';
+import '../relatorio/relatorio.view.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -64,7 +65,7 @@ class LoginView extends StatelessWidget {
                 height: 30,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.off(HomePageView());
+                    Get.off(RelatorioView());
                   },
                   child: Text('Login'),
                 ),

@@ -2,15 +2,11 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import '../relatorio/relatorio.model.dart';
 
-class CadastrarDadosController {
-  TextEditingController nomeController = TextEditingController();
-  TextEditingController moduloController = TextEditingController();
-  TextEditingController serieController = TextEditingController();
-  TextEditingController device_idController = TextEditingController();
-  TextEditingController statusController = TextEditingController();
-  TextEditingController obs_geralController = TextEditingController();
+class CadastrarUsuarioController {
+  TextEditingController usuarioController = TextEditingController();
+  TextEditingController senhaController = TextEditingController();
 
-  CadastrarDadosController({
+  CadastrarUsuarioController({
     this.idDados = "",
   });
 
@@ -20,17 +16,13 @@ class CadastrarDadosController {
 
   final databaseReference = FirebaseDatabase.instance.reference();
 
-  Future gravarDados({bool newData = true}) async {
+  Future adicionarUsuario({bool newData = true}) async {
     var dataJson = {
-      "nome": nomeController.text,
-      "modulo": moduloController.text,
-      "serie": serieController.text,
-      "device_id": device_idController.text,
-      "status": statusController.text,
-      "obs_geral": obs_geralController.text,
+      "username": usuarioController.text,
+      "senha": senhaController.text,
     };
 
-    firebaseInsertData(dataJson, "dados", newData);
+    firebaseInsertData(dataJson, "usuario", newData);
   }
 
   Future firebaseInsertData(var dataJson, String endPoint, bool newData) async {
@@ -40,12 +32,8 @@ class CadastrarDadosController {
     Map<String, dynamic> dataJson = {
       // "id_dados": newKey,
 
-      "nome": nomeController.text,
-      "modulo": moduloController.text,
-      "serie": serieController.text,
-      "device_id": device_idController.text,
-      "status": statusController.text,
-      "obs_geral": obs_geralController.text,
+      "username": usuarioController.text,
+      "senha": senhaController.text,
     };
 
     if (newData == true) {
@@ -73,16 +61,12 @@ class CadastrarDadosController {
 
   //---------------------------------- EDITAR CADASTRO ---------------------------------------------------------
 
-  Future carregarCadastro() async {
+  Future carregarUsuario() async {
     if (idDados != null && idDados != "") {
       DatabaseReference database = FirebaseDatabase.instance.reference();
-      final response = await database.child("dados/" + idDados).once();
-      nomeController.text = response.value["nome"];
-      moduloController.text = response.value["modulo"];
-      serieController.text = response.value["serie"].toString();
-      device_idController.text = response.value["device_id"].toString();
-      statusController.text = response.value["status"];
-      obs_geralController.text = response.value["obs_geral"];
+      final response = await database.child("usuario/" + idDados).once();
+      usuarioController.text = response.value["username"];
+      senhaController.text = response.value["senha"];
     }
 
     return true;
