@@ -1,12 +1,12 @@
 // import 'dart:ffi';
 
 class UsuariosModel {
-  String idDados;
+  String idUsuario;
   String username;
   int senha;
 
   UsuariosModel({
-    required this.idDados,
+    required this.idUsuario,
     required this.username,
     required this.senha,
   });

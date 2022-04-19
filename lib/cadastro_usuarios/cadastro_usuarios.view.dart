@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:os_interna/cadastro_usuarios/relatorio_usuarios.controller.dart';
 import 'package:os_interna/components/buttons.dart';
 
@@ -9,13 +10,13 @@ import 'relatorio_usuarios.model.dart';
 class CadastrarUsuarioView extends StatelessWidget {
   CadastrarUsuarioView({
     Key? key,
-    required this.idDados,
+    required this.idUsuario,
   }) : super(key: key) {
-    controller = CadastrarUsuarioController(idDados: idDados);
+    controller = CadastrarUsuarioController(idUsuario: idUsuario);
     controllerRelatorioUsuarios = RelatorioUsuariosController();
   }
 
-  String idDados;
+  String idUsuario;
 
   late CadastrarUsuarioController controller;
   late RelatorioUsuariosController controllerRelatorioUsuarios;
@@ -76,6 +77,12 @@ class CadastrarUsuarioView extends StatelessWidget {
                 text: "Adicionar",
                 onTap: () {
                   controller.adicionarUsuario(newData: true);
+                },
+              ),
+              Button(
+                text: "Cancelar",
+                onTap: () {
+                  Get.back();
                 },
               ),
             ],

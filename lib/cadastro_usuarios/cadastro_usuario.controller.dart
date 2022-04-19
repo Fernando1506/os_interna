@@ -7,10 +7,10 @@ class CadastrarUsuarioController {
   TextEditingController senhaController = TextEditingController();
 
   CadastrarUsuarioController({
-    this.idDados = "",
+    this.idUsuario = "",
   });
 
-  String idDados;
+  String idUsuario;
 
   //---------------------------------- ADICIONAR CADASTRO ---------------------------------------------------------
 
@@ -43,7 +43,7 @@ class CadastrarUsuarioController {
           .child(endPoint)
           .push()
           .key; //// Gera o numero aleatorio que sera usado como id
-      dataJson["id_dados"] =
+      dataJson["id_usuario"] =
           newKey; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
       databaseReference
           .child(endPoint)
@@ -54,7 +54,7 @@ class CadastrarUsuarioController {
       //------------- ALTERAR DADOS ------------
       databaseReference
           .child(endPoint)
-          .child(idDados)
+          .child(idUsuario)
           .update(dataJson); //// Mudou de "set" para "Update"
     }
   }
@@ -62,9 +62,9 @@ class CadastrarUsuarioController {
   //---------------------------------- EDITAR CADASTRO ---------------------------------------------------------
 
   Future carregarUsuario() async {
-    if (idDados != null && idDados != "") {
+    if (idUsuario != null && idUsuario != "") {
       DatabaseReference database = FirebaseDatabase.instance.reference();
-      final response = await database.child("usuario/" + idDados).once();
+      final response = await database.child("usuario/" + idUsuario).once();
       usuarioController.text = response.value["username"];
       senhaController.text = response.value["senha"];
     }

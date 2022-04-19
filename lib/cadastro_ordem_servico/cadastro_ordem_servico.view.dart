@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:os_interna/components/input_text.dart';
+import 'package:os_interna/page/homepage.view.dart';
 
 import '../components/buttons.dart';
 
@@ -143,7 +144,7 @@ class CadastrarDadosView extends StatelessWidget {
             Button(
               text: "Cancelar",
               onTap: () {
-                Get.offAll(RelatorioView());
+                Get.back();
               },
             ),
           ],

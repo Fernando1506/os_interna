@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
 import 'package:os_interna/page/homepage.view.dart';
 
-class HomePageViewController {}
+class HomeController {
+  RxInt index = 0.obs;
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:os_interna/cadastro_ordem_servico/cadastro_ordem_servico.view.dart';
 
+import '../cadastro_usuarios/relatorio_usuario.view.dart';
 import '../login/login.view.dart';
 import '../relatorio/relatorio.view.dart';
 import 'homepage.controller.dart';
@@ -9,16 +10,23 @@ import 'package:get/get.dart';
 class HomePageView extends StatelessWidget {
   HomePageView({Key? key}) : super(key: key);
 
-  HomePageViewController controller = HomePageViewController();
+  HomeController controller = HomeController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(actions: [
+        TextButton(
+          onPressed: () {
+            Get.offAll(LoginView());
+          },
+          child: Text(
+            'Sair',
+            style: TextStyle(color: Colors.white),
+          ),
+        )
+      ]),
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
@@ -30,40 +38,38 @@ class HomePageView extends StatelessWidget {
               child: Text('ORDEM DE SERVIÇO INTERNA'),
             ),
             ListTile(
-              title: const Text('Relatório'),
+              title: const Text('Ordem de Serviço'),
               onTap: () {
-                Get.offAll(RelatorioView());
+                Get.back();
+                controller.index.value = 1;
               },
             ),
             ListTile(
-              title: const Text('Cadastrar Cliente'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: const Text('Cadastrar Instalador'),
+              title: const Text('Cadastro de Usuários'),
               onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Impressão'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Sair'),
-              onTap: () {
-                // // Get.offAll(
-                // //   LoginView(),
-                // );
+                Get.back();
+                controller.index.value = 2;
               },
             ),
           ],
         ),
       ),
+      body: Obx(() {
+        switch (controller.index.value) {
+          case 1:
+            return RelatorioView();
+          case 2:
+            return RelatorioUsuarioView(
+              idUsuario: "",
+            );
+          default:
+            return Container(
+              alignment: Alignment.center,
+              child: Text('ORDEM DE SERVIÇO INTERNA',
+                  style: TextStyle(fontSize: 20)),
+            );
+        }
+      }),
     );
   }
 }

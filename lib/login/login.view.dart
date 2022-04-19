@@ -65,7 +65,7 @@ class LoginView extends StatelessWidget {
                 height: 30,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.off(RelatorioView());
+                    Get.off(HomePageView());
                   },
                   child: Text('Login'),
                 ),

@@ -24,7 +24,7 @@ class RelatorioUsuariosController {
     response.value.forEach((key, values) {
       listaTabelaUsuarios.add(
         UsuariosModel(
-          idDados: values["id_dados"],
+          idUsuario: values["id_usuario"],
           username: values["username"],
           senha: int.parse(values["senha"]),
         ),

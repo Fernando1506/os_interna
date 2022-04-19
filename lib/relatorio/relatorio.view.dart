@@ -45,67 +45,67 @@ class RelatorioView extends StatelessWidget {
     double h = MediaQuery.of(context).size.height / 100;
     double w = MediaQuery.of(context).size.width / 100;
     return Scaffold(
-      appBar: AppBar(actions: [
-        TextButton(
-          onPressed: () {
-            Get.offAll(LoginView());
-          },
-          child: Text(
-            'Sair',
-            style: TextStyle(color: Colors.white),
-          ),
-        )
-      ]),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('ORDEM DE SERVIÇO INTERNA'),
-            ),
-            // montarBotaoDoMenu(),
-            ListTile(
-              title: const Text('Ordem de Serviço'),
-              onTap: () {
-                Navigator.of(context).pop();
-                showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) => CadastrarDadosView(
-                          idDados: "",
-                        ));
-              },
-            ),
-            ListTile(
-              title: const Text('Cadastro Usuário'),
-              onTap: () {
-                Navigator.of(context).pop();
-                showDialog(
-                    context: context,
-                    // barrierDismissible: false,
-                    builder: (BuildContext context) => RelatorioUsuarioView(
-                          idDados: "",
-                        ));
-              },
-            ),
-            ListTile(
-              title: const Text('Editar Cadastro'),
-              onTap: () {
-                Navigator.of(context).pop();
-                showDialog(
-                    context: context,
-                    // barrierDismissible: false,
-                    builder: (BuildContext context) => EditarOrdemServicoView(
-                          idDados: "",
-                        ));
-              },
-            ),
-          ],
-        ),
-      ),
+      // appBar: AppBar(actions: [
+      //   TextButton(
+      //     onPressed: () {
+      //       Get.offAll(LoginView());
+      //     },
+      //     child: Text(
+      //       'Sair',
+      //       style: TextStyle(color: Colors.white),
+      //     ),
+      //   )
+      // ]),
+      // drawer: Drawer(
+      //   child: ListView(
+      //     padding: EdgeInsets.zero,
+      //     children: [
+      //       const DrawerHeader(
+      //         decoration: BoxDecoration(
+      //           color: Colors.blue,
+      //         ),
+      //         child: Text('ORDEM DE SERVIÇO INTERNA'),
+      //       ),
+      //       // montarBotaoDoMenu(),
+      //       ListTile(
+      //         title: const Text('Ordem de Serviço'),
+      //         onTap: () {
+      //           Navigator.of(context).pop();
+      //           showDialog(
+      //               context: context,
+      //               barrierDismissible: false,
+      //               builder: (BuildContext context) => CadastrarDadosView(
+      //                     idDados: "",
+      //                   ));
+      //         },
+      //       ),
+      //       ListTile(
+      //         title: const Text('Cadastro Usuário'),
+      //         onTap: () {
+      //           Navigator.of(context).pop();
+      //           showDialog(
+      //               context: context,
+      //               // barrierDismissible: false,
+      //               builder: (BuildContext context) => RelatorioUsuarioView(
+      //                     idUsuario: "",
+      //                   ));
+      //         },
+      //       ),
+      //       ListTile(
+      //         title: const Text('Editar Cadastro'),
+      //         onTap: () {
+      //           Navigator.of(context).pop();
+      //           showDialog(
+      //               context: context,
+      //               // barrierDismissible: false,
+      //               builder: (BuildContext context) => EditarOrdemServicoView(
+      //                     idDados: "",
+      //                   ));
+      //         },
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: Container(
         child: Column(
           children: [
@@ -119,7 +119,14 @@ class RelatorioView extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 10),
                   child: Button(
                     text: "Adicionar O.S",
-                    onTap: () {},
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) => CadastrarDadosView(
+                                idDados: "",
+                              ));
+                    },
                   ),
                 ),
               ],
