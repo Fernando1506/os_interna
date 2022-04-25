@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../page/homepage.view.dart';
-import '../relatorio/relatorio.view.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -23,7 +21,7 @@ class LoginView extends StatelessWidget {
           child: Column(
             children: [
               const Text(
-                'Login',
+                'Seg Controle',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,

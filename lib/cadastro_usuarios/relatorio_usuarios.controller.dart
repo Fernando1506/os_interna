@@ -1,7 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
-import 'package:os_interna/app.controller.dart';
-
 import 'relatorio_usuarios.model.dart';
 
 class RelatorioUsuariosController {
