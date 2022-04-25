@@ -9,6 +9,7 @@ class CadastrarDadosController {
   TextEditingController device_idController = TextEditingController();
   TextEditingController statusController = TextEditingController();
   TextEditingController obs_geralController = TextEditingController();
+  TextEditingController numeroOs = TextEditingController();
 
   CadastrarDadosController({
     this.idDados = "",
@@ -51,23 +52,16 @@ class CadastrarDadosController {
     if (newData == true) {
       //
       //-------------- DADOS NOVOS -------------
-      String newKey = databaseReference
-          .child(endPoint)
-          .push()
-          .key; //// Gera o numero aleatorio que sera usado como id
-      dataJson["id_dados"] =
-          newKey; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
-      databaseReference
-          .child(endPoint)
-          .child(newKey)
-          .set(dataJson); //// Salva os novos valores no banco
+
+      int newId = int.parse(numeroOs.text);
+
+      String newKey = databaseReference.child(endPoint).push().key; //// Gera o numero aleatorio que sera usado como id
+      dataJson["id_dados"] = newId; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
+      databaseReference.child(endPoint).child(newId.toString()).set(dataJson); //// Salva os novos valores no banco
     } else {
       //
       //------------- ALTERAR DADOS ------------
-      databaseReference
-          .child(endPoint)
-          .child(idDados)
-          .update(dataJson); //// Mudou de "set" para "Update"
+      databaseReference.child(endPoint).child(idDados).update(dataJson); //// Mudou de "set" para "Update"
     }
   }
 
@@ -83,6 +77,22 @@ class CadastrarDadosController {
       device_idController.text = response.value["device_id"].toString();
       statusController.text = response.value["status"];
       obs_geralController.text = response.value["obs_geral"];
+    } else {
+      //**************************/
+      //    GERAR ID DA NOVA OS
+      int newId = 0;
+
+      var lastData = await databaseReference.child("dados").limitToLast(1).once(); //// Resgata o ultimo registro da "tabela"
+
+      var lastData2 = await databaseReference.child("usuario").limitToLast(1).once();
+
+      if (lastData.value != null) {
+        int lastId = lastData.value.last["id_dados"]; ////Resgata o id do ultimo registro
+        newId = lastId + 1; //// O id final será o o id do ultimo registro + 1;
+      }
+      //**************************/
+
+      numeroOs.text = newId.toString();
     }
 
     return true;

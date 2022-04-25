@@ -45,7 +45,7 @@ class CadastrarDadosView extends StatelessWidget {
                           child: InputText(
                             label: 'Nº O.S',
                             width: 100,
-                            controller: TextEditingController(),
+                            controller: controller.numeroOs,
                           ),
                         ),
                         Padding(
@@ -71,24 +71,15 @@ class CadastrarDadosView extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
-                            child: InputText(
-                                label: 'Módulo',
-                                width: 100,
-                                controller: controller.moduloController),
+                            child: InputText(label: 'Módulo', width: 100, controller: controller.moduloController),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
-                            child: InputText(
-                                label: 'Série',
-                                width: 100,
-                                controller: controller.serieController),
+                            child: InputText(label: 'Série', width: 100, controller: controller.serieController),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
-                            child: InputText(
-                                label: 'Device ID',
-                                width: 80,
-                                controller: controller.device_idController),
+                            child: InputText(label: 'Device ID', width: 80, controller: controller.device_idController),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
@@ -99,10 +90,7 @@ class CadastrarDadosView extends StatelessWidget {
                             ),
                           ),
                           Expanded(
-                            child: InputText(
-                                label: 'Status',
-                                width: 200,
-                                controller: controller.statusController),
+                            child: InputText(label: 'Status', width: 200, controller: controller.statusController),
                           ),
                         ],
                       ),
@@ -112,12 +100,7 @@ class CadastrarDadosView extends StatelessWidget {
                       child: Row(
                         children: [
                           Expanded(
-                            child: InputTextArea(
-                                label: 'Observação Geral',
-                                maxline: 5,
-                                width: 200,
-                                height: 130,
-                                controller: controller.obs_geralController),
+                            child: InputTextArea(label: 'Observação Geral', maxline: 5, width: 200, height: 130, controller: controller.obs_geralController),
                           ),
                         ],
                       ),
