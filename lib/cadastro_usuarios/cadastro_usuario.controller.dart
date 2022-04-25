@@ -37,25 +37,20 @@ class CadastrarUsuarioController {
     };
 
     if (newData == true) {
+      //********** TESTE ID AUTO INCREMENT **********/
+
+      final response = await databaseReference.child("usuario").once();
+
+      //
       //
       //-------------- DADOS NOVOS -------------
-      String newKey = databaseReference
-          .child(endPoint)
-          .push()
-          .key; //// Gera o numero aleatorio que sera usado como id
-      dataJson["id_usuario"] =
-          newKey; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
-      databaseReference
-          .child(endPoint)
-          .child(newKey)
-          .set(dataJson); //// Salva os novos valores no banco
+      String newKey = databaseReference.child(endPoint).push().key; //// Gera o numero aleatorio que sera usado como id
+      dataJson["id_usuario"] = newKey; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
+      databaseReference.child(endPoint).child(newKey).set(dataJson); //// Salva os novos valores no banco
     } else {
       //
       //------------- ALTERAR DADOS ------------
-      databaseReference
-          .child(endPoint)
-          .child(idUsuario)
-          .update(dataJson); //// Mudou de "set" para "Update"
+      databaseReference.child(endPoint).child(idUsuario).update(dataJson); //// Mudou de "set" para "Update"
     }
   }
 

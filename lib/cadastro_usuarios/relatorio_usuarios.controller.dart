@@ -17,6 +17,12 @@ class RelatorioUsuariosController {
   Future carregarRelatorioUsuarios() async {
     DatabaseReference database = FirebaseDatabase.instance.reference();
 
+    //************** TESTE ***************/
+
+    final teste1 = await database.child("usuario").limitToLast(1).once();
+
+    //**********************************/
+
     final response = await database.child("usuario").once();
 
     response.value.forEach((key, values) {
