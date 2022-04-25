@@ -55,9 +55,8 @@ class CadastrarDadosController {
 
       int newId = int.parse(numeroOs.text);
 
-      String newKey = databaseReference.child(endPoint).push().key; //// Gera o numero aleatorio que sera usado como id
       dataJson["id_dados"] = newId; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
-      databaseReference.child(endPoint).child(newId.toString()).set(dataJson); //// Salva os novos valores no banco
+      databaseReference.child(endPoint).child("-" + newId.toString()).set(dataJson); //// Salva os novos valores no banco
     } else {
       //
       //------------- ALTERAR DADOS ------------
@@ -82,13 +81,13 @@ class CadastrarDadosController {
       //    GERAR ID DA NOVA OS
       int newId = 0;
 
-      var lastData = await databaseReference.child("dados").limitToLast(1).once(); //// Resgata o ultimo registro da "tabela"
-
-      var lastData2 = await databaseReference.child("usuario").limitToLast(1).once();
+      var lastData = await databaseReference.child("dados").limitToFirst(1).once(); //// Resgata o ultimo registro da "tabela"
 
       if (lastData.value != null) {
-        int lastId = lastData.value.last["id_dados"]; ////Resgata o id do ultimo registro
-        newId = lastId + 1; //// O id final será o o id do ultimo registro + 1;
+        lastData.value.forEach((key, value) {
+          var lastId = value["id_dados"];
+          newId = lastId + 1; //// O id final será o o id do ultimo registro + 1;
+        });
       }
       //**************************/
 
