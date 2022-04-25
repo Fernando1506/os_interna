@@ -22,24 +22,7 @@ class RelatorioController {
     final response = await database.child("dados").once();
 
     if (response.value != null) {
-      // for (var registro in response.value) {
-      //   var teste = registro;
-
-      //   listaTabela.add(
-      //     MovimentosDadosModel(
-      //       idDados: registro["id_dados"].toString(),
-      //       serie: int.parse(registro["serie"]),
-      //       device_id: int.parse(registro["device_id"]),
-      //       name: registro["nome"],
-      //       status: registro["status"],
-      //       modulo: registro["modulo"],
-      //       obs_geral: registro["obs_geral"],
-      //     ),
-      //   );
-      // }
-
       response.value.forEach((key, values) {
-        var point = "";
         listaTabela.add(
           MovimentosDadosModel(
             idDados: values["id_dados"].toString(),
@@ -55,8 +38,6 @@ class RelatorioController {
     } else {
       listaTabela.value = [];
     }
-
-    var point = "";
 
     return true;
   }
