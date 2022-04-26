@@ -19,15 +19,19 @@ class RelatorioUsuariosController {
 
     final response = await database.child("usuario").once();
 
-    response.value.forEach((key, values) {
-      listaTabelaUsuarios.add(
-        UsuariosModel(
-          idUsuario: values["id_usuario"],
-          username: values["username"],
-          senha: int.parse(values["senha"]),
-        ),
-      );
-    });
+    if (response.value != null) {
+      response.value.forEach((key, values) {
+        listaTabelaUsuarios.add(
+          UsuariosModel(
+            idUsuario: values["id_usuario"],
+            username: values["username"],
+            senha: int.parse(values["senha"]),
+          ),
+        );
+      });
+    } else {
+      listaTabelaUsuarios.value = [];
+    }
 
     var point = "";
 

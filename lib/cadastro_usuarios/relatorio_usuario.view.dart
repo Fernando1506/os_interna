@@ -74,73 +74,96 @@ class RelatorioUsuarioView extends StatelessWidget {
           ),
           Row(
             children: [
-              FutureBuilder(
-                future: controllerRelatorioUsuarios.carregarRelatorioUsuarios(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    List<DataRow> linhas = [];
+              Container(
+                height: h * 80,
+                child: SingleChildScrollView(
+                  child: Row(
+                    children: [
+                      FutureBuilder(
+                        future: controllerRelatorioUsuarios
+                            .carregarRelatorioUsuarios(),
+                        builder: (context, snapshot) {
+                          var point = "";
+                          if (snapshot.hasData) {
+                            if (controllerRelatorioUsuarios
+                                .listaTabelaUsuarios.isEmpty) {
+                              return Container(
+                                width: w * 100,
+                                height: h * 80,
+                                child: Center(
+                                    child: Text("Nenhum usuario cadastrado")),
+                              );
+                            }
 
-                    for (UsuariosModel item
-                        in controllerRelatorioUsuarios.listaTabelaUsuarios) {
-                      linhas.add(
-                        DataRow(
-                          cells: [
-                            DataCell(Text(item.username)),
-                            // DataCell(Text(item.senha.toString())),
-                            DataCell(
-                              GestureDetector(
-                                onTap: () {
-                                  // Navigator.of(context).pop();
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) =>
-                                        CadastrarUsuarioView(
-                                            idUsuario: item.idUsuario),
-                                  );
-                                },
-                                child: Icon(Icons.edit),
+                            List<DataRow> linhas = [];
+
+                            for (UsuariosModel item
+                                in controllerRelatorioUsuarios
+                                    .listaTabelaUsuarios) {
+                              linhas.add(
+                                DataRow(
+                                  cells: [
+                                    DataCell(Text(item.username)),
+                                    // DataCell(Text(item.senha.toString())),
+                                    DataCell(
+                                      GestureDetector(
+                                        onTap: () {
+                                          // Navigator.of(context).pop();
+                                          showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (BuildContext context) =>
+                                                CadastrarUsuarioView(
+                                                    idUsuario: item.idUsuario),
+                                          );
+                                        },
+                                        child: Icon(Icons.edit),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            return Container(
+                              width: w * 100,
+                              height: h * 80,
+                              child: DataTable(
+                                columns: const <DataColumn>[
+                                  DataColumn(
+                                    label: Text(
+                                      'Usuário',
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic),
+                                    ),
+                                  ),
+                                  // DataColumn(
+                                  //   label: Text(
+                                  //     'Senha',
+                                  //     style: TextStyle(fontStyle: FontStyle.italic),
+                                  //   ),
+                                  // ),
+                                  DataColumn(
+                                    label: Text(
+                                      'Editar',
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic),
+                                    ),
+                                  ),
+                                ],
+                                rows: linhas,
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                    return SingleChildScrollView(
-                      child: Container(
-                        width: w * 100,
-                        child: DataTable(
-                          columns: const <DataColumn>[
-                            DataColumn(
-                              label: Text(
-                                'Usuário',
-                                style: TextStyle(fontStyle: FontStyle.italic),
-                              ),
-                            ),
-                            // DataColumn(
-                            //   label: Text(
-                            //     'Senha',
-                            //     style: TextStyle(fontStyle: FontStyle.italic),
-                            //   ),
-                            // ),
-                            DataColumn(
-                              label: Text(
-                                'Editar',
-                                style: TextStyle(fontStyle: FontStyle.italic),
-                              ),
-                            ),
-                          ],
-                          rows: linhas,
-                        ),
+                            );
+                          } else {
+                            return const CircularProgressIndicator(
+                              backgroundColor: Colors.blue,
+                              color: Colors.white,
+                            );
+                          }
+                        },
                       ),
-                    );
-                  } else {
-                    return const CircularProgressIndicator(
-                      backgroundColor: Colors.blue,
-                      color: Colors.white,
-                    );
-                  }
-                },
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

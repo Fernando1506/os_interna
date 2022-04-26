@@ -151,16 +151,20 @@ class RelatorioView extends StatelessWidget {
                             return Container(
                               width: w * 100,
                               height: h * 85,
-                              child: Center(child: Text("Nenhuma ordem de serviço cadastrada")),
+                              child: const Center(
+                                  child: Text(
+                                      "Nenhuma ordem de serviço cadastrada")),
                             );
                           }
 
                           List<DataRow> linhas = [];
 
-                          for (MovimentosDadosModel item in controller.listaTabela) {
+                          for (MovimentosDadosModel item
+                              in controller.listaTabela) {
                             linhas.add(
                               DataRow(
                                 cells: [
+                                  DataCell(Text(item.numeroOs)),
                                   DataCell(Text(item.name)),
                                   DataCell(Text(item.modulo)),
                                   DataCell(Text(item.serie.toString())),
@@ -173,7 +177,9 @@ class RelatorioView extends StatelessWidget {
                                         showDialog(
                                           context: context,
                                           // barrierDismissible: false,
-                                          builder: (BuildContext context) => CadastrarDadosView(idDados: item.idDados),
+                                          builder: (BuildContext context) =>
+                                              CadastrarDadosView(
+                                                  idDados: item.idDados),
                                         );
                                       },
                                       child: Icon(Icons.edit),
@@ -188,6 +194,14 @@ class RelatorioView extends StatelessWidget {
                             width: w * 100,
                             child: DataTable(
                               columns: const <DataColumn>[
+                                DataColumn(
+                                  label: Text(
+                                    'Nº O.S',
+                                    style: TextStyle(
+                                        // fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                                 DataColumn(
                                   label: Text(
                                     'Cliente',

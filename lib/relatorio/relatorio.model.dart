@@ -1,6 +1,7 @@
 // import 'dart:ffi';
 
 class MovimentosDadosModel {
+  String numeroOs;
   String idDados;
   String name;
   String modulo;
@@ -10,6 +11,7 @@ class MovimentosDadosModel {
   String obs_geral;
 
   MovimentosDadosModel({
+    required this.numeroOs,
     required this.idDados,
     required this.name,
     required this.modulo,
