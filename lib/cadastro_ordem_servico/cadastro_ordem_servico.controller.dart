@@ -69,7 +69,7 @@ class CadastrarDadosController {
   Future carregarCadastro() async {
     if (idDados != null && idDados != "") {
       DatabaseReference database = FirebaseDatabase.instance.reference();
-      final response = await database.child("dados/" + idDados).once();
+      final response = await database.child("dados/-" + idDados).once();
       nomeController.text = response.value["nome"];
       moduloController.text = response.value["modulo"];
       serieController.text = response.value["serie"].toString();
