@@ -6,10 +6,12 @@ class InputText extends StatelessWidget {
     required this.label,
     required this.width,
     required this.controller,
+    required this.enabled,
   }) : super(key: key);
 
   String label = "";
   double width;
+  bool enabled = true;
 
   TextEditingController controller;
 
@@ -19,6 +21,7 @@ class InputText extends StatelessWidget {
       width: width,
       height: 35,
       child: TextFormField(
+        enabled: enabled,
         controller: controller,
         decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),

@@ -21,7 +21,10 @@ class CadastroClienteView extends StatelessWidget {
         width: 120,
         height: 80,
         child: InputText(
-            controller: TextEditingController(), label: "Nome", width: 100),
+            enabled: true,
+            controller: TextEditingController(),
+            label: "Nome",
+            width: 100),
       ),
       actions: [
         Row(

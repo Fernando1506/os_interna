@@ -43,6 +43,7 @@ class CadastrarDadosView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
                           child: InputText(
+                            enabled: false,
                             label: 'Nº O.S',
                             width: 100,
                             controller: controller.numeroOs,
@@ -51,6 +52,7 @@ class CadastrarDadosView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
                           child: InputText(
+                            enabled: true,
                             label: 'Data',
                             width: 120,
                             controller: TextEditingController(),
@@ -58,6 +60,7 @@ class CadastrarDadosView extends StatelessWidget {
                         ),
                         Expanded(
                           child: InputText(
+                            enabled: true,
                             label: 'Cliente',
                             width: 200,
                             controller: controller.nomeController,
@@ -71,26 +74,43 @@ class CadastrarDadosView extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
-                            child: InputText(label: 'Módulo', width: 100, controller: controller.moduloController),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: InputText(label: 'Série', width: 100, controller: controller.serieController),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: InputText(label: 'Device ID', width: 80, controller: controller.device_idController),
+                            child: InputText(
+                                enabled: true,
+                                label: 'Módulo',
+                                width: 100,
+                                controller: controller.moduloController),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
                             child: InputText(
+                                enabled: true,
+                                label: 'Série',
+                                width: 100,
+                                controller: controller.serieController),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: InputText(
+                                enabled: true,
+                                label: 'Device ID',
+                                width: 100,
+                                controller: controller.device_idController),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: InputText(
+                              enabled: true,
                               label: 'Placa',
                               width: 120,
                               controller: TextEditingController(),
                             ),
                           ),
                           Expanded(
-                            child: InputText(label: 'Status', width: 200, controller: controller.statusController),
+                            child: InputText(
+                                enabled: true,
+                                label: 'Status',
+                                width: 180,
+                                controller: controller.statusController),
                           ),
                         ],
                       ),
@@ -100,7 +120,12 @@ class CadastrarDadosView extends StatelessWidget {
                       child: Row(
                         children: [
                           Expanded(
-                            child: InputTextArea(label: 'Observação Geral', maxline: 5, width: 200, height: 130, controller: controller.obs_geralController),
+                            child: InputTextArea(
+                                label: 'Observação Geral',
+                                maxline: 5,
+                                width: 200,
+                                height: 130,
+                                controller: controller.obs_geralController),
                           ),
                         ],
                       ),

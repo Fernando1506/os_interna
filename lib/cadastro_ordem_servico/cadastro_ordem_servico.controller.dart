@@ -23,7 +23,6 @@ class CadastrarDadosController {
 
   Future gravarDados({bool newData = true}) async {
     var dataJson = {
-      "numeroOs": numeroOs.text,
       "nome": nomeController.text,
       "modulo": moduloController.text,
       "serie": serieController.text,
@@ -41,7 +40,7 @@ class CadastrarDadosController {
     //Primeiramente, é criado o dataJson sem idDados, e dependendo do tipo de operacao, o idDados sera adicionado no dataJson futuramente
     Map<String, dynamic> dataJson = {
       // "id_dados": newKey,
-      "numeroOs": numeroOs.text,
+
       "nome": nomeController.text,
       "modulo": moduloController.text,
       "serie": serieController.text,
@@ -78,6 +77,7 @@ class CadastrarDadosController {
     if (idDados != null && idDados != "") {
       DatabaseReference database = FirebaseDatabase.instance.reference();
       final response = await database.child("dados/-" + idDados).once();
+      // numeroOs.text = response.value["numeroOs"];
       nomeController.text = response.value["nome"];
       moduloController.text = response.value["modulo"];
       serieController.text = response.value["serie"].toString();

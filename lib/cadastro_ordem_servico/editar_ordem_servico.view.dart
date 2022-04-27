@@ -42,6 +42,7 @@ class EditarOrdemServicoView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
                           child: InputText(
+                            enabled: false,
                             label: 'Nº O.S',
                             width: 100,
                             controller: TextEditingController(),
@@ -50,6 +51,7 @@ class EditarOrdemServicoView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
                           child: InputText(
+                            enabled: true,
                             label: 'Data',
                             width: 120,
                             controller: TextEditingController(),
@@ -57,6 +59,7 @@ class EditarOrdemServicoView extends StatelessWidget {
                         ),
                         Expanded(
                           child: InputText(
+                            enabled: true,
                             label: 'Cliente',
                             width: 200,
                             controller: controller.nomeController,
@@ -71,12 +74,14 @@ class EditarOrdemServicoView extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
                             child: InputText(
+                                enabled: true,
                                 label: 'Série',
                                 width: 100,
                                 controller: controller.serieController),
                           ),
                           Expanded(
                             child: InputText(
+                                enabled: true,
                                 label: 'Status',
                                 width: 200,
                                 controller: controller.statusController),
