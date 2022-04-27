@@ -1,7 +1,7 @@
 // import 'dart:ffi';
 
 class MovimentosDadosModel {
-  String numeroOs;
+  // String numeroOs; *** NAO TEM QUE TER ESSE CAMPO, O PROPRIO ID JA EH O NUMERO DA OS
   String idDados;
   String name;
   String modulo;
@@ -11,7 +11,7 @@ class MovimentosDadosModel {
   String obs_geral;
 
   MovimentosDadosModel({
-    required this.numeroOs,
+    // required this.numeroOs,
     required this.idDados,
     required this.name,
     required this.modulo,

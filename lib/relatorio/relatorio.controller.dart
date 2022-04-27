@@ -25,7 +25,7 @@ class RelatorioController {
       response.value.forEach((key, values) {
         listaTabela.add(
           MovimentosDadosModel(
-            numeroOs: values["numeroOs"],
+            // numeroOs: values["numeroOs"],
             idDados: values["id_dados"].toString(),
             serie: int.parse(values["serie"]),
             device_id: int.parse(values["device_id"]),

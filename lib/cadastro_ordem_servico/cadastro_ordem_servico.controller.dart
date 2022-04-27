@@ -39,8 +39,6 @@ class CadastrarDadosController {
 
     //Primeiramente, é criado o dataJson sem idDados, e dependendo do tipo de operacao, o idDados sera adicionado no dataJson futuramente
     Map<String, dynamic> dataJson = {
-      // "id_dados": newKey,
-
       "nome": nomeController.text,
       "modulo": moduloController.text,
       "serie": serieController.text,
@@ -55,19 +53,12 @@ class CadastrarDadosController {
 
       int newId = int.parse(numeroOs.text);
 
-      dataJson["id_dados"] =
-          newId; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
-      databaseReference
-          .child(endPoint)
-          .child("-" + newId.toString())
-          .set(dataJson); //// Salva os novos valores no banco
+      dataJson["id_dados"] = newId; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
+      databaseReference.child(endPoint).child("-" + newId.toString()).set(dataJson); //// Salva os novos valores no banco
     } else {
       //
       //------------- ALTERAR DADOS ------------
-      databaseReference
-          .child(endPoint)
-          .child(idDados)
-          .update(dataJson); //// Mudou de "set" para "Update"
+      databaseReference.child(endPoint).child("-" + idDados).update(dataJson); //// Mudou de "set" para "Update"
     }
   }
 
@@ -78,6 +69,7 @@ class CadastrarDadosController {
       DatabaseReference database = FirebaseDatabase.instance.reference();
       final response = await database.child("dados/-" + idDados).once();
       // numeroOs.text = response.value["numeroOs"];
+      numeroOs.text = response.value["id_dados"].toString();
       nomeController.text = response.value["nome"];
       moduloController.text = response.value["modulo"];
       serieController.text = response.value["serie"].toString();
@@ -90,16 +82,12 @@ class CadastrarDadosController {
 
       int newId = 0;
 
-      var lastData = await databaseReference
-          .child("dados")
-          .limitToFirst(1)
-          .once(); //// Resgata o ultimo registro da "tabela"
+      var lastData = await databaseReference.child("dados").limitToFirst(1).once(); //// Resgata o ultimo registro da "tabela"
 
       if (lastData.value != null) {
         lastData.value.forEach((key, value) {
           var lastId = value["id_dados"];
-          newId =
-              lastId + 1; //// O id final será o o id do ultimo registro + 1;
+          newId = lastId + 1; //// O id final será o o id do ultimo registro + 1;
         });
       }
       //**************************/
