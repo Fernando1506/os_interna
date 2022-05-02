@@ -5,7 +5,7 @@ import 'package:os_interna/app.controller.dart';
 import 'relatorio.model.dart';
 
 class RelatorioController {
-  var listaTabela = <MovimentosDadosModel>[].obs;
+  RxList listaTabela = <MovimentosDadosModel>[].obs;
 
   Future metodoTeste() async {
     await Future.delayed(const Duration(milliseconds: 4000), () {});
@@ -17,6 +17,8 @@ class RelatorioController {
   }
 
   Future carregarRelatorio() async {
+    listaTabela.clear();
+
     DatabaseReference database = FirebaseDatabase.instance.reference();
 
     final response = await database.child("dados").once();

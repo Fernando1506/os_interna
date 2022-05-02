@@ -13,11 +13,14 @@ class CadastrarDadosView extends StatelessWidget {
   CadastrarDadosView({
     Key? key,
     required this.idDados,
+    required this.atualizarRelatorio,
   }) : super(key: key) {
     controller = CadastrarDadosController(idDados: idDados);
   }
 
   String idDados;
+
+  Function() atualizarRelatorio;
 
   late CadastrarDadosController controller;
 
@@ -152,6 +155,11 @@ class CadastrarDadosView extends StatelessWidget {
             Button(
               text: "Cancelar",
               onTap: () {
+                // Navigator.pushAndRemoveUntil(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => RelatorioView()),
+                //     (Route<dynamic> route) => false);
+                atualizarRelatorio();
                 Get.back();
               },
             ),
