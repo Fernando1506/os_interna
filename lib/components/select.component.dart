@@ -20,7 +20,15 @@ class Select extends StatefulWidget {
     this.altura = 45,
     required this.dropDownValue,
     this.hasValue = true,
-  });
+  }) {
+    if (dropDownValue != null && dropDownValue != "") {
+      hasValue = true;
+    } else {
+      hasValue = false;
+    }
+
+    //
+  }
 
   @override
   _SelectState createState() => _SelectState();
@@ -52,11 +60,24 @@ class _SelectState extends State<Select> {
           );
         }).toList(),
         onChanged: widget.onChanged,
+        focusColor: Colors.transparent,
         decoration: InputDecoration(
           labelText: widget.label,
-          contentPadding:
-              EdgeInsets.only(left: 15, top: 14, bottom: 14, right: 15),
+          contentPadding: EdgeInsets.only(left: 15, top: 14, bottom: 14, right: 15),
           isDense: true,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey,
+              width: 1.2,
+            ),
+            borderRadius: BorderRadius.circular(6),
+          ),
+
+          // focusColor: Colors.green,
+          // fillColor: Colors.red,
+          hoverColor: Colors.blue,
+
+          //--------------------------------------
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.grey,

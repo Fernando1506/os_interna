@@ -76,30 +76,19 @@ class CadastrarDadosController {
 
       int newId = int.parse(numeroOs.text);
 
-      dataJson["id_dados"] =
-          newId; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
-      databaseReference
-          .child(endPoint)
-          .child("-" + newId.toString())
-          .set(dataJson); //// Salva os novos valores no banco
+      dataJson["id_dados"] = newId; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
+      databaseReference.child(endPoint).child("-" + newId.toString()).set(dataJson); //// Salva os novos valores no banco
     } else {
       //
       //------------- ALTERAR DADOS ------------
-      databaseReference
-          .child(endPoint)
-          .child("-" + idDados)
-          .update(dataJson); //// Mudou de "set" para "Update"
+      databaseReference.child(endPoint).child("-" + idDados).update(dataJson); //// Mudou de "set" para "Update"
     }
   }
 
   //---------------------------------- EDITAR CADASTRO ---------------------------------------------------------
 
   Future carregarCadastro() async {
-    dataCadastroController.text = date.day.toString() +
-        "/" +
-        date.month.toString() +
-        "/" +
-        date.year.toString();
+    dataCadastroController.text = date.day.toString() + "/" + date.month.toString() + "/" + date.year.toString();
 
     if (idDados != null && idDados != "") {
       DatabaseReference database = FirebaseDatabase.instance.reference();
@@ -117,8 +106,7 @@ class CadastrarDadosController {
       estoqueController.text = response.value["estoque"];
       statusController.text = response.value["status"];
       problema_informadoController.text = response.value["problema_informado"];
-      problema_constatadoController.text =
-          response.value["problema_constatado"];
+      problema_constatadoController.text = response.value["problema_constatado"];
       obs_geralController.text = response.value["obs_geral"];
       obs_tecnicaController.text = response.value["obs_tecnica"];
     } else {
@@ -127,16 +115,12 @@ class CadastrarDadosController {
 
       int newId = 2471;
 
-      var lastData = await databaseReference
-          .child("dados")
-          .limitToFirst(1)
-          .once(); //// Resgata o ultimo registro da "tabela"
+      var lastData = await databaseReference.child("dados").limitToFirst(1).once(); //// Resgata o ultimo registro da "tabela"
 
       if (lastData.value != null) {
         lastData.value.forEach((key, value) {
           var lastId = value["id_dados"];
-          newId =
-              lastId + 1; //// O id final será o o id do ultimo registro + 1;
+          newId = lastId + 1; //// O id final será o o id do ultimo registro + 1;
         });
       }
       //**************************/
@@ -146,4 +130,18 @@ class CadastrarDadosController {
 
     return true;
   }
+}
+
+Future<String> tratarData(DateTime date) async {
+  DateTime date = DateTime.now();
+
+  String dia = date.day.toString();
+  if (dia.length == 1) dia = "0" + dia;
+
+  String mes = date.month.toString();
+  if (mes.length == 1) mes = "0" + mes;
+
+  String dataFinal = dia + "/" + mes + "/" + date.year.toString();
+
+  return dataFinal;
 }

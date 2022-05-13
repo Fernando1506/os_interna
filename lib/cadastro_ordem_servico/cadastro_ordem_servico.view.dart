@@ -108,9 +108,8 @@ class CadastrarDadosView extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(right: 10),
                               child: Select(
-                                  hasValue: true,
-                                  dropDownValue:
-                                      controller.moduloController.text,
+                                  // hasValue: true,
+                                  dropDownValue: controller.moduloController.text,
                                   largura: 120,
                                   label: "",
                                   onChanged: (value) {
@@ -164,14 +163,12 @@ class CadastrarDadosView extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(right: 10),
                               child: Select(
-                                  hasValue: true,
-                                  dropDownValue:
-                                      controller.operadoraController.text,
+                                  // hasValue: true,
+                                  dropDownValue: controller.operadoraController.text,
                                   largura: 180,
                                   label: "",
                                   onChanged: (value) {
-                                    controller.operadoraController.text =
-                                        value!;
+                                    controller.operadoraController.text = value!;
                                   },
                                   hintText: "Operadora",
                                   dropDownItems: const [
@@ -225,9 +222,8 @@ class CadastrarDadosView extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(right: 10),
                               child: Select(
-                                  hasValue: true,
-                                  dropDownValue:
-                                      controller.estoqueController.text,
+                                  // hasValue: true,
+                                  dropDownValue: controller.estoqueController.text,
                                   largura: 180,
                                   label: "",
                                   onChanged: (value) {
@@ -244,9 +240,8 @@ class CadastrarDadosView extends StatelessWidget {
                               padding: const EdgeInsets.only(right: 10),
                               child: Expanded(
                                 child: Select(
-                                    hasValue: true,
-                                    dropDownValue:
-                                        controller.statusController.text,
+                                    // hasValue: true,
+                                    dropDownValue: controller.statusController.text,
                                     largura: 250,
                                     label: "",
                                     onChanged: (value) {
@@ -340,8 +335,7 @@ class CadastrarDadosView extends StatelessWidget {
                                 length: 4,
                                 child: Scaffold(
                                   appBar: PreferredSize(
-                                    preferredSize: Size.fromHeight(
-                                        MediaQuery.of(context).size.height),
+                                    preferredSize: Size.fromHeight(MediaQuery.of(context).size.height),
                                     child: Container(
                                       height: 50.0,
                                       child: const TabBar(
@@ -368,61 +362,33 @@ class CadastrarDadosView extends StatelessWidget {
                                     children: [
                                       Container(
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 15),
+                                          padding: const EdgeInsets.only(top: 15),
                                           child: Expanded(
-                                            child: InputTextArea(
-                                                label: 'Observação Geral',
-                                                maxline: 5,
-                                                width: 700,
-                                                height: 160,
-                                                controller: controller
-                                                    .obs_geralController),
+                                            child: InputTextArea(label: 'Observação Geral', maxline: 5, width: 700, height: 160, controller: controller.obs_geralController),
                                           ),
                                         ),
                                       ),
                                       Container(
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 15),
+                                          padding: const EdgeInsets.only(top: 15),
                                           child: Expanded(
-                                            child: InputTextArea(
-                                                label: 'Problema Informado',
-                                                maxline: 5,
-                                                width: 700,
-                                                height: 150,
-                                                controller: controller
-                                                    .problema_informadoController),
+                                            child: InputTextArea(label: 'Problema Informado', maxline: 5, width: 700, height: 150, controller: controller.problema_informadoController),
                                           ),
                                         ),
                                       ),
                                       Container(
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 15),
+                                          padding: const EdgeInsets.only(top: 15),
                                           child: Expanded(
-                                            child: InputTextArea(
-                                                label: 'Problema Constatado',
-                                                maxline: 5,
-                                                width: 700,
-                                                height: 150,
-                                                controller: controller
-                                                    .problema_constatadoController),
+                                            child: InputTextArea(label: 'Problema Constatado', maxline: 5, width: 700, height: 150, controller: controller.problema_constatadoController),
                                           ),
                                         ),
                                       ),
                                       Container(
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 15),
+                                          padding: const EdgeInsets.only(top: 15),
                                           child: Expanded(
-                                            child: InputTextArea(
-                                                label: 'Observação Técnica',
-                                                maxline: 5,
-                                                width: 700,
-                                                height: 150,
-                                                controller: controller
-                                                    .obs_tecnicaController),
+                                            child: InputTextArea(label: 'Observação Técnica', maxline: 5, width: 700, height: 150, controller: controller.obs_tecnicaController),
                                           ),
                                         ),
                                       ),
