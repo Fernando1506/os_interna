@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:os_interna/components/buttons.dart';
-import 'package:os_interna/relatorio/relatorio.controller.dart';
+import 'package:os_interna/relatorio_ordem_de_servico/relatorio.controller.dart';
+import 'package:os_interna/relatorio_usuarios/relatorio_usuario.view.dart';
+
 import '../cadastro_ordem_servico/cadastro_ordem_servico.view.dart';
+import '../login/login.view.dart';
 import 'relatorio.model.dart';
 
 class RelatorioView extends StatelessWidget {
@@ -36,6 +39,18 @@ class RelatorioView extends StatelessWidget {
     double h = MediaQuery.of(context).size.height / 100;
     double w = MediaQuery.of(context).size.width / 100;
     return Scaffold(
+      appBar: AppBar(actions: [
+        TextButton(
+          onPressed: () {
+            Get.offAll(LoginView());
+          },
+          child: const Text(
+            'Sair',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
+      ]),
       body: Container(
         child: Column(
           children: [
@@ -110,6 +125,7 @@ class RelatorioView extends StatelessWidget {
                                 DataRow(
                                   cells: [
                                     DataCell(Text(item.idDados)),
+                                    DataCell(Text(item.data_cadastro)),
                                     DataCell(Text(item.name)),
                                     DataCell(Text(item.modulo)),
                                     DataCell(Text(item.serie.toString())),
@@ -145,6 +161,14 @@ class RelatorioView extends StatelessWidget {
                                   DataColumn(
                                     label: Text(
                                       'Nº O.S',
+                                      style: TextStyle(
+                                          // fontStyle: FontStyle.italic,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  DataColumn(
+                                    label: Text(
+                                      'Data',
                                       style: TextStyle(
                                           // fontStyle: FontStyle.italic,
                                           fontWeight: FontWeight.bold),

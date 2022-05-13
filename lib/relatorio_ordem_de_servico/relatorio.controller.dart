@@ -29,12 +29,20 @@ class RelatorioController {
           MovimentosDadosModel(
             // numeroOs: values["numeroOs"],
             idDados: values["id_dados"].toString(),
-            serie: int.parse(values["serie"]),
-            device_id: int.parse(values["device_id"]),
+            data_cadastro: values["data_cadastro"].toString(),
             name: values["nome"],
-            status: values["status"],
             modulo: values["modulo"],
+            serie: values["serie"],
+            device_id: int.parse(values["device_id"]),
+            operadora: values["operadora"],
+            placa: values["placa"],
+            os_referencia: values["os_referencia"],
+            estoque: values["estoque"],
+            status: values["status"],
+            problema_informado: values["problema_informado"],
+            problema_constatado: values["problema_constatado"],
             obs_geral: values["obs_geral"],
+            obs_tecnica: values["obs_tecnica"],
           ),
         );
       });

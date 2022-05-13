@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:os_interna/cadastro_usuarios/relatorio_usuarios.controller.dart';
+
 import 'package:os_interna/components/buttons.dart';
 
+import '../cadastro_usuarios/cadastro_usuario.controller.dart';
+import '../cadastro_usuarios/cadastro_usuarios.view.dart';
 import '../components/input_text.dart';
-import 'cadastro_usuario.controller.dart';
-import 'cadastro_usuarios.view.dart';
+
+import 'relatorio_usuarios.controller.dart';
 import 'relatorio_usuarios.model.dart';
 
 class RelatorioUsuarioView extends StatelessWidget {

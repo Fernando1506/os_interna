@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:os_interna/login/login.view.dart';
 
 import 'page/homepage.view.dart';
-import 'relatorio/relatorio.view.dart';
+import 'relatorio_ordem_de_servico/relatorio.view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePageView(),
+      home: RelatorioView(),
     );
   }
 }

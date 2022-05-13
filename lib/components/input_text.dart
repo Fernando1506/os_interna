@@ -7,20 +7,28 @@ class InputText extends StatelessWidget {
     required this.width,
     required this.controller,
     required this.enabled,
+    required this.validator,
+    // required this.keyboardType,
   }) : super(key: key);
 
   String label = "";
   double width;
-  bool enabled = true;
 
+  bool enabled = true;
   TextEditingController controller;
+  final formKey = GlobalKey<FormState>();
+  bool validate = false;
+  // final TextInputType keyboardType;
+  String? Function(String?) validator;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 35,
+      height: 45,
       child: TextFormField(
+        validator: validator,
+        // keyboardType: keyboardType,
         enabled: enabled,
         controller: controller,
         decoration: InputDecoration(
@@ -56,6 +64,12 @@ class InputTextArea extends StatelessWidget {
       width: width,
       height: height,
       child: TextFormField(
+        // validator: (value) {
+        //   if (value == null || value.isEmpty) {
+        //     return 'Obrigatório!';
+        //   }
+        //   return null;
+        // },
         maxLines: maxline,
         controller: controller,
         decoration: InputDecoration(

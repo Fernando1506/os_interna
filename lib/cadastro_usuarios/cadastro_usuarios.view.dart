@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:os_interna/cadastro_usuarios/relatorio_usuarios.controller.dart';
+
 import 'package:os_interna/components/buttons.dart';
+import '../relatorio_usuarios/relatorio_usuarios.controller.dart';
 import 'cadastro_usuario.controller.dart';
 
 class CadastrarUsuarioView extends StatelessWidget {
@@ -17,6 +18,8 @@ class CadastrarUsuarioView extends StatelessWidget {
 
   late CadastrarUsuarioController controller;
   late RelatorioUsuariosController controllerRelatorioUsuarios;
+  final formKey = GlobalKey<FormState>();
+  bool validate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,48 +35,66 @@ class CadastrarUsuarioView extends StatelessWidget {
           if (snapshot.hasData) {
             return Container(
               width: 300,
-              height: 120,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Usuario',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5)),
+              height: 180,
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Este campo é obrigatório!';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Usuario',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5)),
+                            ),
+                            controller: controller.usuarioController,
                           ),
-                          controller: controller.usuarioController,
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: 'Senha',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Este campo é obrigatório!';
+                              }
+                              return null;
+                            },
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: 'Senha',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5)),
+                            ),
+                            controller: controller.senhaController,
                           ),
-                          controller: controller.senhaController,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           } else {
             return Container(
               width: 300,
-              height: 120,
+              height: 180,
             );
           }
         },
@@ -104,7 +125,11 @@ class CadastrarUsuarioView extends StatelessWidget {
       return Button(
         text: "Adicionar",
         onTap: () {
-          controller.adicionarUsuario(newData: true);
+          if (formKey.currentState!.validate()) {
+            controller.adicionarUsuario(newData: true);
+          } else {
+            return;
+          }
         },
       );
     } else {
@@ -117,7 +142,11 @@ class CadastrarUsuarioView extends StatelessWidget {
       return Button(
         text: "Gravar",
         onTap: () {
-          controller.adicionarUsuario(newData: false);
+          if (formKey.currentState!.validate()) {
+            controller.adicionarUsuario(newData: false);
+          } else {
+            return;
+          }
         },
       );
     } else {
