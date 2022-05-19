@@ -63,6 +63,7 @@ class RelatorioView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Button(
+                    width: 120,
                     text: "Adicionar O.S",
                     onTap: () {
                       showDialog(

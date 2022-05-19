@@ -30,6 +30,7 @@ class CadastrarDadosView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      buttonPadding: EdgeInsets.zero,
       title: Row(
         children: [
           Text("Cadastro - Ordem de Serviço"),
@@ -39,54 +40,84 @@ class CadastrarDadosView extends StatelessWidget {
           future: controller.carregarCadastro(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Container(
-                width: 700,
-                height: 420,
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      // Row(children: [
-                      //   Container(
-                      //     color: Colors.amber,
-                      //     width: 700,
-                      //     height: 40,
-                      //     child: Row(
-                      //       children: const [
-                      //         Text(
-                      //           "Mensagem de Confirmação!",
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   )
-                      // ]),
-                      // SizedBox(
-                      //   height: 20,
-                      // ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: InputText(
-                              validator: (value) {},
-                              enabled: false,
-                              label: 'Nº O.S',
-                              width: 100,
-                              controller: controller.numeroOs,
+              return Expanded(
+                child: Container(
+                  width: 700,
+                  height: Get.height * .62,
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        Obx(
+                          () {
+                            return Row(children: [
+                              controller.showMsgConfirmacao.value
+                                  ? Container(
+                                      padding: EdgeInsets.all(5),
+                                      color: Color(0XFFDFF0D8),
+                                      width: 700,
+                                      height: 30,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            controller.msgConfirmacao.value,
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0XFF3c763d)),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      height: 0,
+                                    ),
+                            ]);
+                          },
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: InputText(
+                                validator: (value) {},
+                                enabled: false,
+                                label: 'Nº O.S',
+                                width: 100,
+                                controller: controller.numeroOs,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: InputText(
-                              validator: (value) {},
-                              enabled: false,
-                              label: 'Data',
-                              width: 120,
-                              controller: controller.dataCadastroController,
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: InputText(
+                                validator: (value) {},
+                                enabled: false,
+                                label: 'Data',
+                                width: 120,
+                                controller: controller.dataCadastroController,
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: InputText(
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: InputText(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Obrigatório!';
+                                    }
+                                    return null;
+                                  },
+                                  enabled: true,
+                                  label: 'Cliente',
+                                  width: 200,
+                                  controller: controller.nomeController,
+                                ),
+                              ),
+                            ),
+                            InputText(
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Obrigatório!';
@@ -94,154 +125,55 @@ class CadastrarDadosView extends StatelessWidget {
                                 return null;
                               },
                               enabled: true,
-                              label: 'Cliente',
-                              width: 200,
-                              controller: controller.nomeController,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Select(
-                                  // hasValue: true,
-                                  dropDownValue: controller.moduloController.text,
-                                  largura: 120,
-                                  label: "",
-                                  onChanged: (value) {
-                                    controller.moduloController.text = value!;
-                                  },
-                                  hintText: "Módulo",
-                                  dropDownItems: const [
-                                    "---",
-                                    "Seg-100",
-                                    "Seg-200",
-                                    "IC-100",
-                                    "IC-150",
-                                    "IC-150B",
-                                    "IC-150C",
-                                  ]),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: InputText(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Obrigatório!';
-                                    }
-                                    // if (!value.isNumericOnly) {
-                                    //   return 'Inválido!';
-                                    // }
-                                    return null;
-                                  },
-                                  enabled: true,
-                                  label: 'Série',
-                                  width: 90,
-                                  controller: controller.serieController),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: InputText(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Obrigatório!';
-                                    }
-                                    if (!value.isNumericOnly) {
-                                      return 'Inválido!';
-                                    }
-                                    return null;
-                                  },
-                                  enabled: true,
-                                  label: 'Device ID',
-                                  width: 80,
-                                  controller: controller.device_idController),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Select(
-                                  // hasValue: true,
-                                  dropDownValue: controller.operadoraController.text,
-                                  largura: 180,
-                                  label: "",
-                                  onChanged: (value) {
-                                    controller.operadoraController.text = value!;
-                                  },
-                                  hintText: "Operadora",
-                                  dropDownItems: const [
-                                    "---",
-                                    "ALGAR",
-                                    "CTBC",
-                                    "CTBC Cerradão",
-                                    "CTBC Claro&TIM",
-                                    "IoT",
-                                    "IoT Cerradão",
-                                    "IoT Guaíra",
-                                    "TIM",
-                                    "VIVO",
-                                  ]),
-                            ),
-                            Expanded(
-                              child: InputText(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Obrigatório!';
-                                    }
-                                    return null;
-                                  },
-                                  enabled: true,
-                                  label: 'Placa',
-                                  width: 230,
-                                  controller: controller.placaController),
+                              label: 'O.S Ref.:',
+                              width: 100,
+                              controller: controller.os_referenciaController,
                             ),
                           ],
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: InputText(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Obrigatório!';
-                                  }
-                                  return null;
-                                },
-                                enabled: true,
-                                label: 'O.S Ref.:',
-                                width: 100,
-                                controller: controller.os_referenciaController,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: InputText(
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Obrigatório!';
+                                      }
+                                      return null;
+                                    },
+                                    enabled: true,
+                                    label: 'Placa',
+                                    width: 110,
+                                    controller: controller.placaController),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Select(
-                                  // hasValue: true,
-                                  dropDownValue: controller.estoqueController.text,
-                                  largura: 180,
-                                  label: "",
-                                  onChanged: (value) {
-                                    controller.estoqueController.text = value!;
-                                  },
-                                  hintText: "Estoque",
-                                  dropDownItems: const [
-                                    "---",
-                                    "Contrato",
-                                    "Manutenção",
-                                  ]),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Expanded(
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
                                 child: Select(
                                     // hasValue: true,
-                                    dropDownValue: controller.statusController.text,
+                                    dropDownValue:
+                                        controller.estoqueController.text,
+                                    largura: 180,
+                                    label: "",
+                                    onChanged: (value) {
+                                      controller.estoqueController.text =
+                                          value!;
+                                    },
+                                    hintText: "Estoque",
+                                    dropDownItems: const [
+                                      "---",
+                                      "Contrato",
+                                      "Manutenção",
+                                    ]),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 15),
+                                child: Select(
+                                    // hasValue: true,
+                                    dropDownValue:
+                                        controller.statusController.text,
                                     largura: 250,
                                     label: "",
                                     onChanged: (value) {
@@ -258,156 +190,382 @@ class CadastrarDadosView extends StatelessWidget {
                                       "Em Estoque",
                                     ]),
                               ),
-                            ),
-                            Expanded(
-                              child: Button(
-                                text: "Coleta",
-                                onTap: () {},
+                              Expanded(
+                                child: Button(
+                                  width: 120,
+                                  text: "Coleta",
+                                  onTap: () {},
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: Row(
-                          children: const [
-                            Text("Chicote:"),
-                            Checkbox(
-                                side: BorderSide(
-                                  color: Colors.black26,
-                                ),
-                                value: true,
-                                onChanged: null),
-                            Padding(
-                              padding: EdgeInsets.only(right: 20),
-                              child: Text("Seg-100"),
-                            ),
-                            Checkbox(
-                                side: BorderSide(
-                                  color: Colors.black26,
-                                ),
-                                value: false,
-                                onChanged: null),
-                            Padding(
-                              padding: EdgeInsets.only(right: 80),
-                              child: Text("Seg-200"),
-                            ),
-                            Text("Antena:"),
-                            Checkbox(
-                                side: BorderSide(
-                                  color: Colors.black26,
-                                ),
-                                value: false,
-                                onChanged: null),
-                            Padding(
-                              padding: EdgeInsets.only(right: 20),
-                              child: Text("GPS"),
-                            ),
-                            Checkbox(
-                                side: BorderSide(
-                                  color: Colors.black26,
-                                ),
-                                value: false,
-                                onChanged: null),
-                            Padding(
-                              padding: EdgeInsets.only(right: 20),
-                              child: Text("3dB"),
-                            ),
-                            Checkbox(
-                                side: BorderSide(
-                                  color: Colors.black26,
-                                ),
-                                value: false,
-                                onChanged: null),
-                            Text("7dB"),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 700,
-                              height: 180,
-                              child: DefaultTabController(
-                                length: 4,
-                                child: Scaffold(
-                                  appBar: PreferredSize(
-                                    preferredSize: Size.fromHeight(MediaQuery.of(context).size.height),
-                                    child: Container(
-                                      height: 50.0,
-                                      child: const TabBar(
-                                        labelColor: Colors.black,
-                                        isScrollable: true,
-                                        tabs: [
-                                          Tab(
-                                            text: "Observação Geral",
-                                          ),
-                                          Tab(
-                                            text: "Problema Informado",
-                                          ),
-                                          Tab(
-                                            text: "Problema Constatado",
-                                          ),
-                                          Tab(
-                                            text: "Observação Técnica",
-                                          ),
-                                        ],
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.zero,
+                                width: 700,
+                                height: 230,
+                                child: DefaultTabController(
+                                  length: 4,
+                                  child: Scaffold(
+                                    appBar: PreferredSize(
+                                      preferredSize: Size.fromHeight(
+                                          MediaQuery.of(context).size.height),
+                                      child: Container(
+                                        height: 50.0,
+                                        child: const TabBar(
+                                          labelColor: Colors.black,
+                                          isScrollable: true,
+                                          tabs: [
+                                            Tab(
+                                              text: "Equipamento / Acessórios",
+                                            ),
+                                            Tab(
+                                              text: "Principais Informações",
+                                            ),
+                                            Tab(
+                                              text: "Observação Geral",
+                                            ),
+                                            Tab(
+                                              text: "Observação Técnica",
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  body: TabBarView(
-                                    children: [
-                                      Container(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 15),
-                                          child: Expanded(
-                                            child: InputTextArea(label: 'Observação Geral', maxline: 5, width: 700, height: 160, controller: controller.obs_geralController),
+                                    body: TabBarView(
+                                      children: [
+                                        Container(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 20),
+                                            child: Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Row(children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 10),
+                                                      child: Select(
+                                                          hasValue: controller
+                                                                      .moduloController
+                                                                      .text ==
+                                                                  null
+                                                              ? false
+                                                              : true,
+                                                          dropDownValue: controller
+                                                                      .moduloController
+                                                                      .text ==
+                                                                  null
+                                                              ? "Módulo"
+                                                              : controller
+                                                                  .moduloController
+                                                                  .text,
+                                                          largura: 250,
+                                                          label: "",
+                                                          onChanged: (value) {
+                                                            controller
+                                                                .moduloController
+                                                                .text = value!;
+                                                            controller
+                                                                .onSelectDropDownModulo(
+                                                                    value);
+                                                          },
+                                                          hintText: "Módulo",
+                                                          dropDownItems: const [
+                                                            "Módulo Rastreador",
+                                                            "Identificador de Condutor",
+                                                          ]),
+                                                    ),
+                                                    Obx((() => Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  right: 10),
+                                                          child: controller
+                                                                      .showModRastreador
+                                                                      .value ||
+                                                                  controller
+                                                                      .showModIC
+                                                                      .value
+                                                              ? InputText(
+                                                                  validator:
+                                                                      (value) {
+                                                                    if (value ==
+                                                                            null ||
+                                                                        value
+                                                                            .isEmpty) {
+                                                                      return 'Obrigatório!';
+                                                                    }
+                                                                    // if (!value.isNumericOnly) {
+                                                                    //   return 'Inválido!';
+                                                                    // }
+                                                                    return null;
+                                                                  },
+                                                                  enabled: true,
+                                                                  label:
+                                                                      'Série',
+                                                                  width: 120,
+                                                                  controller:
+                                                                      controller
+                                                                          .serieController)
+                                                              : Container(),
+                                                        ))),
+                                                    Obx((() => Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  right: 15),
+                                                          child: controller
+                                                                  .showModRastreador
+                                                                  .value
+                                                              ? InputText(
+                                                                  validator:
+                                                                      (value) {
+                                                                    if (value ==
+                                                                            null ||
+                                                                        value
+                                                                            .isEmpty) {
+                                                                      return 'Obrigatório!';
+                                                                    }
+                                                                    if (!value
+                                                                        .isNumericOnly) {
+                                                                      return 'Inválido!';
+                                                                    }
+                                                                    return null;
+                                                                  },
+                                                                  enabled: true,
+                                                                  label:
+                                                                      'Device ID',
+                                                                  width: 80,
+                                                                  controller:
+                                                                      controller
+                                                                          .device_idController)
+                                                              : Container(),
+                                                        ))),
+                                                    Obx((() => Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                right: 10),
+                                                        child: controller
+                                                                .showModRastreador
+                                                                .value
+                                                            ? Select(
+                                                                // hasValue: true,
+                                                                dropDownValue:
+                                                                    controller
+                                                                        .operadoraController
+                                                                        .text,
+                                                                largura: 180,
+                                                                label: "",
+                                                                onChanged:
+                                                                    (value) {
+                                                                  controller
+                                                                      .operadoraController
+                                                                      .text = value!;
+                                                                },
+                                                                hintText:
+                                                                    "Operadora",
+                                                                dropDownItems: const [
+                                                                    "---",
+                                                                    "ALGAR",
+                                                                    "CTBC",
+                                                                    "CTBC Cerradão",
+                                                                    "CTBC Claro&TIM",
+                                                                    "IoT",
+                                                                    "IoT Cerradão",
+                                                                    "IoT Guaíra",
+                                                                    "TIM",
+                                                                    "VIVO",
+                                                                  ])
+                                                            : Container()))),
+                                                  ]),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 15),
+                                                    child: Row(
+                                                      children: const [
+                                                        Text("Chicote:"),
+                                                        Checkbox(
+                                                            side: BorderSide(
+                                                              color: Colors
+                                                                  .black26,
+                                                            ),
+                                                            value: true,
+                                                            onChanged: null),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  right: 20),
+                                                          child:
+                                                              Text("Seg-100"),
+                                                        ),
+                                                        Checkbox(
+                                                            side: BorderSide(
+                                                              color: Colors
+                                                                  .black26,
+                                                            ),
+                                                            value: false,
+                                                            onChanged: null),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  right: 80),
+                                                          child:
+                                                              Text("Seg-200"),
+                                                        ),
+                                                        Text("Antena:"),
+                                                        Checkbox(
+                                                            side: BorderSide(
+                                                              color: Colors
+                                                                  .black26,
+                                                            ),
+                                                            value: false,
+                                                            onChanged: null),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  right: 20),
+                                                          child: Text("GPS"),
+                                                        ),
+                                                        Checkbox(
+                                                            side: BorderSide(
+                                                              color: Colors
+                                                                  .black26,
+                                                            ),
+                                                            value: false,
+                                                            onChanged: null),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  right: 20),
+                                                          child: Text("3dB"),
+                                                        ),
+                                                        Checkbox(
+                                                            side: BorderSide(
+                                                              color: Colors
+                                                                  .black26,
+                                                            ),
+                                                            value: false,
+                                                            onChanged: null),
+                                                        Text("7dB"),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 15),
-                                          child: Expanded(
-                                            child: InputTextArea(label: 'Problema Informado', maxline: 5, width: 700, height: 150, controller: controller.problema_informadoController),
+                                        Container(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 20),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                right: 10),
+                                                        child: InputTextArea(
+                                                            label:
+                                                                'Problema Informado',
+                                                            maxline: 5,
+                                                            width: 350,
+                                                            height: 160,
+                                                            controller: controller
+                                                                .problema_informadoController),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: InputTextArea(
+                                                          label:
+                                                              'Problema Constatado',
+                                                          maxline: 5,
+                                                          width: 350,
+                                                          height: 160,
+                                                          controller: controller
+                                                              .problema_constatadoController),
+                                                    ),
+                                                  ],
+                                                ),
+                                                // Padding(
+                                                //   padding: const EdgeInsets.only(
+                                                //       top: 10),
+                                                //   child: Row(children: [
+                                                //     Expanded(
+                                                //       child: InputTextArea(
+                                                //           label:
+                                                //               'Problema Constatado',
+                                                //           maxline: 5,
+                                                //           width: 700,
+                                                //           height: 60,
+                                                //           controller: controller
+                                                //               .problema_constatadoController),
+                                                //     ),
+                                                //   ]),
+                                                // ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 15),
-                                          child: Expanded(
-                                            child: InputTextArea(label: 'Problema Constatado', maxline: 5, width: 700, height: 150, controller: controller.problema_constatadoController),
+                                        Container(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 20),
+                                            child: Expanded(
+                                              child: InputTextArea(
+                                                  label: 'Observação Geral',
+                                                  maxline: 5,
+                                                  width: 700,
+                                                  height: 160,
+                                                  controller: controller
+                                                      .obs_geralController),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 15),
-                                          child: Expanded(
-                                            child: InputTextArea(label: 'Observação Técnica', maxline: 5, width: 700, height: 150, controller: controller.obs_tecnicaController),
+                                        Container(
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 20),
+                                            child: Expanded(
+                                              child: InputTextArea(
+                                                  label: 'Observação Técnica',
+                                                  maxline: 5,
+                                                  width: 700,
+                                                  height: 150,
+                                                  controller: controller
+                                                      .obs_tecnicaController),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );
             } else {
               return Container(
                 width: 700,
-                height: 420,
+                height: Get.height * .62,
               );
             }
           }),
@@ -415,21 +573,28 @@ class CadastrarDadosView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            buildAddButton(),
             Padding(
-              padding: const EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.only(right: 10, bottom: 20),
+              child: buildAddButton(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 10, bottom: 20),
               child: buildGravarButton(),
             ),
-            Button(
-              text: "Cancelar",
-              onTap: () {
-                // Navigator.pushAndRemoveUntil(
-                //     context,
-                //     MaterialPageRoute(builder: (context) => RelatorioView()),
-                //     (Route<dynamic> route) => false);
-                atualizarRelatorio();
-                Get.back();
-              },
+            Padding(
+              padding: const EdgeInsets.only(right: 15, bottom: 20),
+              child: ButtonCancelar(
+                width: 120,
+                text: "Cancelar",
+                onTap: () {
+                  // Navigator.pushAndRemoveUntil(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => RelatorioView()),
+                  //     (Route<dynamic> route) => false);
+                  atualizarRelatorio();
+                  Get.back();
+                },
+              ),
             ),
           ],
         ),
@@ -440,10 +605,12 @@ class CadastrarDadosView extends StatelessWidget {
   Widget buildAddButton() {
     if (controller.idDados.isEmpty) {
       return Button(
+        width: 120,
         text: "Adicionar",
         onTap: () {
           if (formKey.currentState!.validate()) {
             controller.gravarDados(newData: true);
+            controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
           } else {
             return;
           }
@@ -457,10 +624,12 @@ class CadastrarDadosView extends StatelessWidget {
   Widget buildGravarButton() {
     if (controller.idDados.isNotEmpty) {
       return Button(
+        width: 120,
         text: "Gravar",
         onTap: () {
           if (formKey.currentState!.validate()) {
             controller.gravarDados(newData: false);
+            controller.msgConfirmacao.value = "O.S editada com sucesso!";
           } else {
             return;
           }
