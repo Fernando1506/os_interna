@@ -17,7 +17,7 @@ class InputText extends StatelessWidget {
   bool enabled = true;
   TextEditingController controller;
   final formKey = GlobalKey<FormState>();
-  bool validate = false;
+  // bool validate = false;
   // final TextInputType keyboardType;
   String? Function(String?) validator;
 

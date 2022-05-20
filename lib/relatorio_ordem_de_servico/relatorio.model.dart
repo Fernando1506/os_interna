@@ -4,6 +4,7 @@ class MovimentosDadosModel {
   // String numeroOs; *** NAO TEM QUE TER ESSE CAMPO, O PROPRIO ID JA EH O NUMERO DA OS
   String idDados;
   String name;
+
   String data_cadastro;
   String modulo;
   String serie;

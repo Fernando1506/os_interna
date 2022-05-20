@@ -31,6 +31,7 @@ class RelatorioController {
             idDados: values["id_dados"].toString(),
             data_cadastro: values["data_cadastro"].toString(),
             name: values["nome"],
+
             modulo: values["modulo"],
             serie: values["serie"],
             device_id: int.parse(values["device_id"]),

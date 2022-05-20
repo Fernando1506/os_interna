@@ -54,17 +54,19 @@ class CadastrarDadosView extends StatelessWidget {
                               controller.showMsgConfirmacao.value
                                   ? Container(
                                       padding: EdgeInsets.all(5),
-                                      color: Color(0XFFDFF0D8),
+                                      color:
+                                          Color(controller.colorFundoMensagem),
                                       width: 700,
                                       height: 30,
                                       child: Row(
                                         children: [
                                           Text(
                                             controller.msgConfirmacao.value,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
-                                                color: Color(0XFF3c763d)),
+                                                color: Color(
+                                                    controller.colorMensagem)),
                                           ),
                                         ],
                                       ),
@@ -221,14 +223,10 @@ class CadastrarDadosView extends StatelessWidget {
                                           isScrollable: true,
                                           tabs: [
                                             Tab(
-                                              text: "Equipamento / Acessórios",
-                                            ),
-                                            Tab(
-                                              text: "Principais Informações",
-                                            ),
-                                            Tab(
-                                              text: "Observação Geral",
-                                            ),
+                                                text:
+                                                    "Equipamento / Acessórios"),
+                                            Tab(text: "Principais Informações"),
+                                            Tab(text: "Observação Geral"),
                                             Tab(
                                               text: "Observação Técnica",
                                             ),
@@ -277,8 +275,12 @@ class CadastrarDadosView extends StatelessWidget {
                                                           },
                                                           hintText: "Módulo",
                                                           dropDownItems: const [
-                                                            "Módulo Rastreador",
-                                                            "Identificador de Condutor",
+                                                            "Seg-100",
+                                                            "Seg-200",
+                                                            "IC-100",
+                                                            "IC-150",
+                                                            "IC-150B",
+                                                            "IC-150C",
                                                           ]),
                                                     ),
                                                     Obx((() => Padding(
@@ -611,8 +613,14 @@ class CadastrarDadosView extends StatelessWidget {
           if (formKey.currentState!.validate()) {
             controller.gravarDados(newData: true);
             controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
+            controller.limparCampos();
           } else {
-            return;
+            controller.msgConfirmacao.value =
+                "Os campos destacados são obrigatórios!";
+            controller.showMsgConfirmacao.value = true;
+            controller.colorMensagem = 0xFFB94A48;
+            controller.colorFundoMensagem = 0XFFFFCDD2;
+            
           }
         },
       );
@@ -630,8 +638,14 @@ class CadastrarDadosView extends StatelessWidget {
           if (formKey.currentState!.validate()) {
             controller.gravarDados(newData: false);
             controller.msgConfirmacao.value = "O.S editada com sucesso!";
+              controller.colorMensagem = 0XFF3c763d;
+            controller.colorFundoMensagem = 0XFFDFF0D8;
           } else {
-            return;
+            controller.msgConfirmacao.value =
+                "Os campos destacados são obrigatórios!";
+            controller.showMsgConfirmacao.value = true;
+            controller.colorMensagem = 0xFFB94A48;
+            controller.colorFundoMensagem = 0XFFFFCDD2;
           }
         },
       );

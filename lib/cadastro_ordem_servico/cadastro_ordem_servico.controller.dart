@@ -158,17 +158,22 @@ class CadastrarDadosController {
 
   RxBool showMsgConfirmacao = false.obs;
   RxString msgConfirmacao = "".obs;
+  var colorMensagem = 0XFF3c763d;
+  var colorFundoMensagem = 0XFFDFF0D8;
 
   //---------------------------------DROPDOWN---------------------------------
   RxBool showModRastreador = false.obs;
   RxBool showModIC = false.obs;
 
   Future onSelectDropDownModulo(String valor) async {
-    if (valor == "Módulo Rastreador") {
+    if (valor == "Seg-100" || valor == "Seg-200") {
       showModRastreador.value = true;
       showModIC.value = false;
     }
-    if (valor == "Identificador de Condutor") {
+    if (valor == "IC-100" ||
+        valor == "IC-150" ||
+        valor == "IC-150B" ||
+        valor == "IC-150C") {
       showModIC.value = true;
       showModRastreador.value = false;
     }
@@ -176,21 +181,21 @@ class CadastrarDadosController {
 
 //---------------------------------- LIMPAR CAMPOS ---------------------------------------------------------
 
-  // void limparCampos() {
-  //   nomeController.clear();
-  //   moduloController.clear();
-  //   serieController.clear();
-  //   device_idController.clear();
-  //   operadoraController.clear();
-  //   placaController.clear();
-  //   os_referenciaController.clear();
-  //   estoqueController.clear();
-  //   statusController.clear();
-  //   problema_informadoController.clear();
-  //   problema_constatadoController.clear();
-  //   obs_geralController.clear();
-  //   obs_tecnicaController.clear();
-  // }
+  void limparCampos() {
+    nomeController.clear();
+    moduloController.clear();
+    serieController.clear();
+    device_idController.clear();
+    operadoraController.clear();
+    placaController.clear();
+    os_referenciaController.clear();
+    estoqueController.clear();
+    statusController.clear();
+    problema_informadoController.clear();
+    problema_constatadoController.clear();
+    obs_geralController.clear();
+    obs_tecnicaController.clear();
+  }
 
 }
 
