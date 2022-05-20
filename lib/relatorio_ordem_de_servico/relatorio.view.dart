@@ -71,8 +71,7 @@ class RelatorioView extends StatelessWidget {
                           barrierDismissible: false,
                           builder: (BuildContext context) => CadastrarDadosView(
                                 idDados: "",
-                                atualizarRelatorio:
-                                    controller.carregarRelatorio,
+                                atualizarRelatorio: controller.carregarRelatorio,
                               ));
                     },
                   ),
@@ -112,16 +111,13 @@ class RelatorioView extends StatelessWidget {
                               return Container(
                                 width: w * 100,
                                 height: h * 85,
-                                child: const Center(
-                                    child: Text(
-                                        "Nenhuma ordem de serviço cadastrada")),
+                                child: const Center(child: Text("Nenhuma ordem de serviço cadastrada")),
                               );
                             }
 
                             List<DataRow> linhas = [];
 
-                            for (MovimentosDadosModel item
-                                in controller.listaTabela) {
+                            for (MovimentosDadosModel item in controller.listaTabela) {
                               linhas.add(
                                 DataRow(
                                   cells: [
@@ -139,11 +135,9 @@ class RelatorioView extends StatelessWidget {
                                           showDialog(
                                             context: context,
                                             // barrierDismissible: false,
-                                            builder: (BuildContext context) =>
-                                                CadastrarDadosView(
+                                            builder: (BuildContext context) => CadastrarDadosView(
                                               idDados: item.idDados,
-                                              atualizarRelatorio:
-                                                  controller.carregarRelatorio,
+                                              atualizarRelatorio: controller.carregarRelatorio,
                                             ),
                                           );
                                         },

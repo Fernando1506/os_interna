@@ -55,8 +55,7 @@ class CadastrarUsuarioView extends StatelessWidget {
                             },
                             decoration: InputDecoration(
                               labelText: 'Usuario',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5)),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
                             ),
                             controller: controller.usuarioController,
                           ),
@@ -79,8 +78,7 @@ class CadastrarUsuarioView extends StatelessWidget {
                             obscureText: true,
                             decoration: InputDecoration(
                               labelText: 'Senha',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5)),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
                             ),
                             controller: controller.senhaController,
                           ),

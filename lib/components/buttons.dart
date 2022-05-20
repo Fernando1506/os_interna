@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  Button({Key? key, this.text = "", required this.onTap, required this.width})
-      : super(key: key);
+  Button({Key? key, this.text = "", required this.onTap, required this.width}) : super(key: key);
 
   String text;
   double width;
@@ -20,9 +19,7 @@ class Button extends StatelessWidget {
 }
 
 class ButtonCancelar extends StatelessWidget {
-  ButtonCancelar(
-      {Key? key, this.text = "", required this.onTap, required this.width})
-      : super(key: key);
+  ButtonCancelar({Key? key, this.text = "", required this.onTap, required this.width}) : super(key: key);
 
   String text;
   double width;

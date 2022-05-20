@@ -14,8 +14,7 @@ class RelatorioUsuarioView extends StatelessWidget {
     Key? key,
     required this.idUsuario,
   }) : super(key: key) {
-    controllerCadastrarUsuario =
-        CadastrarUsuarioController(idUsuario: idUsuario);
+    controllerCadastrarUsuario = CadastrarUsuarioController(idUsuario: idUsuario);
     controllerRelatorioUsuarios = RelatorioUsuariosController();
   }
 
@@ -83,26 +82,21 @@ class RelatorioUsuarioView extends StatelessWidget {
                   child: Row(
                     children: [
                       FutureBuilder(
-                        future: controllerRelatorioUsuarios
-                            .carregarRelatorioUsuarios(),
+                        future: controllerRelatorioUsuarios.carregarRelatorioUsuarios(),
                         builder: (context, snapshot) {
                           var point = "";
                           if (snapshot.hasData) {
-                            if (controllerRelatorioUsuarios
-                                .listaTabelaUsuarios.isEmpty) {
+                            if (controllerRelatorioUsuarios.listaTabelaUsuarios.isEmpty) {
                               return Container(
                                 width: w * 100,
                                 height: h * 80,
-                                child: Center(
-                                    child: Text("Nenhum usuario cadastrado")),
+                                child: Center(child: Text("Nenhum usuario cadastrado")),
                               );
                             }
 
                             List<DataRow> linhas = [];
 
-                            for (UsuariosModel item
-                                in controllerRelatorioUsuarios
-                                    .listaTabelaUsuarios) {
+                            for (UsuariosModel item in controllerRelatorioUsuarios.listaTabelaUsuarios) {
                               linhas.add(
                                 DataRow(
                                   cells: [
@@ -115,9 +109,7 @@ class RelatorioUsuarioView extends StatelessWidget {
                                           showDialog(
                                             context: context,
                                             barrierDismissible: false,
-                                            builder: (BuildContext context) =>
-                                                CadastrarUsuarioView(
-                                                    idUsuario: item.idUsuario),
+                                            builder: (BuildContext context) => CadastrarUsuarioView(idUsuario: item.idUsuario),
                                           );
                                         },
                                         child: Icon(Icons.edit),
@@ -135,8 +127,7 @@ class RelatorioUsuarioView extends StatelessWidget {
                                   DataColumn(
                                     label: Text(
                                       'Usuário',
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.italic),
+                                      style: TextStyle(fontStyle: FontStyle.italic),
                                     ),
                                   ),
                                   // DataColumn(
@@ -148,8 +139,7 @@ class RelatorioUsuarioView extends StatelessWidget {
                                   DataColumn(
                                     label: Text(
                                       'Editar',
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.italic),
+                                      style: TextStyle(fontStyle: FontStyle.italic),
                                     ),
                                   ),
                                 ],

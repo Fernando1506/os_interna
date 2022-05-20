@@ -54,19 +54,14 @@ class CadastrarDadosView extends StatelessWidget {
                               controller.showMsgConfirmacao.value
                                   ? Container(
                                       padding: EdgeInsets.all(5),
-                                      color:
-                                          Color(controller.colorFundoMensagem),
+                                      color: Color(controller.colorFundoMensagem),
                                       width: 700,
                                       height: 30,
                                       child: Row(
                                         children: [
                                           Text(
                                             controller.msgConfirmacao.value,
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(
-                                                    controller.colorMensagem)),
+                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(controller.colorMensagem)),
                                           ),
                                         ],
                                       ),
@@ -155,13 +150,11 @@ class CadastrarDadosView extends StatelessWidget {
                                 padding: const EdgeInsets.only(right: 10),
                                 child: Select(
                                     // hasValue: true,
-                                    dropDownValue:
-                                        controller.estoqueController.text,
+                                    dropDownValue: controller.estoqueController.text,
                                     largura: 180,
                                     label: "",
                                     onChanged: (value) {
-                                      controller.estoqueController.text =
-                                          value!;
+                                      controller.estoqueController.text = value!;
                                     },
                                     hintText: "Estoque",
                                     dropDownItems: const [
@@ -174,8 +167,7 @@ class CadastrarDadosView extends StatelessWidget {
                                 padding: const EdgeInsets.only(right: 15),
                                 child: Select(
                                     // hasValue: true,
-                                    dropDownValue:
-                                        controller.statusController.text,
+                                    dropDownValue: controller.statusController.text,
                                     largura: 250,
                                     label: "",
                                     onChanged: (value) {
@@ -214,17 +206,14 @@ class CadastrarDadosView extends StatelessWidget {
                                   length: 4,
                                   child: Scaffold(
                                     appBar: PreferredSize(
-                                      preferredSize: Size.fromHeight(
-                                          MediaQuery.of(context).size.height),
+                                      preferredSize: Size.fromHeight(MediaQuery.of(context).size.height),
                                       child: Container(
                                         height: 50.0,
                                         child: const TabBar(
                                           labelColor: Colors.black,
                                           isScrollable: true,
                                           tabs: [
-                                            Tab(
-                                                text:
-                                                    "Equipamento / Acessórios"),
+                                            Tab(text: "Equipamento / Acessórios"),
                                             Tab(text: "Principais Informações"),
                                             Tab(text: "Observação Geral"),
                                             Tab(
@@ -238,40 +227,21 @@ class CadastrarDadosView extends StatelessWidget {
                                       children: [
                                         Container(
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 20),
+                                            padding: const EdgeInsets.only(top: 20),
                                             child: Expanded(
                                               child: Column(
                                                 children: [
                                                   Row(children: [
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 10),
+                                                      padding: const EdgeInsets.only(right: 10),
                                                       child: Select(
-                                                          hasValue: controller
-                                                                      .moduloController
-                                                                      .text ==
-                                                                  null
-                                                              ? false
-                                                              : true,
-                                                          dropDownValue: controller
-                                                                      .moduloController
-                                                                      .text ==
-                                                                  null
-                                                              ? "Módulo"
-                                                              : controller
-                                                                  .moduloController
-                                                                  .text,
+                                                          hasValue: controller.moduloController.text == null ? false : true,
+                                                          dropDownValue: controller.moduloController.text == null ? "Módulo" : controller.moduloController.text,
                                                           largura: 250,
                                                           label: "",
                                                           onChanged: (value) {
-                                                            controller
-                                                                .moduloController
-                                                                .text = value!;
-                                                            controller
-                                                                .onSelectDropDownModulo(
-                                                                    value);
+                                                            controller.moduloController.text = value!;
+                                                            controller.onSelectDropDownModulo(value);
                                                           },
                                                           hintText: "Módulo",
                                                           dropDownItems: const [
@@ -284,23 +254,11 @@ class CadastrarDadosView extends StatelessWidget {
                                                           ]),
                                                     ),
                                                     Obx((() => Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  right: 10),
-                                                          child: controller
-                                                                      .showModRastreador
-                                                                      .value ||
-                                                                  controller
-                                                                      .showModIC
-                                                                      .value
+                                                          padding: const EdgeInsets.only(right: 10),
+                                                          child: controller.showModRastreador.value || controller.showModIC.value
                                                               ? InputText(
-                                                                  validator:
-                                                                      (value) {
-                                                                    if (value ==
-                                                                            null ||
-                                                                        value
-                                                                            .isEmpty) {
+                                                                  validator: (value) {
+                                                                    if (value == null || value.isEmpty) {
                                                                       return 'Obrigatório!';
                                                                     }
                                                                     // if (!value.isNumericOnly) {
@@ -309,70 +267,42 @@ class CadastrarDadosView extends StatelessWidget {
                                                                     return null;
                                                                   },
                                                                   enabled: true,
-                                                                  label:
-                                                                      'Série',
+                                                                  label: 'Série',
                                                                   width: 120,
-                                                                  controller:
-                                                                      controller
-                                                                          .serieController)
+                                                                  controller: controller.serieController)
                                                               : Container(),
                                                         ))),
                                                     Obx((() => Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  right: 15),
-                                                          child: controller
-                                                                  .showModRastreador
-                                                                  .value
+                                                          padding: const EdgeInsets.only(right: 15),
+                                                          child: controller.showModRastreador.value
                                                               ? InputText(
-                                                                  validator:
-                                                                      (value) {
-                                                                    if (value ==
-                                                                            null ||
-                                                                        value
-                                                                            .isEmpty) {
+                                                                  validator: (value) {
+                                                                    if (value == null || value.isEmpty) {
                                                                       return 'Obrigatório!';
                                                                     }
-                                                                    if (!value
-                                                                        .isNumericOnly) {
+                                                                    if (!value.isNumericOnly) {
                                                                       return 'Inválido!';
                                                                     }
                                                                     return null;
                                                                   },
                                                                   enabled: true,
-                                                                  label:
-                                                                      'Device ID',
+                                                                  label: 'Device ID',
                                                                   width: 80,
-                                                                  controller:
-                                                                      controller
-                                                                          .device_idController)
+                                                                  controller: controller.device_idController)
                                                               : Container(),
                                                         ))),
                                                     Obx((() => Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 10),
-                                                        child: controller
-                                                                .showModRastreador
-                                                                .value
+                                                        padding: const EdgeInsets.only(right: 10),
+                                                        child: controller.showModRastreador.value
                                                             ? Select(
                                                                 // hasValue: true,
-                                                                dropDownValue:
-                                                                    controller
-                                                                        .operadoraController
-                                                                        .text,
+                                                                dropDownValue: controller.operadoraController.text,
                                                                 largura: 180,
                                                                 label: "",
-                                                                onChanged:
-                                                                    (value) {
-                                                                  controller
-                                                                      .operadoraController
-                                                                      .text = value!;
+                                                                onChanged: (value) {
+                                                                  controller.operadoraController.text = value!;
                                                                 },
-                                                                hintText:
-                                                                    "Operadora",
+                                                                hintText: "Operadora",
                                                                 dropDownItems: const [
                                                                     "---",
                                                                     "ALGAR",
@@ -388,71 +318,54 @@ class CadastrarDadosView extends StatelessWidget {
                                                             : Container()))),
                                                   ]),
                                                   Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 15),
+                                                    padding: const EdgeInsets.only(top: 15),
                                                     child: Row(
                                                       children: const [
                                                         Text("Chicote:"),
                                                         Checkbox(
                                                             side: BorderSide(
-                                                              color: Colors
-                                                                  .black26,
+                                                              color: Colors.black26,
                                                             ),
                                                             value: true,
                                                             onChanged: null),
                                                         Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  right: 20),
-                                                          child:
-                                                              Text("Seg-100"),
+                                                          padding: EdgeInsets.only(right: 20),
+                                                          child: Text("Seg-100"),
                                                         ),
                                                         Checkbox(
                                                             side: BorderSide(
-                                                              color: Colors
-                                                                  .black26,
+                                                              color: Colors.black26,
                                                             ),
                                                             value: false,
                                                             onChanged: null),
                                                         Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  right: 80),
-                                                          child:
-                                                              Text("Seg-200"),
+                                                          padding: EdgeInsets.only(right: 80),
+                                                          child: Text("Seg-200"),
                                                         ),
                                                         Text("Antena:"),
                                                         Checkbox(
                                                             side: BorderSide(
-                                                              color: Colors
-                                                                  .black26,
+                                                              color: Colors.black26,
                                                             ),
                                                             value: false,
                                                             onChanged: null),
                                                         Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  right: 20),
+                                                          padding: EdgeInsets.only(right: 20),
                                                           child: Text("GPS"),
                                                         ),
                                                         Checkbox(
                                                             side: BorderSide(
-                                                              color: Colors
-                                                                  .black26,
+                                                              color: Colors.black26,
                                                             ),
                                                             value: false,
                                                             onChanged: null),
                                                         Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  right: 20),
+                                                          padding: EdgeInsets.only(right: 20),
                                                           child: Text("3dB"),
                                                         ),
                                                         Checkbox(
                                                             side: BorderSide(
-                                                              color: Colors
-                                                                  .black26,
+                                                              color: Colors.black26,
                                                             ),
                                                             value: false,
                                                             onChanged: null),
@@ -467,37 +380,19 @@ class CadastrarDadosView extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 20),
+                                            padding: const EdgeInsets.only(top: 20),
                                             child: Column(
                                               children: [
                                                 Row(
                                                   children: [
                                                     Expanded(
                                                       child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 10),
-                                                        child: InputTextArea(
-                                                            label:
-                                                                'Problema Informado',
-                                                            maxline: 5,
-                                                            width: 350,
-                                                            height: 160,
-                                                            controller: controller
-                                                                .problema_informadoController),
+                                                        padding: const EdgeInsets.only(right: 10),
+                                                        child: InputTextArea(label: 'Problema Informado', maxline: 5, width: 350, height: 160, controller: controller.problema_informadoController),
                                                       ),
                                                     ),
                                                     Expanded(
-                                                      child: InputTextArea(
-                                                          label:
-                                                              'Problema Constatado',
-                                                          maxline: 5,
-                                                          width: 350,
-                                                          height: 160,
-                                                          controller: controller
-                                                              .problema_constatadoController),
+                                                      child: InputTextArea(label: 'Problema Constatado', maxline: 5, width: 350, height: 160, controller: controller.problema_constatadoController),
                                                     ),
                                                   ],
                                                 ),
@@ -523,31 +418,17 @@ class CadastrarDadosView extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 20),
+                                            padding: const EdgeInsets.only(top: 20),
                                             child: Expanded(
-                                              child: InputTextArea(
-                                                  label: 'Observação Geral',
-                                                  maxline: 5,
-                                                  width: 700,
-                                                  height: 160,
-                                                  controller: controller
-                                                      .obs_geralController),
+                                              child: InputTextArea(label: 'Observação Geral', maxline: 5, width: 700, height: 160, controller: controller.obs_geralController),
                                             ),
                                           ),
                                         ),
                                         Container(
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 20),
+                                            padding: const EdgeInsets.only(top: 20),
                                             child: Expanded(
-                                              child: InputTextArea(
-                                                  label: 'Observação Técnica',
-                                                  maxline: 5,
-                                                  width: 700,
-                                                  height: 150,
-                                                  controller: controller
-                                                      .obs_tecnicaController),
+                                              child: InputTextArea(label: 'Observação Técnica', maxline: 5, width: 700, height: 150, controller: controller.obs_tecnicaController),
                                             ),
                                           ),
                                         ),
@@ -615,12 +496,10 @@ class CadastrarDadosView extends StatelessWidget {
             controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
             controller.limparCampos();
           } else {
-            controller.msgConfirmacao.value =
-                "Os campos destacados são obrigatórios!";
+            controller.msgConfirmacao.value = "Os campos destacados são obrigatórios!";
             controller.showMsgConfirmacao.value = true;
             controller.colorMensagem = 0xFFB94A48;
             controller.colorFundoMensagem = 0XFFFFCDD2;
-            
           }
         },
       );
@@ -638,11 +517,10 @@ class CadastrarDadosView extends StatelessWidget {
           if (formKey.currentState!.validate()) {
             controller.gravarDados(newData: false);
             controller.msgConfirmacao.value = "O.S editada com sucesso!";
-              controller.colorMensagem = 0XFF3c763d;
+            controller.colorMensagem = 0XFF3c763d;
             controller.colorFundoMensagem = 0XFFDFF0D8;
           } else {
-            controller.msgConfirmacao.value =
-                "Os campos destacados são obrigatórios!";
+            controller.msgConfirmacao.value = "Os campos destacados são obrigatórios!";
             controller.showMsgConfirmacao.value = true;
             controller.colorMensagem = 0xFFB94A48;
             controller.colorFundoMensagem = 0XFFFFCDD2;

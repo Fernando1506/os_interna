@@ -78,19 +78,12 @@ class CadastrarDadosController {
 
       int newId = int.parse(numeroOs.text);
 
-      dataJson["id_dados"] =
-          newId; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
-      databaseReference
-          .child(endPoint)
-          .child("-" + newId.toString())
-          .set(dataJson); //// Salva os novos valores no banco
+      dataJson["id_dados"] = newId; //// Adiciona o parametro "id_dados" dentro do dataJson que sera salvo no banco
+      databaseReference.child(endPoint).child("-" + newId.toString()).set(dataJson); //// Salva os novos valores no banco
     } else {
       //
       //------------- ALTERAR DADOS ------------
-      databaseReference
-          .child(endPoint)
-          .child("-" + idDados)
-          .update(dataJson); //// Mudou de "set" para "Update"
+      databaseReference.child(endPoint).child("-" + idDados).update(dataJson); //// Mudou de "set" para "Update"
 
     }
   }
@@ -126,8 +119,7 @@ class CadastrarDadosController {
       estoqueController.text = response.value["estoque"];
       statusController.text = response.value["status"];
       problema_informadoController.text = response.value["problema_informado"];
-      problema_constatadoController.text =
-          response.value["problema_constatado"];
+      problema_constatadoController.text = response.value["problema_constatado"];
       obs_geralController.text = response.value["obs_geral"];
       obs_tecnicaController.text = response.value["obs_tecnica"];
     } else {
@@ -136,16 +128,12 @@ class CadastrarDadosController {
 
       int newId = 2471;
 
-      var lastData = await databaseReference
-          .child("dados")
-          .limitToFirst(1)
-          .once(); //// Resgata o ultimo registro da "tabela"
+      var lastData = await databaseReference.child("dados").limitToFirst(1).once(); //// Resgata o ultimo registro da "tabela"
 
       if (lastData.value != null) {
         lastData.value.forEach((key, value) {
           var lastId = value["id_dados"];
-          newId =
-              lastId + 1; //// O id final será o o id do ultimo registro + 1;
+          newId = lastId + 1; //// O id final será o o id do ultimo registro + 1;
         });
       }
       //**************************/
@@ -170,10 +158,7 @@ class CadastrarDadosController {
       showModRastreador.value = true;
       showModIC.value = false;
     }
-    if (valor == "IC-100" ||
-        valor == "IC-150" ||
-        valor == "IC-150B" ||
-        valor == "IC-150C") {
+    if (valor == "IC-100" || valor == "IC-150" || valor == "IC-150B" || valor == "IC-150C") {
       showModIC.value = true;
       showModRastreador.value = false;
     }
@@ -196,7 +181,6 @@ class CadastrarDadosController {
     obs_geralController.clear();
     obs_tecnicaController.clear();
   }
-
 }
 
 // Future<String> tratarData(DateTime date) async {

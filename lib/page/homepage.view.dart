@@ -66,8 +66,7 @@ class HomePageView extends StatelessWidget {
           default:
             return Container(
               alignment: Alignment.center,
-              child: Text('ORDEM DE SERVIÇO INTERNA',
-                  style: TextStyle(fontSize: 20)),
+              child: Text('ORDEM DE SERVIÇO INTERNA', style: TextStyle(fontSize: 20)),
             );
         }
       }),
