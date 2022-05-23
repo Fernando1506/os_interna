@@ -48,6 +48,7 @@ class RelatorioUsuarioView extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 10),
                 child: Button(
                   width: 50,
+                  
                   text: "Adicionar Usuário",
                   onTap: () {
                     showDialog(

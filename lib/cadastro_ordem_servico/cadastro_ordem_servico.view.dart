@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:os_interna/cadastro_ordem_servico/modulos/solicitacao_coleta.view.dart';
 import 'package:os_interna/components/input_text.dart';
 import 'package:os_interna/components/select.component.dart';
 
@@ -11,8 +12,8 @@ import '../components/buttons.dart';
 
 import 'cadastro_ordem_servico.controller.dart';
 
-class CadastrarDadosView extends StatelessWidget {
-  CadastrarDadosView({
+class CadastrarOrdemServicoView extends StatelessWidget {
+  CadastrarOrdemServicoView({
     Key? key,
     required this.idDados,
     required this.atualizarRelatorio,
@@ -48,32 +49,32 @@ class CadastrarDadosView extends StatelessWidget {
                     key: formKey,
                     child: Column(
                       children: [
-                        Obx(
-                          () {
-                            return Row(children: [
-                              controller.showMsgConfirmacao.value
-                                  ? Container(
-                                      padding: EdgeInsets.all(5),
-                                      color: Color(controller.colorFundoMensagem),
-                                      width: 700,
-                                      height: 30,
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            controller.msgConfirmacao.value,
-                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(controller.colorMensagem)),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  : SizedBox(
-                                      height: 0,
-                                    ),
-                            ]);
-                          },
-                        ),
+                        // Obx(
+                        //   () {
+                        //     return Row(children: [
+                        //       controller.showMsgConfirmacao.value
+                        //           ? Container(
+                        //               padding: EdgeInsets.all(5),
+                        //               color: Color(controller.colorFundoMensagem),
+                        //               width: 700,
+                        //               height: 30,
+                        //               child: Row(
+                        //                 children: [
+                        //                   Text(
+                        //                     controller.msgConfirmacao.value,
+                        //                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(controller.colorMensagem)),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             )
+                        //           : SizedBox(
+                        //               height: 0,
+                        //             ),
+                        //     ]);
+                        //   },
+                        // ),
                         SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         Row(
                           children: [
@@ -97,41 +98,80 @@ class CadastrarDadosView extends StatelessWidget {
                                 controller: controller.dataCadastroController,
                               ),
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: InputText(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Obrigatório!';
-                                    }
-                                    return null;
+                            InputText(
+                              validator: (value) {},
+                              enabled: true,
+                              label: 'Situação',
+                              width: 280,
+                              controller: TextEditingController(),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Expanded(
+                                child: Button(
+                                  width: 73,
+                                  text: "Coleta",
+                                  onTap: () {
+                                    showDialog(context: context, barrierDismissible: true, builder: (BuildContext context) => ColetaObjetosView());
                                   },
-                                  enabled: true,
-                                  label: 'Cliente',
-                                  width: 200,
-                                  controller: controller.nomeController,
                                 ),
                               ),
                             ),
-                            InputText(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Obrigatório!';
-                                }
-                                return null;
-                              },
-                              enabled: true,
-                              label: 'O.S Ref.:',
-                              width: 100,
-                              controller: controller.os_referenciaController,
+                            // Expanded(
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.only(right: 10),
+                            //     child: InputText(
+                            //       validator: (value) {
+                            //         if (value == null || value.isEmpty) {
+                            //           return 'Obrigatório!';
+                            //         }
+                            //         return null;
+                            //       },
+                            //       enabled: true,
+                            //       label: 'Cliente',
+                            //       width: 200,
+                            //       controller: controller.nomeController,
+                            //     ),
+                            //   ),
+                            // ),
+                            Expanded(
+                              child: InputText(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Obrigatório!';
+                                  }
+                                  return null;
+                                },
+                                enabled: true,
+                                label: 'O.S Ref.:',
+                                width: 100,
+                                controller: controller.os_referenciaController,
+                              ),
                             ),
                           ],
                         ),
+
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: Row(
                             children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: InputText(
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Obrigatório!';
+                                      }
+                                      return null;
+                                    },
+                                    enabled: true,
+                                    label: 'Cliente',
+                                    width: 200,
+                                    controller: controller.nomeController,
+                                  ),
+                                ),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: InputText(
@@ -163,34 +203,34 @@ class CadastrarDadosView extends StatelessWidget {
                                       "Manutenção",
                                     ]),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: Select(
-                                    // hasValue: true,
-                                    dropDownValue: controller.statusController.text,
-                                    largura: 250,
-                                    label: "",
-                                    onChanged: (value) {
-                                      controller.statusController.text = value!;
-                                    },
-                                    hintText: "Status",
-                                    dropDownItems: const [
-                                      "---",
-                                      "Solicitar Coleta",
-                                      "Em Transito",
-                                      "Aguardando NF",
-                                      "Liberado p/ Manutenção",
-                                      "Liberado p/ Estoque",
-                                      "Em Estoque",
-                                    ]),
-                              ),
-                              Expanded(
-                                child: Button(
-                                  width: 120,
-                                  text: "Coleta",
-                                  onTap: () {},
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(right: 15),
+                              //   child: Select(
+                              //       // hasValue: true,
+                              //       dropDownValue: controller.statusController.text,
+                              //       largura: 250,
+                              //       label: "",
+                              //       onChanged: (value) {
+                              //         controller.statusController.text = value!;
+                              //       },
+                              //       hintText: "Status",
+                              //       dropDownItems: const [
+                              //         "---",
+                              //         "Solicitar Coleta",
+                              //         "Em Transito",
+                              //         "Aguardando NF",
+                              //         "Liberado p/ Manutenção",
+                              //         "Liberado p/ Estoque",
+                              //         "Em Estoque",
+                              //       ]),
+                              // ),
+                              // Expanded(
+                              //   child: Button(
+                              //     width: 120,
+                              //     text: "Coleta",
+                              //     onTap: () {},
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -439,6 +479,30 @@ class CadastrarDadosView extends StatelessWidget {
                               )
                             ],
                           ),
+                        ),
+                        Obx(
+                          () {
+                            return Row(children: [
+                              controller.showMsgConfirmacao.value
+                                  ? Container(
+                                      padding: EdgeInsets.all(5),
+                                      color: Color(controller.colorFundoMensagem),
+                                      width: 700,
+                                      height: 40,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            controller.msgConfirmacao.value,
+                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(controller.colorMensagem)),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      height: 0,
+                                    ),
+                            ]);
+                          },
                         ),
                       ],
                     ),

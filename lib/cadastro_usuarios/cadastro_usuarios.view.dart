@@ -108,6 +108,7 @@ class CadastrarUsuarioView extends StatelessWidget {
             ),
             Button(
               width: 20,
+         
               text: "Cancelar",
               onTap: () {
                 Get.back();
@@ -123,6 +124,7 @@ class CadastrarUsuarioView extends StatelessWidget {
     if (controller.idUsuario.isEmpty) {
       return Button(
         width: 20,
+    
         text: "Adicionar",
         onTap: () {
           if (formKey.currentState!.validate()) {
@@ -141,6 +143,7 @@ class CadastrarUsuarioView extends StatelessWidget {
     if (controller.idUsuario.isNotEmpty) {
       return Button(
         width: 120,
+  
         text: "Gravar",
         onTap: () {
           if (formKey.currentState!.validate()) {

@@ -5,12 +5,14 @@ class Button extends StatelessWidget {
 
   String text;
   double width;
+  
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         width: width,
+      
         child: ElevatedButton(
           child: Text(text),
           onPressed: onTap,

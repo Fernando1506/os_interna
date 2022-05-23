@@ -64,12 +64,12 @@ class RelatorioView extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 10),
                   child: Button(
                     width: 120,
-                    text: "Adicionar O.S",
+                    text: "Iniciar O.S",
                     onTap: () {
                       showDialog(
                           context: context,
                           barrierDismissible: false,
-                          builder: (BuildContext context) => CadastrarDadosView(
+                          builder: (BuildContext context) => CadastrarOrdemServicoView(
                                 idDados: "",
                                 atualizarRelatorio: controller.carregarRelatorio,
                               ));
@@ -135,7 +135,7 @@ class RelatorioView extends StatelessWidget {
                                           showDialog(
                                             context: context,
                                             // barrierDismissible: false,
-                                            builder: (BuildContext context) => CadastrarDadosView(
+                                            builder: (BuildContext context) => CadastrarOrdemServicoView(
                                               idDados: item.idDados,
                                               atualizarRelatorio: controller.carregarRelatorio,
                                             ),
