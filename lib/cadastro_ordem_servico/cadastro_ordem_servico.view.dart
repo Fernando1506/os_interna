@@ -146,23 +146,33 @@ class CadastrarDadosView extends StatelessWidget {
                                     width: 110,
                                     controller: controller.placaController),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Select(
-                                    // hasValue: true,
-                                    dropDownValue: controller.estoqueController.text,
-                                    largura: 180,
-                                    label: "",
-                                    onChanged: (value) {
-                                      controller.estoqueController.text = value!;
-                                    },
-                                    hintText: "Estoque",
-                                    dropDownItems: const [
-                                      "---",
-                                      "Contrato",
-                                      "Manutenção",
-                                    ]),
-                              ),
+                              Obx(() {
+                                var value = controller.inputEstoqueValue.value;
+                                var p = "";
+
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Select(
+                                      // hasValue: true,
+                                      // dropDownValue: controller.estoqueController.text,
+                                      // hasValue: hasValue,
+                                      // autoValidate: ,
+                                      dropDownValue: controller.inputEstoqueValue.value,
+                                      autoValidate: controller.dropdownAutoValidate.last,
+                                      largura: 180,
+                                      label: "",
+                                      onChanged: (value) {
+                                        controller.estoqueController.text = value!;
+                                        controller.inputEstoqueValue.value = value;
+                                      },
+                                      hintText: "Estoque",
+                                      dropDownItems: const [
+                                        "---",
+                                        "Contrato",
+                                        "Manutenção",
+                                      ]),
+                                );
+                              }),
                               Padding(
                                 padding: const EdgeInsets.only(right: 15),
                                 child: Select(
@@ -232,27 +242,31 @@ class CadastrarDadosView extends StatelessWidget {
                                               child: Column(
                                                 children: [
                                                   Row(children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(right: 10),
-                                                      child: Select(
-                                                          hasValue: controller.moduloController.text == null ? false : true,
-                                                          dropDownValue: controller.moduloController.text == null ? "Módulo" : controller.moduloController.text,
-                                                          largura: 250,
-                                                          label: "",
-                                                          onChanged: (value) {
-                                                            controller.moduloController.text = value!;
-                                                            controller.onSelectDropDownModulo(value);
-                                                          },
-                                                          hintText: "Módulo",
-                                                          dropDownItems: const [
-                                                            "Seg-100",
-                                                            "Seg-200",
-                                                            "IC-100",
-                                                            "IC-150",
-                                                            "IC-150B",
-                                                            "IC-150C",
-                                                          ]),
-                                                    ),
+                                                    Obx(() {
+                                                      return Padding(
+                                                        padding: const EdgeInsets.only(right: 10),
+                                                        child: Select(
+                                                            // hasValue: controller.moduloController.text == null ? false : true,
+                                                            // dropDownValue: controller.moduloController.text == null ? "Módulo" : controller.moduloController.text,
+                                                            // hasValue: controller.inputModuloValue.value == null ? false : true,
+                                                            dropDownValue: controller.inputModuloValue.value == null ? "Módulo" : controller.inputModuloValue.value,
+                                                            largura: 250,
+                                                            label: "",
+                                                            onChanged: (value) {
+                                                              controller.inputModuloValue.value = value!;
+                                                              controller.onSelectDropDownModulo(value);
+                                                            },
+                                                            hintText: "Módulo",
+                                                            dropDownItems: const [
+                                                              "Seg-100",
+                                                              "Seg-200",
+                                                              "IC-100",
+                                                              "IC-150",
+                                                              "IC-150B",
+                                                              "IC-150C",
+                                                            ]),
+                                                      );
+                                                    }),
                                                     Obx((() => Padding(
                                                           padding: const EdgeInsets.only(right: 10),
                                                           child: controller.showModRastreador.value || controller.showModIC.value
@@ -491,6 +505,7 @@ class CadastrarDadosView extends StatelessWidget {
         width: 120,
         text: "Adicionar",
         onTap: () {
+          controller.dropdownAutoValidate.add(AutovalidateMode.always);
           if (formKey.currentState!.validate()) {
             controller.gravarDados(newData: true);
             controller.msgConfirmacao.value = "O.S adicionada com sucesso!";

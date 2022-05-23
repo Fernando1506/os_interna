@@ -10,6 +10,7 @@ class Select extends StatefulWidget {
   double altura;
   String dropDownValue = "";
   bool hasValue;
+  AutovalidateMode autoValidate;
 
   Select({
     required this.dropDownItems,
@@ -20,6 +21,7 @@ class Select extends StatefulWidget {
     this.altura = 45,
     required this.dropDownValue,
     this.hasValue = true,
+    this.autoValidate = AutovalidateMode.disabled,
   }) {
     if (dropDownValue != null && dropDownValue != "") {
       hasValue = true;
@@ -45,6 +47,7 @@ class _SelectState extends State<Select> {
       width: widget.largura,
       height: widget.altura,
       child: DropdownButtonFormField<String>(
+        autovalidateMode: widget.autoValidate,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Obrigatório!';
