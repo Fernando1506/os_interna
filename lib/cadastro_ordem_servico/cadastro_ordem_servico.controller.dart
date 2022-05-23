@@ -6,18 +6,24 @@ class CadastrarDadosController {
   TextEditingController numeroOs = TextEditingController();
   TextEditingController dataCadastroController = TextEditingController();
   TextEditingController nomeController = TextEditingController();
-  TextEditingController moduloController = TextEditingController();
+  // TextEditingController moduloController = TextEditingController();
+  RxString inputModuloValue = "".obs;
   TextEditingController serieController = TextEditingController();
   TextEditingController device_idController = TextEditingController();
   TextEditingController operadoraController = TextEditingController();
   TextEditingController placaController = TextEditingController();
   TextEditingController os_referenciaController = TextEditingController();
   TextEditingController estoqueController = TextEditingController();
+  RxString inputEstoqueValue = "".obs;
   TextEditingController statusController = TextEditingController();
   TextEditingController problema_informadoController = TextEditingController();
   TextEditingController problema_constatadoController = TextEditingController();
   TextEditingController obs_geralController = TextEditingController();
   TextEditingController obs_tecnicaController = TextEditingController();
+
+  RxList<AutovalidateMode> dropdownAutoValidate = [
+    AutovalidateMode.disabled,
+  ].obs;
 
   CadastrarDadosController({
     this.idDados = "",
@@ -33,7 +39,7 @@ class CadastrarDadosController {
     var dataJson = {
       "data_cadastro": dataCadastroController.text,
       "nome": nomeController.text,
-      "modulo": moduloController.text, // select
+      "modulo": inputModuloValue.value, // select
       "serie": serieController.text,
       "device_id": device_idController.text,
       "operadora": operadoraController, // select
@@ -58,7 +64,7 @@ class CadastrarDadosController {
     Map<String, dynamic> dataJson = {
       "data_cadastro": dataCadastroController.text,
       "nome": nomeController.text,
-      "modulo": moduloController.text, // select
+      "modulo": inputModuloValue.value, // select
       "serie": serieController.text,
       "device_id": device_idController.text,
       "operadora": operadoraController.text, // select
@@ -110,7 +116,7 @@ class CadastrarDadosController {
       numeroOs.text = response.value["id_dados"].toString();
       dataCadastroController.text = response.value["data_cadastro"].toString();
       nomeController.text = response.value["nome"];
-      moduloController.text = response.value["modulo"];
+      inputModuloValue.value = response.value["modulo"];
       serieController.text = response.value["serie"];
       device_idController.text = response.value["device_id"].toString();
       operadoraController.text = response.value["operadora"];
@@ -168,7 +174,8 @@ class CadastrarDadosController {
 
   void limparCampos() {
     nomeController.clear();
-    moduloController.clear();
+    // moduloController.clear();
+    inputModuloValue.value = "";
     serieController.clear();
     device_idController.clear();
     operadoraController.clear();
