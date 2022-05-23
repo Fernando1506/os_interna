@@ -178,6 +178,7 @@ class CadastrarDadosView extends StatelessWidget {
                                 child: Select(
                                     // hasValue: true,
                                     dropDownValue: controller.statusController.text,
+                                    autoValidate: controller.dropdownAutoValidate.last,
                                     largura: 250,
                                     label: "",
                                     onChanged: (value) {
@@ -252,6 +253,7 @@ class CadastrarDadosView extends StatelessWidget {
                                                             dropDownValue: controller.inputModuloValue.value == null ? "Módulo" : controller.inputModuloValue.value,
                                                             largura: 250,
                                                             label: "",
+                                                            autoValidate: controller.dropdownAutoValidate.last,
                                                             onChanged: (value) {
                                                               controller.inputModuloValue.value = value!;
                                                               controller.onSelectDropDownModulo(value);
