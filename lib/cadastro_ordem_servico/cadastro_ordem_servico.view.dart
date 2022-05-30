@@ -1,15 +1,14 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:os_interna/cadastro_ordem_servico/modulos/solicitacao_coleta.view.dart';
 import 'package:os_interna/components/input_text.dart';
 import 'package:os_interna/components/select.component.dart';
-
 import 'package:os_interna/page/homepage.view.dart';
-
+import '../coleta_objetos/coleta_objetos.controller.dart';
+import '../coleta_objetos/coleta_objetos.view.dart';
 import '../components/buttons.dart';
-
 import 'cadastro_ordem_servico.controller.dart';
 
 class CadastrarOrdemServicoView extends StatelessWidget {
@@ -26,6 +25,7 @@ class CadastrarOrdemServicoView extends StatelessWidget {
   Function() atualizarRelatorio;
 
   late CadastrarDadosController controller;
+  late CadastrarColetaController controllerCadastrarColeta;
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -98,25 +98,50 @@ class CadastrarOrdemServicoView extends StatelessWidget {
                                 controller: controller.dataCadastroController,
                               ),
                             ),
-                            InputText(
-                              validator: (value) {},
-                              enabled: true,
-                              label: 'Situação',
-                              width: 280,
-                              controller: TextEditingController(),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Expanded(
-                                child: Button(
-                                  width: 73,
-                                  text: "Coleta",
-                                  onTap: () {
-                                    showDialog(context: context, barrierDismissible: true, builder: (BuildContext context) => ColetaObjetosView());
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: InputText(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Obrigatório!';
+                                    }
+                                    return null;
                                   },
+                                  enabled: true,
+                                  label: 'Cliente',
+                                  width: 200,
+                                  controller: controller.nomeController,
                                 ),
                               ),
                             ),
+                            // InputText(
+                            //   validator: (value) {},
+                            //   enabled: true,
+                            //   label: 'Status',
+                            //   width: 280,
+                            //   controller: controllerCadastrarColeta.codigoObjeto,
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(right: 10),
+                            //   child: Container(
+                            //     height: 45,
+                            //     decoration: BoxDecoration(
+                            //       color: Color.fromARGB(255, 233, 232, 232),
+                            //       borderRadius: BorderRadius.only(topRight: Radius.circular(6), bottomRight: Radius.circular(6)),
+                            //     ),
+                            //     child: IconButton(
+                            //         color: Colors.blue,
+                            //         tooltip: "Solicitar Coleta",
+                            //         onPressed: () {
+                            //           showDialog(context: context, barrierDismissible: true, builder: (BuildContext context) => ColetaObjetosView());
+                            //         },
+                            //         icon: const FaIcon(
+                            //           FontAwesomeIcons.boxOpen,
+                            //           size: 20,
+                            //         )),
+                            //   ),
+                            // ),
                             // Expanded(
                             //   child: Padding(
                             //     padding: const EdgeInsets.only(right: 10),
@@ -134,20 +159,18 @@ class CadastrarOrdemServicoView extends StatelessWidget {
                             //     ),
                             //   ),
                             // ),
-                            Expanded(
-                              child: InputText(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Obrigatório!';
-                                  }
-                                  return null;
-                                },
-                                enabled: true,
-                                label: 'O.S Ref.:',
-                                width: 100,
-                                controller: controller.os_referenciaController,
-                              ),
-                            ),
+                            // InputText(
+                            //   validator: (value) {
+                            //     if (value == null || value.isEmpty) {
+                            //       return 'Obrigatório!';
+                            //     }
+                            //     return null;
+                            //   },
+                            //   enabled: true,
+                            //   label: 'O.S Ref.:',
+                            //   width: 100,
+                            //   controller: controller.os_referenciaController,
+                            // ),
                           ],
                         ),
 
@@ -155,21 +178,19 @@ class CadastrarOrdemServicoView extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 20),
                           child: Row(
                             children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: InputText(
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Obrigatório!';
-                                      }
-                                      return null;
-                                    },
-                                    enabled: true,
-                                    label: 'Cliente',
-                                    width: 200,
-                                    controller: controller.nomeController,
-                                  ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: InputText(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Obrigatório!';
+                                    }
+                                    return null;
+                                  },
+                                  enabled: true,
+                                  label: 'O.S Ref.:',
+                                  width: 150,
+                                  controller: controller.os_referenciaController,
                                 ),
                               ),
                               Padding(
@@ -183,65 +204,67 @@ class CadastrarOrdemServicoView extends StatelessWidget {
                                     },
                                     enabled: true,
                                     label: 'Placa',
-                                    width: 110,
+                                    width: 150,
                                     controller: controller.placaController),
                               ),
                               Obx(() {
                                 var value = controller.inputEstoqueValue.value;
                                 var p = "";
 
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: Select(
-                                      // hasValue: true,
-                                      // dropDownValue: controller.estoqueController.text,
-                                      // hasValue: hasValue,
-                                      // autoValidate: ,
-                                      dropDownValue: controller.inputEstoqueValue.value,
-                                      autoValidate: controller.dropdownAutoValidate.last,
-                                      largura: 180,
-                                      label: "",
-                                      onChanged: (value) {
-                                        controller.estoqueController.text = value!;
-                                        controller.inputEstoqueValue.value = value;
-                                      },
-                                      hintText: "Estoque",
-                                      dropDownItems: const [
-                                        "---",
-                                        "Contrato",
-                                        "Manutenção",
-                                      ]),
+                                return Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: Select(
+                                        // hasValue: true,
+                                        // dropDownValue: controller.estoqueController.text,
+                                        // hasValue: hasValue,
+                                        // autoValidate: ,
+                                        dropDownValue: controller.inputEstoqueValue.value,
+                                        autoValidate: controller.dropdownAutoValidate.last,
+                                        largura: 180,
+                                        label: "",
+                                        onChanged: (value) {
+                                          controller.inputEstoqueValue.value = value!;
+                                          controller.inputEstoqueValue.value = value;
+                                        },
+                                        hintText: "Estoque",
+                                        dropDownItems: const [
+                                          "---",
+                                          "Contrato",
+                                          "Manutenção",
+                                        ]),
+                                  ),
                                 );
                               }),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: Select(
-                                    // hasValue: true,
-                                    dropDownValue: controller.statusController.text,
-                                    autoValidate: controller.dropdownAutoValidate.last,
-                                    largura: 250,
-                                    label: "",
-                                    onChanged: (value) {
-                                      controller.statusController.text = value!;
-                                    },
-                                    hintText: "Status",
-                                    dropDownItems: const [
-                                      "---",
-                                      "Solicitar Coleta",
-                                      "Em Transito",
-                                      "Aguardando NF",
-                                      "Liberado p/ Manutenção",
-                                      "Liberado p/ Estoque",
-                                      "Em Estoque",
-                                    ]),
-                              ),
-                              Expanded(
-                                child: Button(
-                                  width: 120,
-                                  text: "Coleta",
-                                  onTap: () {},
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(right: 15),
+                              //   child: Select(
+                              //       // hasValue: true,
+                              //       dropDownValue: controller.statusController.text,
+                              //       autoValidate: controller.dropdownAutoValidate.last,
+                              //       largura: 250,
+                              //       label: "",
+                              //       onChanged: (value) {
+                              //         controller.statusController.text = value!;
+                              //       },
+                              //       hintText: "Status",
+                              //       dropDownItems: const [
+                              //         "---",
+                              //         "Solicitar Coleta",
+                              //         "Em Transito",
+                              //         "Aguardando NF",
+                              //         "Liberado p/ Manutenção",
+                              //         "Liberado p/ Estoque",
+                              //         "Em Estoque",
+                              //       ]),
+                              // ),
+                              // Expanded(
+                              //   child: Button(
+                              //     width: 120,
+                              //     text: "Coleta",
+                              //     onTap: () {},
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -282,97 +305,101 @@ class CadastrarOrdemServicoView extends StatelessWidget {
                                             child: Expanded(
                                               child: Column(
                                                 children: [
-                                                  Row(children: [
-                                                    Obx(() {
-                                                      return Padding(
-                                                        padding: const EdgeInsets.only(right: 10),
-                                                        child: Select(
-                                                            // hasValue: controller.moduloController.text == null ? false : true,
-                                                            // dropDownValue: controller.moduloController.text == null ? "Módulo" : controller.moduloController.text,
-                                                            // hasValue: controller.inputModuloValue.value == null ? false : true,
-                                                            dropDownValue: controller.inputModuloValue.value == null ? "Módulo" : controller.inputModuloValue.value,
-                                                            largura: 250,
-                                                            label: "",
-                                                            autoValidate: controller.dropdownAutoValidate.last,
-                                                            onChanged: (value) {
-                                                              controller.inputModuloValue.value = value!;
-                                                              controller.onSelectDropDownModulo(value);
-                                                            },
-                                                            hintText: "Módulo",
-                                                            dropDownItems: const [
-                                                              "Seg-100",
-                                                              "Seg-200",
-                                                              "IC-100",
-                                                              "IC-150",
-                                                              "IC-150B",
-                                                              "IC-150C",
-                                                            ]),
-                                                      );
-                                                    }),
-                                                    Obx((() => Padding(
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Row(children: [
+                                                      Obx(() {
+                                                        return Padding(
                                                           padding: const EdgeInsets.only(right: 10),
-                                                          child: controller.showModRastreador.value || controller.showModIC.value
-                                                              ? InputText(
-                                                                  validator: (value) {
-                                                                    if (value == null || value.isEmpty) {
-                                                                      return 'Obrigatório!';
-                                                                    }
-                                                                    // if (!value.isNumericOnly) {
-                                                                    //   return 'Inválido!';
-                                                                    // }
-                                                                    return null;
-                                                                  },
-                                                                  enabled: true,
-                                                                  label: 'Série',
-                                                                  width: 120,
-                                                                  controller: controller.serieController)
-                                                              : Container(),
-                                                        ))),
-                                                    Obx((() => Padding(
-                                                          padding: const EdgeInsets.only(right: 15),
+                                                          child: Select(
+                                                              // hasValue: controller.moduloController.text == null ? false : true,
+                                                              // dropDownValue: controller.moduloController.text == null ? "Módulo" : controller.moduloController.text,
+                                                              // hasValue: controller.inputModuloValue.value == null ? false : true,
+                                                              dropDownValue: controller.inputModuloValue.value == null ? "Módulo" : controller.inputModuloValue.value,
+                                                              largura: 250,
+                                                              label: "",
+                                                              autoValidate: controller.dropdownAutoValidate.last,
+                                                              onChanged: (value) {
+                                                                controller.inputModuloValue.value = value!;
+                                                                controller.onSelectDropDownModulo(value);
+                                                              },
+                                                              hintText: "Módulo",
+                                                              dropDownItems: const [
+                                                                "Seg-100",
+                                                                "Seg-200",
+                                                                "IC-100",
+                                                                "IC-150",
+                                                                "IC-150B",
+                                                                "IC-150C",
+                                                              ]),
+                                                        );
+                                                      }),
+                                                      Obx((() => Padding(
+                                                            padding: const EdgeInsets.only(right: 10),
+                                                            child: controller.showModRastreador.value || controller.showModIC.value
+                                                                ? InputText(
+                                                                    validator: (value) {
+                                                                      if (value == null || value.isEmpty) {
+                                                                        return 'Obrigatório!';
+                                                                      }
+                                                                      // if (!value.isNumericOnly) {
+                                                                      //   return 'Inválido!';
+                                                                      // }
+                                                                      return null;
+                                                                    },
+                                                                    enabled: true,
+                                                                    label: 'Série',
+                                                                    width: 120,
+                                                                    controller: controller.serieController)
+                                                                : Container(),
+                                                          ))),
+                                                      Obx((() => Padding(
+                                                            padding: const EdgeInsets.only(right: 15),
+                                                            child: controller.showModRastreador.value
+                                                                ? InputText(
+                                                                    validator: (value) {
+                                                                      if (value == null || value.isEmpty) {
+                                                                        return 'Obrigatório!';
+                                                                      }
+                                                                      if (!value.isNumericOnly) {
+                                                                        return 'Inválido!';
+                                                                      }
+                                                                      return null;
+                                                                    },
+                                                                    enabled: true,
+                                                                    label: 'Device ID',
+                                                                    width: 80,
+                                                                    controller: controller.device_idController)
+                                                                : Container(),
+                                                          ))),
+                                                      Obx((() => Padding(
+                                                          padding: const EdgeInsets.only(right: 10),
                                                           child: controller.showModRastreador.value
-                                                              ? InputText(
-                                                                  validator: (value) {
-                                                                    if (value == null || value.isEmpty) {
-                                                                      return 'Obrigatório!';
-                                                                    }
-                                                                    if (!value.isNumericOnly) {
-                                                                      return 'Inválido!';
-                                                                    }
-                                                                    return null;
+                                                              ? Select(
+                                                                  // hasValue: true,
+                                                                  dropDownValue: controller.inputOperadoraValue.value,
+                                                                  autoValidate: controller.dropdownAutoValidate.last,
+                                                                  largura: 180,
+                                                                  label: "",
+                                                                  onChanged: (value) {
+                                                                    controller.inputOperadoraValue.value = value!;
                                                                   },
-                                                                  enabled: true,
-                                                                  label: 'Device ID',
-                                                                  width: 80,
-                                                                  controller: controller.device_idController)
-                                                              : Container(),
-                                                        ))),
-                                                    Obx((() => Padding(
-                                                        padding: const EdgeInsets.only(right: 10),
-                                                        child: controller.showModRastreador.value
-                                                            ? Select(
-                                                                // hasValue: true,
-                                                                dropDownValue: controller.operadoraController.text,
-                                                                largura: 180,
-                                                                label: "",
-                                                                onChanged: (value) {
-                                                                  controller.operadoraController.text = value!;
-                                                                },
-                                                                hintText: "Operadora",
-                                                                dropDownItems: const [
-                                                                    "---",
-                                                                    "ALGAR",
-                                                                    "CTBC",
-                                                                    "CTBC Cerradão",
-                                                                    "CTBC Claro&TIM",
-                                                                    "IoT",
-                                                                    "IoT Cerradão",
-                                                                    "IoT Guaíra",
-                                                                    "TIM",
-                                                                    "VIVO",
-                                                                  ])
-                                                            : Container()))),
-                                                  ]),
+                                                                  hintText: "Operadora",
+                                                                  dropDownItems: const [
+                                                                      "---",
+                                                                      "ALGAR",
+                                                                      "CTBC",
+                                                                      "CTBC Cerradão",
+                                                                      "CTBC Claro&TIM",
+                                                                      "IoT",
+                                                                      "IoT Cerradão",
+                                                                      "IoT Guaíra",
+                                                                      "TIM",
+                                                                      "VIVO",
+                                                                    ])
+                                                              : Container()))),
+                                                    ]),
+                                                  ),
                                                   Padding(
                                                     padding: const EdgeInsets.only(top: 15),
                                                     child: Row(
@@ -573,10 +600,69 @@ class CadastrarOrdemServicoView extends StatelessWidget {
         onTap: () {
           controller.dropdownAutoValidate.add(AutovalidateMode.always);
           if (formKey.currentState!.validate()) {
-            controller.gravarDados(newData: true);
-            controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
-            controller.limparCampos();
-          } else {
+            showDialog(
+              context: Get.context!,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  // title: new Text("Alert Dialog titulo"),
+                  content: new Text("Deseja Solicitar Coleta Agora?"),
+                  actions: <Widget>[
+                    Button(
+                        onTap: () async {
+                          controller.dropdownAutoValidate.add(AutovalidateMode.always);
+                          controller.gravarDados(newData: true);
+
+                          controller.colorMensagem = 0XFF3c763d;
+                          controller.colorFundoMensagem = 0XFFDFF0D8;
+                          controller.dropdownAutoValidate.add(AutovalidateMode.disabled);
+                          controller.limparCampos();
+
+                          var p1 = "";
+
+                          await showDialog(
+                            context: Get.context!,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) => ColetaObjetosView(
+                              idDados: controller.idDados,
+                            ),
+                          );
+                          Get.back();
+                          var p2 = "";
+
+                          controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
+                        },
+                        width: 80,
+                        text: "Sim"),
+                    Button(
+                        onTap: () {
+                          controller.dropdownAutoValidate.add(AutovalidateMode.always);
+                          controller.gravarDados(newData: true);
+                          controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
+                          controller.colorMensagem = 0XFF3c763d;
+                          controller.colorFundoMensagem = 0XFFDFF0D8;
+                          controller.dropdownAutoValidate.add(AutovalidateMode.disabled);
+                          controller.limparCampos();
+                          Get.back();
+                        },
+                        width: 80,
+                        text: "Não"),
+                  ],
+                );
+              },
+            );
+          }
+
+          // controller.dropdownAutoValidate.add(AutovalidateMode.always);
+
+          // if (formKey.currentState!.validate()) {
+          //   controller.gravarDados(newData: true);
+          //   controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
+          //   controller.colorMensagem = 0XFF3c763d;
+          //   controller.colorFundoMensagem = 0XFFDFF0D8;
+          //   controller.dropdownAutoValidate.add(AutovalidateMode.disabled);
+          //   controller.limparCampos();
+          // }
+          else {
             controller.msgConfirmacao.value = "Os campos destacados são obrigatórios!";
             controller.showMsgConfirmacao.value = true;
             controller.colorMensagem = 0xFFB94A48;
@@ -595,6 +681,7 @@ class CadastrarOrdemServicoView extends StatelessWidget {
         width: 120,
         text: "Gravar",
         onTap: () {
+          controller.dropdownAutoValidate.add(AutovalidateMode.always);
           if (formKey.currentState!.validate()) {
             controller.gravarDados(newData: false);
             controller.msgConfirmacao.value = "O.S editada com sucesso!";

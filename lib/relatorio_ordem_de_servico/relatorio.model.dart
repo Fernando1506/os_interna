@@ -4,7 +4,6 @@ class MovimentosDadosModel {
   // String numeroOs; *** NAO TEM QUE TER ESSE CAMPO, O PROPRIO ID JA EH O NUMERO DA OS
   String idDados;
   String name;
-
   String data_cadastro;
   String modulo;
   String serie;
@@ -18,6 +17,11 @@ class MovimentosDadosModel {
   String problema_constatado;
   String obs_geral;
   String obs_tecnica;
+
+  // DADOS COLETA
+  // String data_solicitacao_coleta;
+  // String origem_coleta;
+  // String codigo_objeto;
 
   MovimentosDadosModel({
     // required this.numeroOs,
@@ -36,5 +40,10 @@ class MovimentosDadosModel {
     required this.problema_constatado,
     required this.obs_geral,
     required this.obs_tecnica,
+
+    // DADOS COLETA
+    // required this.data_solicitacao_coleta,
+    // required this.origem_coleta,
+    // required this.codigo_objeto,
   });
 }

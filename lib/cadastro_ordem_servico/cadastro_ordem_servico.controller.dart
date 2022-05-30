@@ -10,10 +10,11 @@ class CadastrarDadosController {
   RxString inputModuloValue = "".obs;
   TextEditingController serieController = TextEditingController();
   TextEditingController device_idController = TextEditingController();
-  TextEditingController operadoraController = TextEditingController();
+  // TextEditingController operadoraController = TextEditingController();
+  RxString inputOperadoraValue = "".obs;
   TextEditingController placaController = TextEditingController();
   TextEditingController os_referenciaController = TextEditingController();
-  TextEditingController estoqueController = TextEditingController();
+  // TextEditingController estoqueController = TextEditingController();
   RxString inputEstoqueValue = "".obs;
   TextEditingController statusController = TextEditingController();
   TextEditingController problema_informadoController = TextEditingController();
@@ -35,6 +36,8 @@ class CadastrarDadosController {
   final date = DateTime.now();
   final databaseReference = FirebaseDatabase.instance.reference();
 
+  get ColetaObjetosView => null;
+
   Future gravarDados({bool newData = true}) async {
     var dataJson = {
       "data_cadastro": dataCadastroController.text,
@@ -42,10 +45,10 @@ class CadastrarDadosController {
       "modulo": inputModuloValue.value, // select
       "serie": serieController.text,
       "device_id": device_idController.text,
-      "operadora": operadoraController, // select
+      "operadora": inputOperadoraValue.value, // select
       "placa": placaController,
       "os_referencia": os_referenciaController,
-      "estoque": estoqueController, // select
+      "estoque": inputEstoqueValue.value, // select
       "status": statusController.text, // select
       "problema_informado": problema_informadoController,
       "problema_constatado": problema_constatadoController,
@@ -67,10 +70,10 @@ class CadastrarDadosController {
       "modulo": inputModuloValue.value, // select
       "serie": serieController.text,
       "device_id": device_idController.text,
-      "operadora": operadoraController.text, // select
+      "operadora": inputOperadoraValue.value, // select
       "placa": placaController.text,
       "os_referencia": os_referenciaController.text,
-      "estoque": estoqueController.text, // select
+      "estoque": inputEstoqueValue.value, // select
       "status": statusController.text, // select
       "problema_informado": problema_informadoController.text,
       "problema_constatado": problema_constatadoController.text,
@@ -119,15 +122,17 @@ class CadastrarDadosController {
       inputModuloValue.value = response.value["modulo"];
       serieController.text = response.value["serie"];
       device_idController.text = response.value["device_id"].toString();
-      operadoraController.text = response.value["operadora"];
+      inputOperadoraValue.value = response.value["operadora"];
       placaController.text = response.value["placa"];
       os_referenciaController.text = response.value["os_referencia"];
-      estoqueController.text = response.value["estoque"];
+      inputEstoqueValue.value = response.value["estoque"];
       statusController.text = response.value["status"];
       problema_informadoController.text = response.value["problema_informado"];
       problema_constatadoController.text = response.value["problema_constatado"];
       obs_geralController.text = response.value["obs_geral"];
       obs_tecnicaController.text = response.value["obs_tecnica"];
+
+      onSelectDropDownModulo(inputModuloValue.value);
     } else {
       //**************************/
       //    GERAR ID DA NOVA OS
@@ -142,6 +147,8 @@ class CadastrarDadosController {
           newId = lastId + 1; //// O id final será o o id do ultimo registro + 1;
         });
       }
+
+      idDados = newId.toString();
       //**************************/
 
       numeroOs.text = newId.toString();
@@ -178,10 +185,10 @@ class CadastrarDadosController {
     inputModuloValue.value = "";
     serieController.clear();
     device_idController.clear();
-    operadoraController.clear();
+    inputOperadoraValue.value = "";
     placaController.clear();
     os_referenciaController.clear();
-    estoqueController.clear();
+    inputEstoqueValue.value = "";
     statusController.clear();
     problema_informadoController.clear();
     problema_constatadoController.clear();

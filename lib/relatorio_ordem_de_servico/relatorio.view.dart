@@ -1,6 +1,7 @@
 // import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:os_interna/coleta_objetos/coleta_objetos.view.dart';
 import 'package:os_interna/components/buttons.dart';
 import 'package:os_interna/relatorio_ordem_de_servico/relatorio.controller.dart';
 import 'package:os_interna/relatorio_usuarios/relatorio_usuario.view.dart';
@@ -41,9 +42,7 @@ class RelatorioView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(actions: [
         TextButton(
-          onPressed: () {
-            Get.offAll(LoginView());
-          },
+          onPressed: () {},
           child: const Text(
             'Sair',
             style: TextStyle(color: Colors.white),

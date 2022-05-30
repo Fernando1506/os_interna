@@ -3,8 +3,19 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:os_interna/components/buttons.dart';
 import 'package:os_interna/components/input_text.dart';
 
+import 'coleta_objetos.controller.dart';
+import 'coleta_objetos.controller.dart';
+
 class ColetaObjetosView extends StatelessWidget {
-  const ColetaObjetosView({super.key});
+  ColetaObjetosView({
+    super.key,
+    required this.idDados,
+  }) {
+    controllerCadastrarColeta = CadastrarColetaController(idDados: idDados);
+  }
+
+  late String idDados;
+  late CadastrarColetaController controllerCadastrarColeta;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +33,7 @@ class ColetaObjetosView extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: InputText(label: "Origem", width: 150, controller: TextEditingController(), enabled: true, validator: (value) {}),
+                  child: InputText(label: "Origem", width: 150, controller: controllerCadastrarColeta.origemColeta, enabled: true, validator: (value) {}),
                 ),
               ],
             ),
@@ -31,7 +42,7 @@ class ColetaObjetosView extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: InputText(label: "Data Solicitação", width: 150, controller: TextEditingController(), enabled: true, validator: (value) {}),
+                    child: InputText(label: "Data Solicitação", width: 150, controller: controllerCadastrarColeta.dataSolicitacaoColeta, enabled: true, validator: (value) {}),
                   ),
                 ],
               ),
@@ -41,7 +52,7 @@ class ColetaObjetosView extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: InputText(label: "Código do Objeto", width: 150, controller: TextEditingController(), enabled: true, validator: (value) {}),
+                    child: InputText(label: "Código do Objeto", width: 150, controller: controllerCadastrarColeta.codigoObjeto, enabled: true, validator: (value) {}),
                   )
                 ],
               ),
@@ -58,7 +69,9 @@ class ColetaObjetosView extends StatelessWidget {
                   child: Button(
                 width: 150,
                 text: "Solicitar",
-                onTap: () {},
+                onTap: () {
+                  controllerCadastrarColeta.gravarDados();
+                },
               ))
             ],
           ),
