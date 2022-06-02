@@ -615,7 +615,7 @@ class CadastrarOrdemServicoView extends StatelessWidget {
                           controller.colorMensagem = 0XFF3c763d;
                           controller.colorFundoMensagem = 0XFFDFF0D8;
                           controller.dropdownAutoValidate.add(AutovalidateMode.disabled);
-                          controller.limparCampos();
+                          // controller.limparCampos();
 
                           var p1 = "";
 
@@ -641,8 +641,8 @@ class CadastrarOrdemServicoView extends StatelessWidget {
                           controller.colorMensagem = 0XFF3c763d;
                           controller.colorFundoMensagem = 0XFFDFF0D8;
                           controller.dropdownAutoValidate.add(AutovalidateMode.disabled);
-                          controller.limparCampos();
                           Get.back();
+                          controller.limparCampos();
                         },
                         width: 80,
                         text: "Não"),

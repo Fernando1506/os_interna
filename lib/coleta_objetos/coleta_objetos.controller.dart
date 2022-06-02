@@ -6,6 +6,7 @@ class CadastrarColetaController {
   TextEditingController dataSolicitacaoColeta = TextEditingController();
   TextEditingController origemColeta = TextEditingController();
   TextEditingController codigoObjeto = TextEditingController();
+  TextEditingController statusController = TextEditingController();
 
   CadastrarColetaController({
     required this.idDados,
@@ -39,6 +40,7 @@ class CadastrarColetaController {
       "data_solicitacao_coleta": dataSolicitacaoColeta.text,
       "origem_coleta": origemColeta.text,
       "codigo_objeto": codigoObjeto.text,
+      "status": statusController.text = "Em Transito",
     };
 
     databaseReference.child(endPoint).child("-" + idDados).update(dataJson); //// Mudou de "set" para "Update"

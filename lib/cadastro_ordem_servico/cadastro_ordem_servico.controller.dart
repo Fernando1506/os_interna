@@ -16,7 +16,7 @@ class CadastrarDadosController {
   TextEditingController os_referenciaController = TextEditingController();
   // TextEditingController estoqueController = TextEditingController();
   RxString inputEstoqueValue = "".obs;
-  TextEditingController statusController = TextEditingController();
+  TextEditingController statusController = TextEditingController(text: "Solicitar Coleta");
   TextEditingController problema_informadoController = TextEditingController();
   TextEditingController problema_constatadoController = TextEditingController();
   TextEditingController obs_geralController = TextEditingController();

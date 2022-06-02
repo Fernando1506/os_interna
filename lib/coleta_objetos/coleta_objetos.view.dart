@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:os_interna/cadastro_ordem_servico/cadastro_ordem_servico.controller.dart';
 import 'package:os_interna/components/buttons.dart';
 import 'package:os_interna/components/input_text.dart';
 
@@ -16,6 +17,7 @@ class ColetaObjetosView extends StatelessWidget {
 
   late String idDados;
   late CadastrarColetaController controllerCadastrarColeta;
+  late CadastrarDadosController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +73,7 @@ class ColetaObjetosView extends StatelessWidget {
                 text: "Solicitar",
                 onTap: () {
                   controllerCadastrarColeta.gravarDados();
+                  controller.limparCampos();
                 },
               ))
             ],
