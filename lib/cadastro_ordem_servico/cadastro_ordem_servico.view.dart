@@ -597,72 +597,82 @@ class CadastrarOrdemServicoView extends StatelessWidget {
       return Button(
         width: 120,
         text: "Adicionar",
-        onTap: () {
+        onTap: () async {
+          controller.showMsgConfirmacao.value = false;
           controller.dropdownAutoValidate.add(AutovalidateMode.always);
           if (formKey.currentState!.validate()) {
-            showDialog(
+            //
+            //------------------------- VALIDACAO ARPOVADA -------------------------
+
+            await showDialog(
               context: Get.context!,
               builder: (BuildContext context) {
                 return AlertDialog(
                   // title: new Text("Alert Dialog titulo"),
                   content: new Text("Deseja Solicitar Coleta Agora?"),
                   actions: <Widget>[
+                    //
+                    //-------- SOLICITAR COLETA --------
                     Button(
-                        onTap: () async {
-                          controller.dropdownAutoValidate.add(AutovalidateMode.always);
-                          controller.gravarDados(newData: true);
+                      onTap: () async {
+                        // controller.limparCampos();
 
-                          controller.colorMensagem = 0XFF3c763d;
-                          controller.colorFundoMensagem = 0XFFDFF0D8;
-                          controller.dropdownAutoValidate.add(AutovalidateMode.disabled);
-                          // controller.limparCampos();
+                        var p1 = "";
 
-                          var p1 = "";
+                        await controller.gravarDados(newData: true);
 
-                          await showDialog(
-                            context: Get.context!,
-                            barrierDismissible: true,
-                            builder: (BuildContext context) => ColetaObjetosView(
-                              idDados: controller.idDados,
-                            ),
-                          );
-                          Get.back();
-                          var p2 = "";
+                        controller.dropdownAutoValidate.add(AutovalidateMode.disabled);
 
-                          controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
-                        },
-                        width: 80,
-                        text: "Sim"),
+                        bool coletaSolicitada = await showDialog(
+                          context: Get.context!,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) => ColetaObjetosView(
+                            idDados: controller.idDados,
+                          ),
+                        );
+
+                        controller.limparCampos();
+
+                        Get.back();
+                        var p2 = "";
+
+                        controller.showMsgConfirmacao.value = true;
+
+                        controller.colorMensagem = 0XFF3c763d;
+                        controller.colorFundoMensagem = 0XFFDFF0D8;
+
+                        if (coletaSolicitada) {
+                          controller.msgConfirmacao.value = "O.S adicionada com sucesso! Coleta solicitada";
+                        } else {
+                          controller.msgConfirmacao.value = "O.S adicionada com sucesso! A coleta nao foi solicitada";
+                        }
+                      },
+                      width: 80,
+                      text: "Sim",
+                    ),
+                    //
+                    //------- NAO SOLICITAR COLETA -------
                     Button(
-                        onTap: () {
-                          controller.dropdownAutoValidate.add(AutovalidateMode.always);
-                          controller.gravarDados(newData: true);
-                          controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
-                          controller.colorMensagem = 0XFF3c763d;
-                          controller.colorFundoMensagem = 0XFFDFF0D8;
-                          controller.dropdownAutoValidate.add(AutovalidateMode.disabled);
-                          Get.back();
-                          controller.limparCampos();
-                        },
-                        width: 80,
-                        text: "Não"),
+                      onTap: () {
+                        controller.gravarDados(newData: true);
+                        controller.dropdownAutoValidate.add(AutovalidateMode.disabled);
+                        controller.showMsgConfirmacao.value = true;
+                        controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
+                        controller.colorMensagem = 0XFF3c763d;
+                        controller.colorFundoMensagem = 0XFFDFF0D8;
+                        Get.back();
+                        controller.limparCampos();
+                      },
+                      width: 80,
+                      text: "Não",
+                    ),
                   ],
                 );
               },
             );
-          }
-
-          // controller.dropdownAutoValidate.add(AutovalidateMode.always);
-
-          // if (formKey.currentState!.validate()) {
-          //   controller.gravarDados(newData: true);
-          //   controller.msgConfirmacao.value = "O.S adicionada com sucesso!";
-          //   controller.colorMensagem = 0XFF3c763d;
-          //   controller.colorFundoMensagem = 0XFFDFF0D8;
-          //   controller.dropdownAutoValidate.add(AutovalidateMode.disabled);
-          //   controller.limparCampos();
-          // }
-          else {
+          } else {
+            //---------------------- VALIDACAO REPROVADA ----------------------
+            //
             controller.msgConfirmacao.value = "Os campos destacados são obrigatórios!";
             controller.showMsgConfirmacao.value = true;
             controller.colorMensagem = 0xFFB94A48;

@@ -57,7 +57,6 @@ class CadastrarDadosController {
     };
 
     firebaseInsertData(dataJson, "dados", newData);
-    showMsgConfirmacao.value = true;
   }
 
   Future firebaseInsertData(var dataJson, String endPoint, bool newData) async {

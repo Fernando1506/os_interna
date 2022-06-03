@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:os_interna/cadastro_ordem_servico/cadastro_ordem_servico.controller.dart';
 import 'package:os_interna/components/buttons.dart';
 import 'package:os_interna/components/input_text.dart';
@@ -74,6 +75,21 @@ class ColetaObjetosView extends StatelessWidget {
                 onTap: () {
                   controllerCadastrarColeta.gravarDados();
                   controller.limparCampos();
+                },
+              ))
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Expanded(
+                  child: Button(
+                width: 150,
+                text: "Cancelar",
+                onTap: () {
+                  Get.back(result: false);
                 },
               ))
             ],
