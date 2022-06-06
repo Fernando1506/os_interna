@@ -115,112 +115,125 @@ class RelatorioView extends StatelessWidget {
                             }
 
                             List<DataRow> linhas = [];
+                            List<DataRow> colunas = [];
 
                             //*************************************************************************/
                             //
                             //*************************************************************************/
 
+                            //-------------------- MONTAR LINHAS --------------------
+
                             for (MovimentosDadosModel item in controller.listaTabela) {
+                              //
+
+                              List<DataCell> cells = [];
+
+                              cells.add(DataCell(Text(item.idDados)));
+                              cells.add(DataCell(Text(item.data_cadastro)));
+                              cells.add(DataCell(Text(item.name)));
+                              cells.add(DataCell(Text(item.modulo)));
+                              cells.add(DataCell(Text(item.serie.toString())));
+                              cells.add(DataCell(Text(item.device_id.toString())));
+                              cells.add(DataCell(Text(item.status)));
+                              cells.add(
+                                DataCell(
+                                  GestureDetector(
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        // barrierDismissible: false,
+                                        builder: (BuildContext context) => CadastrarOrdemServicoView(
+                                          idDados: item.idDados,
+                                          atualizarRelatorio: controller.carregarRelatorio,
+                                        ),
+                                      );
+                                    },
+                                    child: Icon(Icons.edit),
+                                  ),
+                                ),
+                              );
+
                               linhas.add(
                                 DataRow(
-                                  cells: [
-                                    DataCell(Text(item.idDados)),
-                                    DataCell(Text(item.data_cadastro)),
-                                    DataCell(Text(item.name)),
-                                    DataCell(Text(item.modulo)),
-                                    DataCell(Text(item.serie.toString())),
-                                    DataCell(Text(item.device_id.toString())),
-                                    DataCell(Text(item.status)),
-                                    // DataCell(Text(item.obs_geral)),
-                                    DataCell(
-                                      GestureDetector(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            // barrierDismissible: false,
-                                            builder: (BuildContext context) => CadastrarOrdemServicoView(
-                                              idDados: item.idDados,
-                                              atualizarRelatorio: controller.carregarRelatorio,
-                                            ),
-                                          );
-                                        },
-                                        child: Icon(Icons.edit),
-                                      ),
-                                    ),
-                                  ],
+                                  cells: cells,
                                 ),
                               );
                             }
 
+                            //-------------------- MONTAR COLUNAS --------------------
+
+                            List<DataColumn> columns = [
+                              DataColumn(
+                                label: Text(
+                                  'Nº O.S',
+                                  style: TextStyle(
+                                      // fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Data',
+                                  style: TextStyle(
+                                      // fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Cliente',
+                                  style: TextStyle(
+                                      // fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Módulo',
+                                  style: TextStyle(
+                                      // fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Série',
+                                  style: TextStyle(
+                                      // fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Device ID',
+                                  style: TextStyle(
+                                      // fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Status',
+                                  style: TextStyle(
+                                      // fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Editar',
+                                  style: TextStyle(
+                                      // fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ];
+
+                            //------------------- MONTAR RELATORIO -------------------
                             return Container(
                               width: w * 100,
                               child: DataTable(
-                                columns: const <DataColumn>[
-                                  DataColumn(
-                                    label: Text(
-                                      'Nº O.S',
-                                      style: TextStyle(
-                                          // fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Data',
-                                      style: TextStyle(
-                                          // fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Cliente',
-                                      style: TextStyle(
-                                          // fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Módulo',
-                                      style: TextStyle(
-                                          // fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Série',
-                                      style: TextStyle(
-                                          // fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Device ID',
-                                      style: TextStyle(
-                                          // fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Status',
-                                      style: TextStyle(
-                                          // fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  DataColumn(
-                                    label: Text(
-                                      'Editar',
-                                      style: TextStyle(
-                                          // fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ],
+                                columns: columns,
                                 rows: linhas,
                               ),
                             );
