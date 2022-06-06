@@ -116,6 +116,10 @@ class RelatorioView extends StatelessWidget {
 
                             List<DataRow> linhas = [];
 
+                            //*************************************************************************/
+                            //
+                            //*************************************************************************/
+
                             for (MovimentosDadosModel item in controller.listaTabela) {
                               linhas.add(
                                 DataRow(
