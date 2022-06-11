@@ -8,7 +8,11 @@ class ReportItem {
 }
 
 class ReportTable extends StatelessWidget {
-  const ReportTable({Key? key}) : super(key: key);
+  List<ReportItem> baseList = [];
+
+  ReportTable({
+    required this.baseList,
+  });
 
   @override
   Widget build(BuildContext context) {
