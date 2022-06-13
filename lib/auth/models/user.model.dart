@@ -11,4 +11,5 @@ class User {
 enum UserRole {
   suporte,
   fiscalFinanceiro,
+  desenvolvedor,
 }

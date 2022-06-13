@@ -4,7 +4,7 @@ import 'auth/auth_session.dart';
 import 'auth/models/user.model.dart';
 
 class AppController {
-  late AuthSession authSession;
+  AuthSession authSession = AuthSession();
 
   User user = User(
     nome: "Fernando",

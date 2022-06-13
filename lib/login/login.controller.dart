@@ -1,8 +1,10 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:os_interna/app.controller.dart';
 
 import '../auth/models/user.model.dart';
+import '../relatorio_ordem_de_servico/relatorio.view.dart';
 
 class LoginController {
   //
@@ -41,12 +43,15 @@ class LoginController {
         role: await _determinarRole(userData["role"]),
       ),
     );
+    Get.off(RelatorioView());
     print("SUCESSO!!!!!!!!!!!!!!");
   }
 
+  //DETERMINAR ROLE DO USUARIO
   Future<UserRole> _determinarRole(String dbRole) async {
     if (dbRole == UserRole.fiscalFinanceiro) return UserRole.fiscalFinanceiro;
     if (dbRole == UserRole.suporte) return UserRole.suporte;
+    if (dbRole == UserRole.desenvolvedor) return UserRole.desenvolvedor;
 
     return UserRole.suporte;
   }
