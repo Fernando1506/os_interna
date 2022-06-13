@@ -9,6 +9,8 @@ import 'package:os_interna/relatorio_usuarios/relatorio_usuario.view.dart';
 import '../cadastro_ordem_servico/cadastro_ordem_servico.view.dart';
 import '../login/login.view.dart';
 import 'relatorio.model.dart';
+import 'widgets/report_table/report_table.controller.dart';
+import 'widgets/report_table/report_table.widget.dart';
 
 class RelatorioView extends StatelessWidget {
   RelatorioController controller = RelatorioController();
@@ -104,7 +106,7 @@ class RelatorioView extends StatelessWidget {
                           //
 
                           return Obx(() {
-                            RxList listaTabela = controller.listaTabela;
+                            ReportSource reportSource = controller.reportSource.last;
 
                             if (controller.listaTabela.isEmpty) {
                               return Container(
@@ -114,143 +116,10 @@ class RelatorioView extends StatelessWidget {
                               );
                             }
 
-                            List<DataRow> linhas = [];
-                            List<DataRow> colunas = [];
-
-                            //*************************************************************************/
-                            //
-                            //*************************************************************************/
-
-                            //-------------------- MONTAR LINHAS --------------------
-
-                            for (MovimentosDadosModel item in controller.listaTabela) {
-                              //
-
-                              List<DataCell> cells = [];
-
-                              cells.add(DataCell(Text(item.idDados)));
-                              cells.add(DataCell(Text(item.data_cadastro)));
-                              cells.add(DataCell(Text(item.name)));
-                              cells.add(DataCell(Text(item.modulo)));
-                              cells.add(DataCell(Text(item.serie.toString())));
-                              cells.add(DataCell(Text(item.device_id.toString())));
-                              cells.add(DataCell(Text(item.status)));
-                              cells.add(
-                                DataCell(
-                                  GestureDetector(
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        // barrierDismissible: false,
-                                        builder: (BuildContext context) => CadastrarOrdemServicoView(
-                                          idDados: item.idDados,
-                                          atualizarRelatorio: controller.carregarRelatorio,
-                                        ),
-                                      );
-                                    },
-                                    child: Icon(Icons.edit),
-                                  ),
-                                ),
-                              );
-
-                              linhas.add(
-                                DataRow(
-                                  cells: cells,
-                                ),
-                              );
-                            }
-
-                            //-------------------- MONTAR COLUNAS --------------------
-
-                            List<DataColumn> columns = [
-                              DataColumn(
-                                label: Text(
-                                  'Nº O.S',
-                                  style: TextStyle(
-                                      // fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Data',
-                                  style: TextStyle(
-                                      // fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Cliente',
-                                  style: TextStyle(
-                                      // fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Módulo',
-                                  style: TextStyle(
-                                      // fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Série',
-                                  style: TextStyle(
-                                      // fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Device ID',
-                                  style: TextStyle(
-                                      // fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Status',
-                                  style: TextStyle(
-                                      // fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Editar',
-                                  style: TextStyle(
-                                      // fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ];
-
-                            //------------------- MONTAR RELATORIO -------------------
-                            return Container(
-                              width: w * 100,
-                              child: DataTable(
-                                columns: columns,
-                                rows: linhas,
-                              ),
+                            return ReportTable(
+                              source: reportSource,
                             );
                           });
-
-                          // return Container(
-                          //   child: ListView.builder(
-                          //     itemCount: controller.listaTabela.length,
-                          //     itemBuilder: (context, index) {
-                          //       return Container(
-                          //         child: Text(
-                          //           controller.listaTabela[index].name,
-                          //         ),
-                          //       );
-                          //     },
-                          //   ),
-                          // );
                         } else {
                           return const CircularProgressIndicator(
                             backgroundColor: Colors.blue,
