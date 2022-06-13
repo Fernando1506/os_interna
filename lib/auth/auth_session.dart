@@ -3,15 +3,12 @@
 import 'models/user.model.dart';
 
 class AuthSession {
-  User user = User(
-    nome: "Fernando",
-    role: UserRole.suporte,
-  );
+  late User user;
 
   //------------------------ AUTENTICAR USUARIO ------------------------
 
   Future autenticarUsuario(User userData) async {
-    //
+    user = userData;
   }
 
   Future determinarRole() async {

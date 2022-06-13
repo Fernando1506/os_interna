@@ -15,28 +15,6 @@ import 'widgets/report_table/report_table.widget.dart';
 class RelatorioView extends StatelessWidget {
   RelatorioController controller = RelatorioController();
 
-  // // final controllerCadastrarDados = CadastrarDadosController(idDados: );
-
-  // Widget montarBotaoDoMenu() {
-  //   var teste = 1;
-
-  //   if (AppController().user.role == "suporte") {
-  //     return ListTile(
-  //       title: const Text('Cadastro usuario'),
-  //       onTap: () {
-  //         Navigator.of(Get.context!).pop();
-  //         showDialog(
-  //           context: Get.context!,
-  //           barrierDismissible: false,
-  //           builder: (BuildContext context) => CadastrarUsuarioView(),
-  //         );
-  //       },
-  //     );
-  //   } else {
-  //     return Container();
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height / 100;

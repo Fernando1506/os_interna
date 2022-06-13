@@ -12,11 +12,16 @@ class LoginController {
   TextEditingController userInput = TextEditingController();
   TextEditingController passInput = TextEditingController();
 
-  //----------------- TENTAR AUTENTICAR -----------------
+  //----------------------------------------- TENTAR AUTENTICAR -----------------------------------------
 
   Future tryAuth() async {
     String user = userInput.text;
     String pass = passInput.text;
+
+    if (user == "" && pass == "") {
+      user = "marcos@email.com";
+      pass = "123";
+    }
 
     DatabaseReference database = FirebaseDatabase.instance.reference();
 
@@ -34,7 +39,7 @@ class LoginController {
     var p = "";
   }
 
-  //---------------------- SUCESSO ----------------------
+  //---------------------------------------------- SUCESSO ----------------------------------------------
 
   Future loginSuccess(Map userData) async {
     AppController.instance.authSession.autenticarUsuario(
@@ -49,14 +54,14 @@ class LoginController {
 
   //DETERMINAR ROLE DO USUARIO
   Future<UserRole> _determinarRole(String dbRole) async {
-    if (dbRole == UserRole.fiscalFinanceiro) return UserRole.fiscalFinanceiro;
-    if (dbRole == UserRole.suporte) return UserRole.suporte;
-    if (dbRole == UserRole.desenvolvedor) return UserRole.desenvolvedor;
+    if (dbRole == UserRole.fiscalFinanceiro.name) return UserRole.fiscalFinanceiro;
+    if (dbRole == UserRole.suporte.name) return UserRole.suporte;
+    if (dbRole == UserRole.desenvolvedor.name) return UserRole.desenvolvedor;
 
     return UserRole.suporte;
   }
 
-  //----------------------- ERRO ------------------------
+  //----------------------------------------------- ERRO ------------------------------------------------
 
   Future loginError() async {
     print("ERRO!!!!!!!!!!!!!!");

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:os_interna/app.controller.dart';
 
+import '../auth/models/user.model.dart';
 import 'relatorio.model.dart';
 
 class MountReportElements {
@@ -13,10 +15,14 @@ class MountReportElements {
 
   defineElements() {
     //
-    //========== BOTAO SOLICITAR COLETA ==========
+    UserRole userRole = AppController.instance.authSession.user.role;
+
+    //----------------- BOTAO SOLICITAR COLETA -----------------
+
     elements.add(
       ReportElement(
         insertElementInRow: (DataRow row, MovimentosDadosModel rowData) async {
+          if (userRole != UserRole.suporte) return row;
           row.cells.add(
             DataCell(
               Container(
@@ -27,6 +33,7 @@ class MountReportElements {
           return row;
         },
         insertElementInColumns: (List<DataColumn> columns) async {
+          if (userRole != UserRole.suporte) return columns;
           columns.add(
             DataColumn(
               label: Text(""),
@@ -36,6 +43,8 @@ class MountReportElements {
         },
       ),
     );
+
+    //----------------- BOTAO VALIDAR RECEBIMENTO -----------------
   }
 
   //============================================= RODAR MONTAGEM DE ELEMENTOS NA LINHA =============================================
