@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: RelatorioView(),
-      home: RelatorioView(),
+      home: LoginView(),
     );
   }
 }

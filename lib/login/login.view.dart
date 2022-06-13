@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:os_interna/login/login.controller.dart';
 import '../page/homepage.view.dart';
 import '../relatorio_ordem_de_servico/relatorio.view.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({Key? key}) : super(key: key);
+  LoginView({Key? key}) : super(key: key);
+
+  LoginController controller = LoginController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,8 @@ class LoginView extends StatelessWidget {
                 height: 30,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.off(RelatorioView());
+                    controller.tryAuth();
+                    // Get.off(RelatorioView());
                   },
                   child: Text('Login'),
                 ),
