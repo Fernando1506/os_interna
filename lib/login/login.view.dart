@@ -43,8 +43,9 @@ class LoginView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 35),
-              const TextField(
+              TextField(
                 autofocus: true,
+                controller: controller.userInput,
                 decoration: InputDecoration(
                   hintText: 'Usuário',
                   hintStyle: TextStyle(color: Colors.grey),
@@ -52,9 +53,10 @@ class LoginView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 35),
-              const TextField(
+              TextField(
                 autofocus: true,
                 obscureText: true,
+                controller: controller.passInput,
                 decoration: InputDecoration(
                   hintText: 'Senha',
                   hintStyle: TextStyle(color: Colors.grey),
