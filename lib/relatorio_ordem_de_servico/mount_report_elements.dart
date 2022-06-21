@@ -17,9 +17,8 @@ class MountReportElements {
     //
     UserRole userRole = AppController.instance.authSession.user.role;
 
-    //----------------- BOTAO SOLICITAR COLETA -----------------
-
     elements.add(
+      //----------------- BOTAO SOLICITAR COLETA -----------------
       ReportElement(
         insertElementInRow: (DataRow row, MovimentosDadosModel rowData) async {
           if (userRole != UserRole.suporte) return row;
@@ -42,9 +41,9 @@ class MountReportElements {
           return columns;
         },
       ),
+      //
+      //----------------- BOTAO VALIDAR RECEBIMENTO -----------------
     );
-
-    //----------------- BOTAO VALIDAR RECEBIMENTO -----------------
   }
 
   //============================================= RODAR MONTAGEM DE ELEMENTOS NA LINHA =============================================
@@ -78,4 +77,34 @@ class ReportElement {
     required this.insertElementInRow,
     required this.insertElementInColumns,
   });
+}
+
+//===================== V2 =====================
+//==============================================
+
+class ReportElementV2 {
+  //
+  // Future<DataRow> Function(DataRow row, MovimentosDadosModel rowData) insertElementInRow;
+  // Future<List<DataColumn>> Function(List<DataColumn> columns) insertElementInColumns;
+
+  //--------
+
+  Future insertElementInRow(DataRow row, MovimentosDadosModel rowData) async {
+    //
+  }
+
+  Future insertElementInColumns(List<DataColumn> columns) async {
+    //
+  }
+
+  Future Function() displayCondition;
+
+  ReportElementV2({
+    required this.displayCondition,
+  });
+
+  // ReportElementV2({
+  //   required this.insertElementInRow,
+  //   required this.insertElementInColumns,
+  // });
 }
