@@ -90,14 +90,18 @@ class ReportElementV2 {
   //--------
 
   Future insertElementInRow(DataRow row, MovimentosDadosModel rowData) async {
-    //
+    if (await displayCondition()) {
+      //se a condicao for aprovada
+    }
   }
 
   Future insertElementInColumns(List<DataColumn> columns) async {
-    //
+    if (await displayCondition()) {
+      //se a condicao for aprovada
+    }
   }
 
-  Future Function() displayCondition;
+  Future<bool> Function() displayCondition;
 
   ReportElementV2({
     required this.displayCondition,
@@ -108,3 +112,14 @@ class ReportElementV2 {
   //   required this.insertElementInColumns,
   // });
 }
+
+// class TesteReportElementV2 {
+//   var teste = ReportElementV2(
+//     displayCondition: (){  if (userRole != UserRole.suporte) a{
+//       return true;
+//     }else{
+//       return false;
+//     },
+//     },
+//   );
+// }
