@@ -92,12 +92,16 @@ class ReportElementV2 {
   Future insertElementInRow(DataRow row, MovimentosDadosModel rowData) async {
     if (await displayCondition()) {
       //se a condicao for aprovada
+    } else {
+      return row;
     }
   }
 
   Future insertElementInColumns(List<DataColumn> columns) async {
     if (await displayCondition()) {
       //se a condicao for aprovada
+    } else {
+      return columns;
     }
   }
 
