@@ -20,6 +20,9 @@ class MountReportElements {
     //----------------- BOTAO SOLICITAR COLETA -----------------
     elements.add(
       ReportElement(
+        rowWidget: Container(
+          child: Text("TESTANDO!!!"),
+        ),
         displayCondition: () async {
           if (userRole != UserRole.suporte) {
             return true;
@@ -105,6 +108,12 @@ class ReportElement {
   Future insertElementInRow(DataRow row, MovimentosDadosModel rowData) async {
     if (await displayCondition()) {
       //se a condicao for aprovada
+      row.cells.add(
+        DataCell(
+          rowWidget,
+        ),
+      );
+      return row;
     } else {
       return row;
     }
@@ -113,6 +122,11 @@ class ReportElement {
   Future insertElementInColumns(List<DataColumn> columns) async {
     if (await displayCondition()) {
       //se a condicao for aprovada
+      columns.add(
+        DataColumn(
+          label: columnWidget!,
+        ),
+      );
     } else {
       return columns;
     }
@@ -131,23 +145,18 @@ class ReportElement {
   }) {
     if (columnWidget == null) columnWidget = Container();
   }
-
-  // ReportElementV2({
-  //   required this.insertElementInRow,
-  //   required this.insertElementInColumns,
-  // });
 }
 
-class TesteReportElementV2 {
-  UserRole userRole = UserRole.desenvolvedor;
-  var teste = ReportElement(
-    rowWidget: Container(),
-    displayCondition: () async {
-      if (userRole != UserRole.suporte) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  );
-}
+// class TesteReportElementV2 {
+//   UserRole userRole = UserRole.desenvolvedor;
+//   var teste = ReportElement(
+//     rowWidget: Container(),
+//     displayCondition: () async {
+//       if (userRole != UserRole.suporte) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     },
+//   );
+// }
