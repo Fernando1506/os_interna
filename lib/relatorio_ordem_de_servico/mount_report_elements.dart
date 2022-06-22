@@ -17,30 +17,39 @@ class MountReportElements {
     //
     UserRole userRole = AppController.instance.authSession.user.role;
 
+    //----------------- BOTAO SOLICITAR COLETA -----------------
     elements.add(
-      //----------------- BOTAO SOLICITAR COLETA -----------------
       ReportElement(
-        insertElementInRow: (DataRow row, MovimentosDadosModel rowData) async {
-          if (userRole != UserRole.suporte) return row;
-          row.cells.add(
-            DataCell(
-              Container(
-                child: Text("TESTANDO!!!"),
-              ),
-            ),
-          );
-          return row;
-        },
-        insertElementInColumns: (List<DataColumn> columns) async {
-          if (userRole != UserRole.suporte) return columns;
-          columns.add(
-            DataColumn(
-              label: Text(""),
-            ),
-          );
-          return columns;
+        displayCondition: () async {
+          if (userRole != UserRole.suporte) {
+            return true;
+          } else {
+            return false;
+          }
         },
       ),
+      // ReportElement(
+      //   insertElementInRow: (DataRow row, MovimentosDadosModel rowData) async {
+      //     if (userRole != UserRole.suporte) return row;
+      //     row.cells.add(
+      //       DataCell(
+      //         Container(
+      //           child: Text("TESTANDO!!!"),
+      //         ),
+      //       ),
+      //     );
+      //     return row;
+      //   },
+      //   insertElementInColumns: (List<DataColumn> columns) async {
+      //     if (userRole != UserRole.suporte) return columns;
+      //     columns.add(
+      //       DataColumn(
+      //         label: Text(""),
+      //       ),
+      //     );
+      //     return columns;
+      //   },
+      // ),
       //
       //----------------- BOTAO VALIDAR RECEBIMENTO -----------------
     );
@@ -68,24 +77,28 @@ class MountReportElements {
 }
 
 //MODEL
-class ReportElement {
-  //
-  Future<DataRow> Function(DataRow row, MovimentosDadosModel rowData) insertElementInRow;
-  Future<List<DataColumn>> Function(List<DataColumn> columns) insertElementInColumns;
+// class ReportElement {
+//   //
+//   Future<DataRow> Function(DataRow row, MovimentosDadosModel rowData) insertElementInRow;
+//   Future<List<DataColumn>> Function(List<DataColumn> columns) insertElementInColumns;
 
-  ReportElement({
-    required this.insertElementInRow,
-    required this.insertElementInColumns,
-  });
-}
+//   ReportElement({
+//     required this.insertElementInRow,
+//     required this.insertElementInColumns,
+//   });
+// }
 
 //===================== V2 =====================
 //==============================================
 
-class ReportElementV2 {
+class ReportElement {
   //
   // Future<DataRow> Function(DataRow row, MovimentosDadosModel rowData) insertElementInRow;
   // Future<List<DataColumn>> Function(List<DataColumn> columns) insertElementInColumns;
+
+  final Widget rowWidget;
+
+  Widget? columnWidget;
 
   //--------
 
@@ -107,9 +120,17 @@ class ReportElementV2 {
 
   Future<bool> Function() displayCondition;
 
-  ReportElementV2({
+  Widget teste2() {
+    return Container();
+  }
+
+  ReportElement({
     required this.displayCondition,
-  });
+    required this.rowWidget,
+    this.columnWidget,
+  }) {
+    if (columnWidget == null) columnWidget = Container();
+  }
 
   // ReportElementV2({
   //   required this.insertElementInRow,
@@ -118,7 +139,9 @@ class ReportElementV2 {
 }
 
 class TesteReportElementV2 {
-  var teste = ReportElementV2(
+  UserRole userRole = UserRole.desenvolvedor;
+  var teste = ReportElement(
+    rowWidget: Container(),
     displayCondition: () async {
       if (userRole != UserRole.suporte) {
         return true;
