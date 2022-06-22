@@ -42,7 +42,9 @@ class RelatorioView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(actions: [
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.offAll(LoginView());
+          },
           child: const Text(
             'Sair',
             style: TextStyle(color: Colors.white),
