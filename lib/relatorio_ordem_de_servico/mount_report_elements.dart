@@ -117,13 +117,14 @@ class ReportElementV2 {
   // });
 }
 
-// class TesteReportElementV2 {
-//   var teste = ReportElementV2(
-//     displayCondition: (){  if (userRole != UserRole.suporte) a{
-//       return true;
-//     }else{
-//       return false;
-//     },
-//     },
-//   );
-// }
+class TesteReportElementV2 {
+  var teste = ReportElementV2(
+    displayCondition: () async {
+      if (userRole != UserRole.suporte) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  );
+}
