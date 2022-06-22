@@ -31,31 +31,9 @@ class MountReportElements {
           }
         },
       ),
-      // ReportElement(
-      //   insertElementInRow: (DataRow row, MovimentosDadosModel rowData) async {
-      //     if (userRole != UserRole.suporte) return row;
-      //     row.cells.add(
-      //       DataCell(
-      //         Container(
-      //           child: Text("TESTANDO!!!"),
-      //         ),
-      //       ),
-      //     );
-      //     return row;
-      //   },
-      //   insertElementInColumns: (List<DataColumn> columns) async {
-      //     if (userRole != UserRole.suporte) return columns;
-      //     columns.add(
-      //       DataColumn(
-      //         label: Text(""),
-      //       ),
-      //     );
-      //     return columns;
-      //   },
-      // ),
-      //
-      //----------------- BOTAO VALIDAR RECEBIMENTO -----------------
     );
+
+    //----------------- BOTAO VALIDAR RECEBIMENTO -----------------
   }
 
   //============================================= RODAR MONTAGEM DE ELEMENTOS NA LINHA =============================================
@@ -65,6 +43,7 @@ class MountReportElements {
     for (ReportElement element in elements) {
       finalRow = await element.insertElementInRow(finalRow, rowData);
     }
+    var p = "";
     return finalRow;
   }
 
@@ -75,35 +54,18 @@ class MountReportElements {
     for (ReportElement element in elements) {
       columns = await element.insertElementInColumns(columns);
     }
+    var p = "";
     return finalColumns;
   }
 }
 
-//MODEL
-// class ReportElement {
-//   //
-//   Future<DataRow> Function(DataRow row, MovimentosDadosModel rowData) insertElementInRow;
-//   Future<List<DataColumn>> Function(List<DataColumn> columns) insertElementInColumns;
-
-//   ReportElement({
-//     required this.insertElementInRow,
-//     required this.insertElementInColumns,
-//   });
-// }
-
-//===================== V2 =====================
-//==============================================
-
 class ReportElement {
   //
-  // Future<DataRow> Function(DataRow row, MovimentosDadosModel rowData) insertElementInRow;
-  // Future<List<DataColumn>> Function(List<DataColumn> columns) insertElementInColumns;
-
   final Widget rowWidget;
 
   Widget? columnWidget;
 
-  //--------
+  //-------------- INSERIR ELEMENTO NA LINHA --------------
 
   Future insertElementInRow(DataRow row, MovimentosDadosModel rowData) async {
     if (await displayCondition()) {
@@ -119,6 +81,8 @@ class ReportElement {
     }
   }
 
+  //-------- INSERIR ELEMENTO NAS COLUNAS DO HEADER --------
+
   Future insertElementInColumns(List<DataColumn> columns) async {
     if (await displayCondition()) {
       //se a condicao for aprovada
@@ -127,16 +91,13 @@ class ReportElement {
           label: columnWidget!,
         ),
       );
+      return columns;
     } else {
       return columns;
     }
   }
 
   Future<bool> Function() displayCondition;
-
-  Widget teste2() {
-    return Container();
-  }
 
   ReportElement({
     required this.displayCondition,

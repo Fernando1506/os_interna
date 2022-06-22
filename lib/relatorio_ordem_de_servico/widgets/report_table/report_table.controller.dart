@@ -9,19 +9,19 @@ class ReportSource {
   });
 }
 
-class ReportTableController {
-  //
+// class ReportTableController {
+//   //
 
-  Future initialize() async {
-    await mountRows();
-    await mountColumns();
-  }
+//   Future initialize() async {
+//     await mountRows();
+//     await mountColumns();
+//   }
 
-  Future mountRows() async {
-    //
-  }
+//   Future mountRows() async {
+//     //
+//   }
 
-  Future mountColumns() async {
-    //
-  }
-}
+//   Future mountColumns() async {
+//     //
+//   }
+// }
