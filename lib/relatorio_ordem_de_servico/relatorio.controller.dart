@@ -36,7 +36,10 @@ class RelatorioController {
     List<DataColumn> colunas = await montarColunasDoRelatorio();
 
     reportSource.add(
-      ReportSource(rows: linhas, columns: colunas),
+      ReportSource(
+        rows: linhas,
+        columns: colunas,
+      ),
     );
 
     return true;

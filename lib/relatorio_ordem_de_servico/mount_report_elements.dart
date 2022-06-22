@@ -14,10 +14,10 @@ class MountReportElements {
   //====================================================== DEFINIR ELEMENTOS ======================================================
 
   defineElements() {
-    //
+    // //
     UserRole userRole = AppController.instance.authSession.user.role;
 
-    //----------------- BOTAO SOLICITAR COLETA -----------------
+    // //----------------- BOTAO SOLICITAR COLETA -----------------
     elements.add(
       ReportElement(
         rowWidget: Container(
@@ -33,7 +33,22 @@ class MountReportElements {
       ),
     );
 
-    //----------------- BOTAO VALIDAR RECEBIMENTO -----------------
+    // //----------------- BOTAO VALIDAR RECEBIMENTO -----------------
+
+    // elements.add(
+    //   ReportElement(
+    //     rowWidget: Container(
+    //       child: Text("TESTANDO2!!!"),
+    //     ),
+    //     displayCondition: () async {
+    //       if (userRole != UserRole.suporte) {
+    //         return true;
+    //       } else {
+    //         return false;
+    //       }
+    //     },
+    //   ),
+    // );
   }
 
   //============================================= RODAR MONTAGEM DE ELEMENTOS NA LINHA =============================================
