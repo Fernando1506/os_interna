@@ -5,6 +5,7 @@ import 'package:os_interna/app.controller.dart';
 
 import '../auth/models/user.model.dart';
 import '../cadastro_ordem_servico/cadastro_ordem_servico.view.dart';
+import '../core/components/report_table/report_table.component.dart';
 import 'mount_report_elements.dart';
 import 'relatorio.model.dart';
 import 'widgets/report_table/report_table.controller.dart';
@@ -64,6 +65,8 @@ class RelatorioOSController {
 
     List<MovimentosDadosModel> returnList = [];
 
+    List<ReportRowDefinition> reportSourceRows = [];
+
     if (response.value != null) {
       response.value.forEach((key, values) {
         bool addItem = false;
@@ -85,7 +88,21 @@ class RelatorioOSController {
         //   }
         // }
 
+        ///Experimento nova abordagem.
         if (addItem == true) {
+          reportSourceRows.add(
+            ReportRowDefinition(
+              values: [
+                ReportSourceValue(key: "id_dados", value: values["id_dados"].toString()),
+                ReportSourceValue(key: "id_dados", value: values["id_dados"].toString()),
+                ReportSourceValue(key: "id_dados", value: values["id_dados"].toString()),
+                ReportSourceValue(key: "id_dados", value: values["id_dados"].toString()),
+                ReportSourceValue(key: "id_dados", value: values["id_dados"].toString()),
+              ],
+            ),
+          );
+
+          //
           returnList.add(
             MovimentosDadosModel(
               // numeroOs: values["numeroOs"],
