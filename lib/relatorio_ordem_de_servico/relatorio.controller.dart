@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:os_interna/app.controller.dart';
 
+import '../auth/models/user.model.dart';
 import '../cadastro_ordem_servico/cadastro_ordem_servico.view.dart';
 import 'mount_report_elements.dart';
 import 'relatorio.model.dart';
@@ -50,32 +51,61 @@ class RelatorioController {
   Future<List<MovimentosDadosModel>> carregarDados() async {
     DatabaseReference database = FirebaseDatabase.instance.reference();
 
-    final response = await database.child("dados").once();
+    UserRole userRole = AppController.instance.authSession.user.role;
+
+    Query query = await database.child("dados");
+
+    // //----- SE FOR SUPORTE -----
+    // if (userRole == UserRole.suporte) {
+    //   query = query.orderByChild('status').equalTo('Solicitar Coleta');
+    // }
+
+    final response = await query.once();
 
     List<MovimentosDadosModel> returnList = [];
 
     if (response.value != null) {
       response.value.forEach((key, values) {
-        returnList.add(
-          MovimentosDadosModel(
-            // numeroOs: values["numeroOs"],
-            idDados: values["id_dados"].toString(),
-            data_cadastro: values["data_cadastro"].toString(),
-            name: values["nome"],
-            modulo: values["modulo"],
-            serie: values["serie"],
-            device_id: int.parse(values["device_id"]),
-            operadora: values["operadora"],
-            placa: values["placa"],
-            os_referencia: values["os_referencia"],
-            estoque: values["estoque"],
-            status: values["status"],
-            problema_informado: values["problema_informado"],
-            problema_constatado: values["problema_constatado"],
-            obs_geral: values["obs_geral"],
-            obs_tecnica: values["obs_tecnica"],
-          ),
-        );
+        bool addItem = false;
+
+        //-------- SE FOR SUPORTE --------
+        if (userRole == UserRole.suporte) {
+          if (values["status"] == 'Solicitar Coleta') {
+            addItem = true;
+          } else if (values["status"] == 'Em Transito') {
+            addItem = true;
+          }
+        }
+
+        //--- SE FOR FINANCEIRO/FISCAL ---
+        if (userRole == UserRole.fiscalFinanceiro) {
+          if (values["status"] == 'Em Transito') {
+            addItem = true;
+          }
+        }
+
+        if (addItem == true) {
+          returnList.add(
+            MovimentosDadosModel(
+              // numeroOs: values["numeroOs"],
+              idDados: values["id_dados"].toString(),
+              data_cadastro: values["data_cadastro"].toString(),
+              name: values["nome"],
+              modulo: values["modulo"],
+              serie: values["serie"],
+              device_id: int.parse(values["device_id"]),
+              operadora: values["operadora"],
+              placa: values["placa"],
+              os_referencia: values["os_referencia"],
+              estoque: values["estoque"],
+              status: values["status"],
+              problema_informado: values["problema_informado"],
+              problema_constatado: values["problema_constatado"],
+              obs_geral: values["obs_geral"],
+              obs_tecnica: values["obs_tecnica"],
+            ),
+          );
+        }
       });
       var p = "";
     } else {

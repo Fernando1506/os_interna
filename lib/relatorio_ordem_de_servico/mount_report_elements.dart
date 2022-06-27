@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:os_interna/app.controller.dart';
 
 import '../auth/models/user.model.dart';
+import '../components/buttons.dart';
 import 'relatorio.model.dart';
 
 class MountReportElements {
@@ -18,13 +19,39 @@ class MountReportElements {
     UserRole userRole = AppController.instance.authSession.user.role;
 
     // //----------------- BOTAO SOLICITAR COLETA -----------------
+
     elements.add(
       ReportElement(
-        rowWidget: Container(
-          child: Text("TESTANDO!!!"),
-        ),
+        rowWidget: Button(width: 160, text: "Solicitar coleta", onTap: () {}),
         displayCondition: () async {
-          if (userRole != UserRole.suporte) {
+          if (userRole == UserRole.suporte) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      ),
+    );
+    // //----------------- BOTAO VALIDAR RECEBIMENTO -----------------
+    elements.add(
+      ReportElement(
+        rowWidget: Button(width: 160, text: "Validar recebimento", onTap: () {}),
+        displayCondition: () async {
+          if (userRole == UserRole.suporte || userRole == UserRole.fiscalFinanceiro) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      ),
+    );
+
+    // //----------------- LIBERAR PARA MANUTENÇÃO -----------------
+    elements.add(
+      ReportElement(
+        rowWidget: Button(width: 190, text: "Liberar para manutenção", onTap: () {}),
+        displayCondition: () async {
+          if (userRole == UserRole.fiscalFinanceiro) {
             return true;
           } else {
             return false;

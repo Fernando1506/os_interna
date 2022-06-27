@@ -19,13 +19,18 @@ class LoginController {
     String pass = passInput.text;
 
     if (user == "" && pass == "") {
-      user = "marcos@email.com";
+      // user = "suporte@email.com";
+      user = "financeiro@email.com";
+
       pass = "123";
     }
 
     DatabaseReference database = FirebaseDatabase.instance.reference();
 
-    Query query = database.child("/usuarios").orderByChild("usuario_id").endAt(1);
+    // Query query = database.child("/usuarios").orderByChild("usuario_id").endAt(1);
+
+    Query query = database.child("/usuarios").orderByChild("email").equalTo(user);
+
     DataSnapshot response = await query.once();
 
     Map userData = response.value.values.first;
