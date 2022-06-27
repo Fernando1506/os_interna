@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:os_interna/coleta_objetos/coleta_objetos.view.dart';
 import 'package:os_interna/components/buttons.dart';
-import 'package:os_interna/relatorio_ordem_de_servico/relatorio.controller.dart';
+import 'package:os_interna/relatorio_ordem_de_servico/relatorio_os.controller.dart';
 import 'package:os_interna/relatorio_usuarios/relatorio_usuario.view.dart';
 
 import '../cadastro_ordem_servico/cadastro_ordem_servico.view.dart';
