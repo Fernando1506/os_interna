@@ -22,36 +22,11 @@ class MountReportElements {
 
     elements.add(
       ReportElement(
-        rowWidget: Button(width: 160, text: "Solicitar coleta", onTap: () {}),
-        displayCondition: () async {
+        rowWidget: Container(
+          child: Text("TESTANDO!!!"),
+        ),
+        displayCondition: ({MovimentosDadosModel? rowData}) async {
           if (userRole == UserRole.suporte) {
-            return true;
-          } else {
-            return false;
-          }
-        },
-      ),
-    );
-    // //----------------- BOTAO VALIDAR RECEBIMENTO -----------------
-    elements.add(
-      ReportElement(
-        rowWidget: Button(width: 160, text: "Validar recebimento", onTap: () {}),
-        displayCondition: () async {
-          if (userRole == UserRole.suporte || userRole == UserRole.fiscalFinanceiro) {
-            return true;
-          } else {
-            return false;
-          }
-        },
-      ),
-    );
-
-    // //----------------- LIBERAR PARA MANUTENÇÃO -----------------
-    elements.add(
-      ReportElement(
-        rowWidget: Button(width: 190, text: "Liberar para manutenção", onTap: () {}),
-        displayCondition: () async {
-          if (userRole == UserRole.fiscalFinanceiro) {
             return true;
           } else {
             return false;
@@ -101,6 +76,8 @@ class MountReportElements {
   }
 }
 
+//REPORT ELEMENT:
+
 class ReportElement {
   //
   final Widget rowWidget;
@@ -139,7 +116,7 @@ class ReportElement {
     }
   }
 
-  Future<bool> Function() displayCondition;
+  Future<bool> Function({@required MovimentosDadosModel rowData}) displayCondition;
 
   ReportElement({
     required this.displayCondition,
