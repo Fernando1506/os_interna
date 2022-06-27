@@ -23,8 +23,8 @@ class MountReportElements {
         rowWidget: Container(
           child: Text("TESTANDO!!!"),
         ),
-        displayCondition: () async {
-          if (userRole != UserRole.suporte) {
+        displayCondition: ({MovimentosDadosModel? rowData}) async {
+          if (userRole == UserRole.suporte) {
             return true;
           } else {
             return false;
@@ -74,6 +74,8 @@ class MountReportElements {
   }
 }
 
+//REPORT ELEMENT:
+
 class ReportElement {
   //
   final Widget rowWidget;
@@ -112,7 +114,7 @@ class ReportElement {
     }
   }
 
-  Future<bool> Function() displayCondition;
+  Future<bool> Function({@required MovimentosDadosModel rowData}) displayCondition;
 
   ReportElement({
     required this.displayCondition,
