@@ -9,7 +9,7 @@ import 'mount_report_elements.dart';
 import 'relatorio.model.dart';
 import 'widgets/report_table/report_table.controller.dart';
 
-class RelatorioController {
+class RelatorioOSController {
   RxList listaTabela = <MovimentosDadosModel>[].obs;
 
   RxList<ReportSource> reportSource = <ReportSource>[].obs;

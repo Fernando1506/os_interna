@@ -117,6 +117,10 @@ class ReportElement {
     }
   }
 
+  Future insertElement() async {
+    //
+  }
+
   Future<bool> Function({@required MovimentosDadosModel rowData}) displayCondition;
 
   ReportElement({

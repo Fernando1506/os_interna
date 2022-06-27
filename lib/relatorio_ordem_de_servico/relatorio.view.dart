@@ -13,7 +13,7 @@ import 'widgets/report_table/report_table.controller.dart';
 import 'widgets/report_table/report_table.widget.dart';
 
 class RelatorioView extends StatelessWidget {
-  RelatorioController controller = RelatorioController();
+  RelatorioOSController controller = RelatorioOSController();
 
   @override
   Widget build(BuildContext context) {
