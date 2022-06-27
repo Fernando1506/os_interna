@@ -26,7 +26,8 @@ class MountReportElements {
           child: Text("TESTANDO!!!"),
         ),
         displayCondition: ({MovimentosDadosModel? rowData}) async {
-          if (userRole == UserRole.suporte) {
+          if (userRole == UserRole.fiscalFinanceiro && rowData?.status == "Solicitar Coleta") {
+            // if (userRole == UserRole.fiscalFinanceiro) {
             return true;
           } else {
             return false;
@@ -87,7 +88,7 @@ class ReportElement {
   //-------------- INSERIR ELEMENTO NA LINHA --------------
 
   Future insertElementInRow(DataRow row, MovimentosDadosModel rowData) async {
-    if (await displayCondition()) {
+    if (await displayCondition(rowData: rowData)) {
       //se a condicao for aprovada
       row.cells.add(
         DataCell(

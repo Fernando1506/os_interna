@@ -67,22 +67,23 @@ class RelatorioController {
     if (response.value != null) {
       response.value.forEach((key, values) {
         bool addItem = false;
+        addItem = true;
 
         //-------- SE FOR SUPORTE --------
-        if (userRole == UserRole.suporte) {
-          if (values["status"] == 'Solicitar Coleta') {
-            addItem = true;
-          } else if (values["status"] == 'Em Transito') {
-            addItem = true;
-          }
-        }
+        // if (userRole == UserRole.suporte) {
+        //   if (values["status"] == 'Solicitar Coleta') {
+        //     addItem = true;
+        //   } else if (values["status"] == 'Em Transito') {
+        //     addItem = true;
+        //   }
+        // }
 
-        //--- SE FOR FINANCEIRO/FISCAL ---
-        if (userRole == UserRole.fiscalFinanceiro) {
-          if (values["status"] == 'Em Transito') {
-            addItem = true;
-          }
-        }
+        // //--- SE FOR FINANCEIRO/FISCAL ---
+        // if (userRole == UserRole.fiscalFinanceiro) {
+        //   if (values["status"] == 'Em Transito') {
+        //     addItem = true;
+        //   }
+        // }
 
         if (addItem == true) {
           returnList.add(
